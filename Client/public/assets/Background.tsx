@@ -1,7 +1,26 @@
+import React, { FC, SVGProps } from 'react';
 import { Box } from '@mui/material';
-import React from 'react';
 
-const Background = ({
+interface BackgroundProps extends SVGProps<SVGSVGElement> {
+	width?: number;
+	height?: number;
+	backgroundPosition?: number;
+	zIndex?: number;
+}
+
+/**
+ * A reusable SVG background component for rendering a background image.
+ *
+ * @param {number} [width=768] - The width of the background in pixels. Optional.
+ * @param {number} [height=768] - The height of the background in pixels. Optional.
+ * @param {number} [backgroundPosition=0] - The position of the background. Optional.
+ * @param {number} [zIndex=-1] - The zIndex of the background. Optional.
+ * @param {SVGProps<SVGSVGElement>} props - Additional SVG props such as `className`, `style`, or custom attributes.
+ *
+ * @returns {JSX.Element} A scalable vector graphic (SVG) element representing the background image.
+ */
+
+const Background: FC<BackgroundProps> = ({
 	width = 768,
 	height = 768,
 	backgroundPosition = 0,
@@ -22,6 +41,8 @@ const Background = ({
 			viewBox='0 0 768 768'
 			fill='none'
 			xmlns='http://www.w3.org/2000/svg'
+			aria-label='Background'
+			role='img'
 			{...props}>
 			<mask
 				id='mask0_97_2282'
