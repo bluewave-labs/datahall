@@ -6,19 +6,9 @@
 .pnp.js
 .yarn/install-state.gz
 
-# testing
-/coverage
-
 # next.js
 /.next/
 /out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
 
 # Ignore all settings.json files
 **/settings.json
