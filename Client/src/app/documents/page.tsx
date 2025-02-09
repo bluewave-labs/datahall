@@ -56,7 +56,7 @@ export default async function DocumentsPage(req: NextRequest) {
 							variant='h2'
 							component='span'
 							mb={{ sm: 5, md: 8, lg: 10 }}>
-							Welcome to BlueWave DataRoom
+							Welcome to BlueWave DataHall
 						</Typography>
 						<List
 							sx={{

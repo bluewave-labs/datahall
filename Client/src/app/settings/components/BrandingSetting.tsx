@@ -53,7 +53,7 @@ export default function BrandingSetting() {
 			<Box>
 				<Box mb={{ sm: 12, md: 14, lg: 16 }}>
 					<Typography variant='subtitle2'>
-						Customize how your brand appears to the public across DataRoom documents your visitors
+						Customize how your brand appears to the public across DataHall documents your visitors
 						see.
 					</Typography>
 				</Box>

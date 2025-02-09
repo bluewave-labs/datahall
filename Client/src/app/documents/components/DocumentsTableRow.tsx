@@ -132,14 +132,16 @@ const DocumentsTableRow = ({ document, onDelete }: Props) => {
 						height={20}
 					/>
 				</IconButton>
-				<ActionMenu
-					open={open}
-					anchorEl={anchorEl}
-					onDelete={onDelete}
-					documentId={document.document_id}
-					onClose={handleMenuClose}
-					onAnalytics={routetoDocument}
-				/>
+				{open && (
+					<ActionMenu
+						open={open}
+						anchorEl={anchorEl}
+						onDelete={onDelete}
+						documentId={document.document_id}
+						onClose={handleMenuClose}
+						onAnalytics={routetoDocument}
+					/>
+				)}
 			</TableCell>
 		</TableRow>
 	);
