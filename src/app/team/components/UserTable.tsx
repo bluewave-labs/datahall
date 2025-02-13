@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 
 import IconButton from '@mui/material/IconButton';
-import { User } from '@/utils/shared/models';
+import { User } from '@/shared/models/models';
 
 interface Props {
 	users: User[];

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect, useCallback } from 'react';
 
-import { DocumentType } from '@/utils/shared/models';
+import { DocumentType } from '@/shared/models/models';
 
 interface UseDocumentDetailReturn {
 	document: DocumentType | null;

@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 import { Box, CircularProgress, Divider, Tab, Tabs, Typography } from '@mui/material';
 
-import { FileTypeConfig } from '@/utils/shared/models';
-import { formatDateTime } from '@/utils/shared/utils';
+import { FileTypeConfig } from '@/shared/models/models';
+import { formatDateTime } from '@/shared/utils/utils';
 
 import { useDocumentAnalytics, useDocumentDetail } from '@/hooks';
 

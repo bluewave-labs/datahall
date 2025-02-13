@@ -8,8 +8,8 @@ import { BarChartIcon, CheckIcon, LinkIcon, SettingsIcon } from '@/../public/ass
 import NavLink from '@/components/NavLink';
 import ActionMenu from './ActionMenu';
 
-import { DocumentType, FileTypeConfig } from '@/utils/shared/models';
-import { formatDateTime } from '@/utils/shared/utils';
+import { DocumentType, FileTypeConfig } from '@/shared/models/models';
+import { formatDateTime } from '@/shared/utils/utils';
 
 interface Props {
 	document: DocumentType;

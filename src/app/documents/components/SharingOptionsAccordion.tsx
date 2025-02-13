@@ -6,7 +6,7 @@ import { EyeIcon, EyeOffIcon } from '@/../public/assets/icons';
 
 import CustomCheckbox from '@/components/CustomCheckbox';
 import FormInput from '@/components/FormInput';
-import { LinkFormValues } from '@/utils/shared/models';
+import { LinkFormValues } from '@/shared/models/models';
 
 interface SharingOptionsAccordionProps {
 	formValues: any;

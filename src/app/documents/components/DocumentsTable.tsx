@@ -18,7 +18,7 @@ import DocumentsTableRow from './DocumentsTableRow';
 import Paginator from '@/components/Paginator';
 
 import { useSort, useToast } from '@/hooks';
-import { DocumentType } from '@/utils/shared/models';
+import { DocumentType } from '@/shared/models/models';
 
 const DocumentsTable = () => {
 	const [documents, setDocuments] = useState<DocumentType[]>([]);

@@ -4,14 +4,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import * as pdfjsLib from 'pdfjs-dist';
 
-// Set the worker source copy the worker file from node_modules/pdfjs-dist/build/pdf.worker.min.js to public/pdf.worker.min.mjs
 pdfjsLib.GlobalWorkerOptions.workerSrc = `/pdf.worker.min.mjs`;
 
-interface PdfViewerProps {
+interface PDFViewerProps {
 	pdfUrl: string;
 }
 
-export default function PdfViewer({ pdfUrl }: PdfViewerProps) {
+export default function PDFViewer({ pdfUrl }: PDFViewerProps) {
 	const [pdf, setPdf] = useState<pdfjsLib.PDFDocumentProxy | null>(null);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(0);

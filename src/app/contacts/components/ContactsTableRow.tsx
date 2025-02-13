@@ -1,7 +1,7 @@
 import { TableCell, TableRow, Typography } from '@mui/material';
 
-import { Contact } from '@/utils/shared/models';
-import { formatDateTime } from '@/utils/shared/utils';
+import { Contact } from '@/shared/models/models';
+import { formatDateTime } from '@/shared/utils/utils';
 
 interface Props {
 	contact: Contact;

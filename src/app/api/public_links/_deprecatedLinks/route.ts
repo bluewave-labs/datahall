@@ -1,7 +1,7 @@
-import prisma from '@lib/prisma';
+import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
-import { authenticate } from '@lib/middleware/authenticate';
-import LinkService from '@/services/linkService';
+import { authService } from '../../_services/authService';
+import LinkService from '@/servicesTemp_UntilTanstack/linkService';
 import bcryptjs from 'bcryptjs';
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
@@ -53,7 +53,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
 	try {
-		const userId = await authenticate(req);
+		const userId = await authService.authenticate(req);
 		const {
 			documentId,
 			friendlyName,

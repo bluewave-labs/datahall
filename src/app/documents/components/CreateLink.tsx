@@ -20,8 +20,8 @@ import LoadingButton from '@/components/LoadingButton';
 
 import { useDocumentDetail, useFormSubmission, useValidatedFormData } from '@/hooks';
 
-import { LinkFormValues } from '@/utils/shared/models';
-import { computeExpirationDays } from '@/utils/shared/utils';
+import { LinkFormValues } from '@/shared/models/models';
+import { computeExpirationDays } from '@/shared/utils/utils';
 import { minLengthRule } from '@/utils/shared/validators';
 
 import { CheckIcon, CopyIcon, LinkIcon } from '@/../public/assets/icons';
@@ -53,10 +53,11 @@ export default function CreateLink({ onClose, open, documentId }: CreateLinkProp
 		requiredUserDetailsOption: 1,
 	};
 
-	const { values, setValues, validateAll, getError, handleBlur } = useValidatedFormData<LinkFormValues>({
-		initialValues: initialFormValues,
-		validationRules
-	});
+	const { values, setValues, validateAll, getError, handleBlur } =
+		useValidatedFormData<LinkFormValues>({
+			initialValues: initialFormValues,
+			validationRules,
+		});
 	const document = useDocumentDetail(documentId);
 
 	const handleInputChange = React.useCallback(
@@ -185,7 +186,7 @@ export default function CreateLink({ onClose, open, documentId }: CreateLinkProp
 		setValues(initialFormValues);
 		setExpanded(false);
 		onClose('cancelled');
-	}
+	};
 
 	return (
 		<React.Fragment>
@@ -319,7 +320,6 @@ export default function CreateLink({ onClose, open, documentId }: CreateLinkProp
 					</DialogContent>
 				</Dialog>
 			)}
-
 		</React.Fragment>
 	);
 }

@@ -1,6 +1,6 @@
 import bcryptjs from 'bcryptjs';
-import prisma from '@lib/prisma';
-import LinkService from '@/services/linkService';
+import prisma from '@/lib/prisma';
+import LinkService from '@/servicesTemp_UntilTanstack/linkService';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest): Promise<NextResponse> {

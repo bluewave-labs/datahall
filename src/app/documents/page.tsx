@@ -10,11 +10,10 @@ import {
 	Typography,
 } from '@mui/material';
 
-import { fetchDocumentCount } from '@/services/documentService';
-import { authenticate } from '@lib/middleware/authenticate';
+import { fetchDocumentCount } from '@/servicesTemp_UntilTanstack/documentService';
+import { authService } from '@/app/api/_services/authService';
 
-import { CheckCircleIcon } from '@/../public/assets/icons';
-import Background from '../../../public/assets/Background';
+import { BackgroundIcon, CheckCircleIcon } from '@/../public/assets/icons';
 
 import DocumentsTable from './components/DocumentsTable';
 import DragAndDropBox from './components/DragAndDropBox';
@@ -23,8 +22,8 @@ export default async function DocumentsPage(req: NextRequest) {
 	let documentCount = 0;
 
 	try {
-		// Authenticate the user and fetch their document count
-		const userId = await authenticate(req);
+		// Authenticate the user and fetch their document count, temporarily
+		const userId = await authService.authenticate(req);
 		documentCount = await fetchDocumentCount(userId);
 	} catch (error) {
 		console.error('Error fetching document count or authenticating user:', error);
@@ -44,7 +43,7 @@ export default async function DocumentsPage(req: NextRequest) {
 			{/* Empty Section */}
 			{isEmptyState ? (
 				<>
-					<Background backgroundPosition={0}></Background>
+					<BackgroundIcon backgroundPosition={0}></BackgroundIcon>
 					<Box
 						display='flex'
 						flexDirection='column'
@@ -73,7 +72,10 @@ export default async function DocumentsPage(req: NextRequest) {
 										color='primaryOutline'
 									/>
 								</ListItemIcon>
-								<ListItemText primary='Securely share files and manage permissions' />
+								<ListItemText
+									slotProps={{ variant: 'h3' }}
+									primary='Securely share files and manage permissions'
+								/>
 							</ListItem>
 							<ListItem>
 								<ListItemIcon>
@@ -83,7 +85,10 @@ export default async function DocumentsPage(req: NextRequest) {
 										color='primaryOutline'
 									/>
 								</ListItemIcon>
-								<ListItemText primary='Keep your users updated with the latest documents' />
+								<ListItemText
+									slotProps={{ variant: 'h3' }}
+									primary='Keep your users updated with the latest documents'
+								/>
 							</ListItem>
 							<ListItem>
 								<ListItemIcon>
@@ -93,7 +98,10 @@ export default async function DocumentsPage(req: NextRequest) {
 										color='primaryOutline'
 									/>
 								</ListItemIcon>
-								<ListItemText primary='Build trust with a professional user interface' />
+								<ListItemText
+									slotProps={{ variant: 'h3' }}
+									primary='Build trust with a professional user interface'
+								/>
 							</ListItem>
 						</List>
 						<DragAndDropBox text='Drag and drop your first document here or click to upload' />
