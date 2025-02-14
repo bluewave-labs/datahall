@@ -12,18 +12,18 @@ import { useModal, useToast } from '@/hooks';
 import axios from 'axios';
 
 import { FilePlusIcon } from '@/../public/assets/icons';
+import { useAddDocument } from '../hooks/documents';
 
 interface DragAndDropBoxProps {
 	text: string;
-	height?: { [key: string]: number };
+	height?: { [key: string]: number; };
 }
 
 const DragAndDropBox = ({ text, height = { sm: 150, md: 200, lg: 250 } }: DragAndDropBoxProps) => {
 	const { isOpen, openModal, closeModal } = useModal();
 	const { showToast } = useToast();
 	const { data: session } = useSession();
-	const [uploading, setUploading] = React.useState(false);
-	const router = useRouter();
+	const { mutate: addDocument } = useAddDocument();
 
 	const onDrop = React.useCallback((acceptedFiles: File[]) => {
 		const file = acceptedFiles[0];
@@ -45,35 +45,22 @@ const DragAndDropBox = ({ text, height = { sm: 150, md: 200, lg: 250 } }: DragAn
 	const handleFileSelect = async (file: File | undefined) => {
 		if (!file) return;
 
-		setUploading(true);
-
-		try {
-			if (!session) {
-				handleUploadError('User not authenticated!');
-				return;
-			}
-
-			const formData = new FormData();
-			formData.append('file', file);
-
-			const response = await axios.post('/api/documents/upload', formData);
-
-			if (response?.status === 200 && response.data?.document) {
-				handleUploadSuccess();
-				//TODO: Temporary fix, until we use tanstack query or zustand
-				setTimeout(() => {
-					router.refresh();
-				}, 1000);
-			} else {
-				handleUploadError('Server responded with an error.');
-			}
-		} catch (error: any) {
-			const errorMessage =
-				error.response?.data?.error || error.message || 'Unexpected error occurred.';
-			handleUploadError(errorMessage);
-		} finally {
-			setUploading(false);
+		if (!session) {
+			handleUploadError('User not authenticated!');
+			return;
 		}
+
+		const formData = new FormData();
+		formData.append('file', file);
+
+		addDocument(formData, {
+			onSuccess: (data) => {
+				handleUploadSuccess();
+			},
+			onError: (error) => {
+				handleUploadError();
+			}
+		});
 	};
 
 	return (
