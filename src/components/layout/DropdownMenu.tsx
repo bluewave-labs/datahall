@@ -6,7 +6,7 @@ import { signOut, useSession } from 'next-auth/react';
 
 import { Avatar, Box, Button, Menu, MenuItem, Typography } from '@mui/material';
 
-import { ChevronUpIcon, LogOutIcon, UserIcon, UsersIcon } from '@/../public/assets/icons';
+import { ChevronUpIcon, LogOutIcon, UserIcon, UsersIcon } from '@/icons';
 
 export default function DropdownMenu() {
 	const router = useRouter();

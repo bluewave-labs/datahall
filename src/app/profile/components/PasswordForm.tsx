@@ -10,7 +10,7 @@ import LoadingButton from '@/components/LoadingButton';
 import PasswordValidation from '@/components/PasswordValidation';
 
 import { useFormSubmission, useValidatedFormData } from '@/hooks';
-import { passwordValidationRule, requiredFieldRule } from '@/utils/shared/validators';
+import { passwordValidationRule, requiredFieldRule } from '@/shared/utils/validators';
 
 export default function PasswordForm() {
 	const [isSubmitted, setIsSubmitted] = useState(false);

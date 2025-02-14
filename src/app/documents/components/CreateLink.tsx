@@ -22,9 +22,9 @@ import { useDocumentDetail, useFormSubmission, useValidatedFormData } from '@/ho
 
 import { LinkFormValues } from '@/shared/models/models';
 import { computeExpirationDays } from '@/shared/utils/utils';
-import { minLengthRule } from '@/utils/shared/validators';
+import { minLengthRule } from '@/shared/utils/validators';
 
-import { CheckIcon, CopyIcon, LinkIcon } from '@/../public/assets/icons';
+import { CheckIcon, CopyIcon, LinkIcon } from '@/icons';
 
 interface CreateLinkProps {
 	onClose: (action: string) => void;

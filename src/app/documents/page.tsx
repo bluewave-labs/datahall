@@ -13,7 +13,7 @@ import {
 import { fetchDocumentCount } from '@/servicesTemp_UntilTanstack/documentService';
 import { authService } from '@/app/api/_services/authService';
 
-import { BackgroundIcon, CheckCircleIcon } from '@/../public/assets/icons';
+import { BackgroundIcon, CheckCircleIcon } from '@/icons';
 
 import DocumentsTable from './components/DocumentsTable';
 import DragAndDropBox from './components/DragAndDropBox';

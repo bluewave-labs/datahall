@@ -1,6 +1,6 @@
 import { Container, Box, Button, Typography } from '@mui/material';
 import { ReactNode } from 'react';
-import { EmptyStateIcon } from '@/../public/assets/icons';
+import { EmptyStateIcon } from '@/icons';
 
 interface EmptyStateProps {
 	message: string;

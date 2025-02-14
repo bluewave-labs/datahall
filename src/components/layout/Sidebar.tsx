@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { FileIcon, MenuIcon, SettingsIcon, UserIcon } from '@/../public/assets/icons';
+import { FileIcon, MenuIcon, SettingsIcon, UserIcon } from '@/icons';
 
 import DropdownMenu from './DropdownMenu';
 import { useState } from 'react';

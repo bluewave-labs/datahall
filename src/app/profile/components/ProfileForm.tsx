@@ -10,10 +10,10 @@ import LoadingButton from '@/components/LoadingButton';
 import ModalWrapper from '@/components/ModalWrapper';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
-import { PencilIcon } from '@/../public/assets/icons';
+import { PencilIcon } from '@/icons';
 
 import { useFormSubmission, useModal, useToast, useValidatedFormData } from '@/hooks';
-import { requiredFieldRule } from '@/utils/shared/validators';
+import { requiredFieldRule } from '@/shared/utils/validators';
 
 export default function ProfileForm() {
 	const [fetchLoading, setFetchLoading] = useState(false);

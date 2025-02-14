@@ -1,8 +1,8 @@
 'use client';
 import { Box, Typography, Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import BluewaveLogo from '../../../../public/assets/BluewaveLogo';
 import AuthFormWrapper from '../components/AuthFormWrapper';
+import BluewaveLogo from '@/components/layout/BluewaveLogo';
 
 export default function VerificationSent() {
 	const router = useRouter();
@@ -14,19 +14,31 @@ export default function VerificationSent() {
 	return (
 		<AuthFormWrapper>
 			<Box mb={10}>
-				<BluewaveLogo width={248} height={64} />
+				<BluewaveLogo
+					width={248}
+					height={64}
+				/>
 			</Box>
 
-			<Typography variant="h2" my={10}>
+			<Typography
+				variant='h2'
+				my={10}>
 				📬 Check Your Inbox!
 			</Typography>
 
-			<Typography variant="subtitle2" textAlign="center" mb={4}>
+			<Typography
+				variant='subtitle2'
+				textAlign='center'
+				mb={4}>
 				We've sent you an email with a verification link. Click the link to complete your
 				registration. If you don't see it in your inbox, please check your spam or junk folder.
 			</Typography>
 
-			<Button variant="contained" color="primary" onClick={handleGoToSignIn} fullWidth>
+			<Button
+				variant='contained'
+				color='primary'
+				onClick={handleGoToSignIn}
+				fullWidth>
 				Go to Sign In
 			</Button>
 		</AuthFormWrapper>

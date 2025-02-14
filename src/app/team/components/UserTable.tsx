@@ -1,7 +1,7 @@
 import Dropdown from '@/components/Dropdown';
 import Paginator from '@/components/Paginator';
 
-import { TrashIcon } from '@/../public/assets/icons';
+import { TrashIcon } from '@/icons';
 
 import {
 	Paper,

@@ -5,8 +5,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import LoadingButton from '@/components/LoadingButton';
-import BluewaveLogo from '../../../../public/assets/BluewaveLogo';
+
 import AuthFormWrapper from '../components/AuthFormWrapper';
+import BluewaveLogo from '@/components/layout/BluewaveLogo';
 
 export default function AccountCreated() {
 	const router = useRouter();

@@ -2,9 +2,9 @@ import { FC } from 'react';
 
 import { Box, Typography } from '@mui/material';
 
-import { CheckCircleIcon, XCircleIcon } from '@/../public/assets/icons';
+import { CheckCircleIcon, XCircleIcon } from '@/icons';
 
-import { getPasswordChecks } from '@/utils/shared/validators';
+import { getPasswordChecks } from '@/shared/utils/validators';
 
 interface PasswordValidationProps {
 	passwordValue: string;

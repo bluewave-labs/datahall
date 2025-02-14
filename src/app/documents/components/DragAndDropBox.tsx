@@ -11,7 +11,7 @@ import { useDropzone } from 'react-dropzone';
 import { useModal, useToast } from '@/hooks';
 import axios from 'axios';
 
-import { FilePlusIcon } from '@/../public/assets/icons';
+import { FilePlusIcon } from '@/icons';
 
 interface DragAndDropBoxProps {
 	text: string;

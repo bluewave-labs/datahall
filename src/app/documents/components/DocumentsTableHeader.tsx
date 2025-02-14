@@ -2,7 +2,7 @@ import { TableCell, TableRow, TableSortLabel } from '@mui/material';
 
 import { DocumentType } from '@/shared/models/models';
 
-import { ChevronDownIcon, ChevronSelectorVerticalIcon } from '@/../public/assets/icons';
+import { ChevronDownIcon, ChevronSelectorVerticalIcon } from '@/icons';
 
 interface Props {
 	orderBy: keyof DocumentType | undefined;

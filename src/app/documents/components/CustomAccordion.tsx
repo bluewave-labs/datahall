@@ -6,7 +6,7 @@ import {
 	Typography,
 } from '@mui/material';
 
-import { ChevronRightIcon } from '@/../public/assets/icons';
+import { ChevronRightIcon } from '@/icons';
 
 interface CustomAccordionProps extends AccordionProps {
 	title: string;

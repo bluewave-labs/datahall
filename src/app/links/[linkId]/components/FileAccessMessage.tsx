@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, Typography } from '@mui/material';
 
-import { LinkBrokenIcon } from '@/../public/assets/icons';
+import { LinkBrokenIcon } from '@/icons';
 
 interface LinkMessageProps {
 	message: string;

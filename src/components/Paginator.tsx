@@ -1,6 +1,6 @@
 import { Box, Button, Pagination, PaginationItem } from '@mui/material';
 
-import { ArrowNarrowLeftIcon, ArrowNarrowRightIcon } from '@/../public/assets/icons';
+import { ArrowNarrowLeftIcon, ArrowNarrowRightIcon } from '@/icons';
 
 interface PaginatorProps {
 	page: number;

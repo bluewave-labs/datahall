@@ -3,7 +3,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-import { ChevronDownIcon, ChevronSelectorVerticalIcon } from '@/../public/assets/icons';
+import { ChevronDownIcon, ChevronSelectorVerticalIcon } from '@/icons';
 
 import {
 	Box,

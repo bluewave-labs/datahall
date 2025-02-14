@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 
-import { mockGraphData } from '@/seed/analytics';
+// import { mockGraphData } from '@/seed/analytics';
 
 interface BarDataItem {
 	date: Date;
@@ -39,7 +39,7 @@ export default function useDocumentAnalytics(documentId: string): UseDocumentAna
 				// const { data } = await axios.get(`/api/analytics?documentId=${documentId}`);
 				// setAnalyticsData(data);
 
-				setAnalyticsData(mockGraphData);
+				// setAnalyticsData(mockGraphData);
 			} catch (err: any) {
 				setError('Error fetching analytics data');
 			} finally {

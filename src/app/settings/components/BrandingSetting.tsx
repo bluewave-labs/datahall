@@ -10,7 +10,7 @@ import ColorPickerBox from './ColorPickerBox';
 
 import { useModal, useToast } from '@/hooks';
 
-import { PencilIcon } from '@/../public/assets/icons';
+import { PencilIcon } from '@/icons';
 
 export default function BrandingSetting() {
 	const deleteModal = useModal();

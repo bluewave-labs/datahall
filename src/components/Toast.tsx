@@ -2,7 +2,7 @@ import { Alert, Box, IconButton, Slide, SlideProps, Snackbar } from '@mui/materi
 import { ReactNode } from 'react';
 import NavLink from './NavLink';
 import { ToastVariant } from '@/providers/toast/toastTypes';
-import { XCloseIcon } from '@/../public/assets/icons';
+import { XCloseIcon } from '@/icons';
 
 interface BaseToastProps {
 	variant?: ToastVariant;

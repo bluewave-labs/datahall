@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { Avatar, Box, Chip, IconButton, TableCell, TableRow, Typography } from '@mui/material';
 
-import { BarChartIcon, CheckIcon, LinkIcon, SettingsIcon } from '@/../public/assets/icons';
+import { BarChartIcon, CheckIcon, LinkIcon, SettingsIcon } from '@/icons';
 
 import NavLink from '@/components/NavLink';
 import ActionMenu from './ActionMenu';

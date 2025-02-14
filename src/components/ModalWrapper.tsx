@@ -18,10 +18,10 @@ import CustomCircularProgress from './CustomCircularProgress';
 import DocumentUploader from './CustomUploader';
 import Dropdown from './Dropdown';
 
-import { TrashIcon } from '@/../public/assets/icons';
+import { TrashIcon } from '@/icons';
 
-import { FileTypeConfig } from '@/utils/shared/models';
-import { parseFileSize } from '@/utils/shared/utils';
+import { FileTypeConfig } from '@/shared/models/models';
+import { parseFileSize } from '@/shared/utils/utils';
 
 interface ModalVariant {
 	color: 'primary' | 'error';

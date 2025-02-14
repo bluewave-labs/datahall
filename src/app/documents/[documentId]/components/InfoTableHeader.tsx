@@ -2,7 +2,7 @@ import { TableCell, TableRow, TableSortLabel } from '@mui/material';
 
 import { LinkDetail, Contact } from '@/shared/models/models';
 
-import { ChevronDownIcon, ChevronSelectorVerticalIcon } from '@/../public/assets/icons';
+import { ChevronDownIcon, ChevronSelectorVerticalIcon } from '@/icons';
 
 type SortableKeys = 'lastActivity';
 

@@ -7,12 +7,12 @@ import { useRouter } from 'next/navigation';
 import CustomCheckbox from '@/components/CustomCheckbox';
 import LoadingButton from '@/components/LoadingButton';
 import NavLink from '@/components/NavLink';
-import BluewaveLogo from '../../../../public/assets/BluewaveLogo';
 import FormInput from '../../../components/FormInput';
 import AuthFormWrapper from '../components/AuthFormWrapper';
 
 import { useFormSubmission, useValidatedFormData } from '@/hooks';
-import { requiredFieldRule } from '@/utils/shared/validators';
+import { requiredFieldRule } from '@/shared/utils/validators';
+import BluewaveLogo from '@/components/layout/BluewaveLogo';
 
 export default function SignIn() {
 	const router = useRouter();

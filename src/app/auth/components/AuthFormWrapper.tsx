@@ -1,11 +1,11 @@
 import { Box, Container } from '@mui/material';
 import { ReactNode } from 'react';
-import Background from '../../../../public/assets/Background';
+import { BackgroundIcon } from '@/icons';
 
 const AuthFormWrapper = ({ children }: { children: ReactNode }) => {
 	return (
 		<>
-			<Background backgroundPosition={0} />
+			<BackgroundIcon backgroundPosition={0} />
 			<Container
 				component='main'
 				sx={{ display: 'flex', justifyContent: 'center' }}>

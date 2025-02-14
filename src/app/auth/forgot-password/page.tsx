@@ -9,10 +9,10 @@ import NavLink from '@/components/NavLink';
 import FormInput from '../../../components/FormInput';
 import AuthFormWrapper from '../components/AuthFormWrapper';
 
-import { KeyIcon } from '@/../public/assets/icons';
+import { KeyIcon } from '@/icons';
 
 import { useFormSubmission, useToast, useValidatedFormData } from '@/hooks';
-import { requiredFieldRule, validEmailRule } from '@/utils/shared/validators';
+import { requiredFieldRule, validEmailRule } from '@/shared/utils/validators';
 
 export default function ForgotPassword() {
 	const router = useRouter();
