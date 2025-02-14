@@ -7,8 +7,9 @@ import { SessionProvider } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import { ToastProvider } from '@/providers/toast/ToastProvider';
 import AuthWrapper from '@/providers/auth/AuthWrapper';
+import QueryProvider from '@/providers/query/QueryProvider';
 
-export default function Providers({ children }: { children: React.ReactNode }) {
+export default function Providers({ children }: { children: React.ReactNode; }) {
 	const [isHydrated, setIsHydrated] = useState(false);
 
 	useEffect(() => {
@@ -26,7 +27,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 				<ThemeProvider theme={globalTheme}>
 					<CssBaseline />
 					<ToastProvider>
-						<AuthWrapper>{children}</AuthWrapper>
+						<QueryProvider>
+							<AuthWrapper>{children}</AuthWrapper>
+						</QueryProvider>
 					</ToastProvider>
 				</ThemeProvider>
 			</AppRouterCacheProvider>
