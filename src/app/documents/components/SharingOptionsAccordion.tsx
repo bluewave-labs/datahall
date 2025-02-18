@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Box, IconButton, MenuItem, RadioGroup, Select, Typography } from '@mui/material';
+import { Box, IconButton, MenuItem, Select, Typography, RadioGroup } from '@mui/material';
 
 import { EyeIcon, EyeOffIcon } from '@/icons';
 
@@ -9,7 +8,7 @@ import FormInput from '@/components/FormInput';
 import { LinkFormValues } from '@/shared/models/models';
 
 interface SharingOptionsAccordionProps {
-	formValues: any;
+	formValues: LinkFormValues;
 	handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	isPasswordVisible: boolean;
 	setIsPasswordVisible: (visible: boolean) => void;
@@ -19,23 +18,32 @@ interface SharingOptionsAccordionProps {
 	handleBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
-const SharingOptionsAccordion = ({
-	getError,
-	formValues,
-	handleInputChange,
-	isPasswordVisible,
-	setIsPasswordVisible,
-	expirationType,
-	handleBlur,
-	handleExpirationChange,
-}: SharingOptionsAccordionProps) => {
+export default function SharingOptionsAccordion(props: SharingOptionsAccordionProps) {
+	const {
+		formValues,
+		handleInputChange,
+		isPasswordVisible,
+		setIsPasswordVisible,
+		expirationType,
+		getError,
+		handleExpirationChange,
+		handleBlur,
+	} = props;
+
+	const disabled = formValues.isPublic;
+	// If link is public => disable all these additional security checkboxes
+
 	return (
-		<Box py={2}>
+		<Box
+			py={2}
+			display={'flex'}
+			flexDirection={'column'}>
 			<CustomCheckbox
 				checked={formValues.requireUserDetails}
 				onChange={handleInputChange}
 				name='requireUserDetails'
 				label='Ask for the following to view and download the document'
+				disabled={disabled}
 			/>
 
 			<Box
@@ -69,6 +77,7 @@ const SharingOptionsAccordion = ({
 				onChange={handleInputChange}
 				name='requirePassword'
 				label='Require a password to view and download the document'
+				disabled={disabled}
 			/>
 
 			<Box
@@ -105,11 +114,13 @@ const SharingOptionsAccordion = ({
 				</IconButton>
 			</Box>
 
+			{/* Expiration */}
 			<CustomCheckbox
 				checked={formValues.expirationEnabled}
 				onChange={handleInputChange}
 				name='expirationEnabled'
 				label='Expiration'
+				disabled={disabled}
 			/>
 			<Typography
 				variant='body2'
@@ -176,6 +187,4 @@ const SharingOptionsAccordion = ({
 			</RadioGroup>
 		</Box>
 	);
-};
-
-export default SharingOptionsAccordion;
+}

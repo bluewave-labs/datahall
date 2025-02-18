@@ -19,9 +19,8 @@ import LoadingButton from '@/components/LoadingButton';
 
 import { useFormSubmission, useValidatedFormData } from '@/hooks';
 
-import { requiredFieldRule, validEmailRule } from '@/shared/utils/validators';
-
 import { EyeIcon, EyeOffIcon, FileDownloadIcon } from '@/icons';
+import { requiredFieldRule, validEmailRule } from '@/shared/utils/validators';
 
 const RowBox = styled(Box)({
 	display: 'flex',
@@ -43,8 +42,8 @@ const RowBox = styled(Box)({
 
 function getFormConfig(passwordRequired: boolean, userDetailsOption: number) {
 	const formConfig: {
-		initialValues: { [key: string]: string };
-		validationRules: { [key: string]: any[] };
+		initialValues: Record<string, string>;
+		validationRules: Record<string, any[]>;
 	} = {
 		initialValues: {},
 		validationRules: {},
@@ -65,7 +64,7 @@ function getFormConfig(passwordRequired: boolean, userDetailsOption: number) {
 		formConfig.initialValues.email = '';
 		formConfig.validationRules.name = [requiredFieldRule('*This field is required')];
 		formConfig.validationRules.email = [
-			requiredFieldRule('*This field is required / Please enter a valid Email'),
+			requiredFieldRule('*This field is required'),
 			validEmailRule,
 		];
 	}
@@ -77,12 +76,15 @@ interface FileAccessModalProps {
 	linkId: string;
 	passwordRequired: boolean;
 	userDetailsOption: number;
-	onFileAccessModalSubmit: (data: { [key: string]: any }) => void;
+	onFileAccessModalSubmit: (data: Record<string, any>) => void;
 }
 
-const FileAccessModal = (props: FileAccessModalProps) => {
-	const { linkId, passwordRequired, userDetailsOption, onFileAccessModalSubmit } = props;
-
+export default function FileAccessModal({
+	linkId,
+	passwordRequired,
+	userDetailsOption,
+	onFileAccessModalSubmit,
+}: FileAccessModalProps) {
 	const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
 
 	const formConfig = getFormConfig(passwordRequired, userDetailsOption);
@@ -94,51 +96,37 @@ const FileAccessModal = (props: FileAccessModalProps) => {
 
 	const { loading, handleSubmit, toast } = useFormSubmission({
 		onSubmit: async () => {
-			// Check if any validations fail
 			const hasError = validateAll();
 			if (hasError) {
 				throw new Error('Please correct the highlighted fields.');
 			}
 
-			if (values.password || values.name || values.email) {
-				try {
-					// Splitting `name` into `first_name` and `last_name`
-
-					let first_name = '';
-					let last_name = '';
-					if (values.name) {
-						const splitted = values.name.trim().split(' ');
-						first_name = splitted[0] || '';
-						last_name = splitted.slice(1).join(' ') || '';
-					}
-
-					// Construct the POST data for shared_access route
-					const payload = {
-						linkId,
-						first_name,
-						last_name,
-						email: values.email || '',
-						password: values.password || '',
-					};
-
-					const response = await axios.post('/api/links/shared_access', payload);
-					if (response.data.data) {
-						onFileAccessModalSubmit(response.data.data);
-					} else {
-						toast.showToast({
-							variant: 'error',
-							message: response.data.message,
-						});
-					}
-				} catch (error) {
-					console.error('Error accessing link:', error);
-					toast.showToast({
-						variant: 'error',
-						message: 'Unexpected error occurred while accessing the link.',
-					});
-				}
+			let first_name = '';
+			let last_name = '';
+			if (values.name) {
+				const splitted = values.name.trim().split(' ');
+				first_name = splitted[0] || '';
+				last_name = splitted.slice(1).join(' ') || '';
 			}
+
+			const payload = {
+				linkId,
+				first_name,
+				last_name,
+				email: values.email || '',
+				password: values.password || '',
+			};
+
+			const response = await axios.post(`/api/public_links/${linkId}/access`, payload);
+
+			if (!response.data.data) {
+				throw new Error(response.data.message || 'No file data returned.');
+			}
+
+			onFileAccessModalSubmit(response.data.data);
 		},
+
+		successMessage: 'File access granted!',
 	});
 
 	return (
@@ -150,6 +138,7 @@ const FileAccessModal = (props: FileAccessModalProps) => {
 				onSubmit: handleSubmit,
 				sx: { minWidth: 600, p: 0 },
 			}}>
+			{/* Header */}
 			<Box
 				display='flex'
 				alignItems='center'
@@ -169,6 +158,7 @@ const FileAccessModal = (props: FileAccessModalProps) => {
 
 			<Divider />
 
+			{/* Form Fields */}
 			<DialogContent sx={{ m: 12 }}>
 				<Box
 					display='flex'
@@ -239,11 +229,8 @@ const FileAccessModal = (props: FileAccessModalProps) => {
 
 			<Divider />
 
-			<DialogActions
-				sx={{
-					p: 0,
-					m: 12,
-				}}>
+			{/* Submit Button */}
+			<DialogActions sx={{ p: 0, m: 12 }}>
 				<LoadingButton
 					loading={loading}
 					buttonText='Confirm'
@@ -254,6 +241,4 @@ const FileAccessModal = (props: FileAccessModalProps) => {
 			</DialogActions>
 		</Dialog>
 	);
-};
-
-export default FileAccessModal;
+}
