@@ -56,7 +56,7 @@ const DragAndDropBox = ({ text, height = { sm: 150, md: 200, lg: 250 } }: DragAn
 			const formData = new FormData();
 			formData.append('file', file);
 
-			const response = await axios.post('/api/documents/upload', formData);
+			const response = await axios.post('/api/documents', formData);
 
 			if (response?.status === 200 && response.data?.document) {
 				handleUploadSuccess();

@@ -34,7 +34,7 @@ export default function ForgotPassword() {
 				throw new Error('Please correct the highlighted fields.');
 			}
 
-			const response = await axios.post('/api/auth/resetPass', {
+			const response = await axios.post('/api/auth/password/forgot', {
 				email: values.email,
 			});
 

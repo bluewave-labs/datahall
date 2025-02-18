@@ -77,7 +77,7 @@ export default function DocumentUploader({
 			const formData = new FormData();
 			formData.append('file', file);
 
-			const response = await axios.post('/api/documents/upload', formData);
+			const response = await axios.post('/api/documents', formData);
 
 			if (response?.status === 200 && response.data?.document) {
 				handleUploadSuccess();

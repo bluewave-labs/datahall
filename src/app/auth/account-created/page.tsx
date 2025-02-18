@@ -31,7 +31,7 @@ export default function AccountCreated() {
 		const intervalId = setInterval(async () => {
 			try {
 				const queryParam = token ? `token=${token}` : `userId=${userId}`;
-				const response = await fetch(`/api/auth/verify-email?${queryParam}`);
+				const response = await fetch(`/api/auth/verify?${queryParam}`);
 				const data = await response.json();
 
 				if (response.ok) {
