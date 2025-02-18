@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from '@mui/material';
 import Link from 'next/link';
-import { AlertCircleIcon } from '@/../public/assets/icons';
+
+import { AlertCircleIcon } from '@/icons';
 
 export default function NotFound() {
 	return (

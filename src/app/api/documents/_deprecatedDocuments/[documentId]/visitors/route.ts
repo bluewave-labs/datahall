@@ -1,10 +1,10 @@
-import { authenticate } from '@lib/middleware/authenticate';
-import prisma from '@lib/prisma';
+import { authService } from '@/app/api/_services/authService';
+import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest, { params }: { params: { documentId: string } }) {
 	try {
-		const userId = await authenticate(req);
+		const userId = await authService.authenticate(req);
 		const { documentId } = params;
 
 		// Ensure doc belongs to user

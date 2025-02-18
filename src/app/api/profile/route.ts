@@ -1,11 +1,11 @@
-import { authenticate } from '@lib/middleware/authenticate';
-import prisma from '@lib/prisma';
+import { authService } from '../_services/authService';
+import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
 	try {
 		// Authenticate the user
-		const userId = await authenticate(req);
+		const userId = await authService.authenticate(req);
 
 		// Get the user’s info from the database
 		const user = await prisma.user.findUnique({

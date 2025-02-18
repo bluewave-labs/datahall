@@ -1,11 +1,12 @@
-import { uploadFile } from '@/services/storageService';
-import { authenticate } from '@lib/middleware/authenticate';
-import prisma from '@lib/prisma';
+import { authService } from '@/app/api/_services';
+import { uploadFile } from '@/app/api/_services/storageService';
+
+import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
 	try {
-		const userId = await authenticate(req);
+		const userId = await authService.authenticate(req);
 
 		// Extract the file from the form data
 		const formData = await req.formData();

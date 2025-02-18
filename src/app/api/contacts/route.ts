@@ -1,10 +1,10 @@
-import prisma from '@lib/prisma';
+import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
-import { authenticate } from '@lib/middleware/authenticate';
+import { authService } from '../_services/authService';
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
 	try {
-		const userId = await authenticate(req);
+		const userId = await authService.authenticate(req);
 
 		const userLinks = await prisma.link.findMany({
 			where: { userId },

@@ -1,4 +1,4 @@
-import prisma from '@lib/prisma';
+import prisma from '@/lib/prisma';
 import bcryptjs from 'bcryptjs';
 import NextAuth, { type NextAuthOptions, User as NextAuthUser } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';

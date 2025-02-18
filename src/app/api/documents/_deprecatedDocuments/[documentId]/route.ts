@@ -1,12 +1,12 @@
-import { authenticate } from '@lib/middleware/authenticate';
-import prisma from '@lib/prisma';
+import { authService } from '@/app/api/_services/authService';
+import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
-import { deleteFile } from '@/services/storageService';
+import { deleteFile } from '@/app/api/_services/storageService';
 
 export async function GET(req: NextRequest, { params }: { params: { documentId: string } }) {
 	try {
 		// Verify the user is logged in
-		const userId = await authenticate(req);
+		const userId = await authService.authenticate(req);
 		const { documentId } = params;
 
 		// Query the database for this document, ensuring it belongs to user
@@ -67,7 +67,7 @@ export async function DELETE(
 	{ params }: { params: { documentId: string } },
 ): Promise<NextResponse> {
 	try {
-		const userId = await authenticate(req);
+		const userId = await authService.authenticate(req);
 		const documentId = params.documentId;
 
 		if (!documentId) {

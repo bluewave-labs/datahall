@@ -1,9 +1,9 @@
-import prisma from '@lib/prisma';
+import BluewaveWelcomeEmail from '@/app/auth/components/WelcomeEmail';
+import prisma from '@/lib/prisma';
 import bcryptjs from 'bcryptjs';
 import { randomUUID } from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import BlueWaveWelcomeEmail from '../../../auth/components/WelcomeEmail';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
 			from: 'Acme <onboarding@resend.dev>',
 			to: [user.email],
 			subject: 'Verify Your Email',
-			react: BlueWaveWelcomeEmail({
+			react: BluewaveWelcomeEmail({
 				username: user.first_name,
 				verificationLink: `localhost:3000/auth/account-created/?token=${verificationToken}`,
 			}),
