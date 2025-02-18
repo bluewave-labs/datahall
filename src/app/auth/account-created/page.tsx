@@ -60,7 +60,8 @@ export default function AccountCreated() {
 	}, [token, userId]);
 
 	const handleContinue = () => {
-		router.push('/auth/sign-in');
+		if (isVerified) router.push('/documents');
+		else router.push('/auth/sign-in');
 	};
 
 	return (

@@ -50,7 +50,7 @@ export default function ActionMenu({
 				open={open}
 				onClose={onClose}
 				disableScrollLock={true}>
-				<MenuItem onClick={handleOpenCreateLink}>Add new link</MenuItem>
+				<MenuItem onClick={handleOpenCreateLink}>Create Link</MenuItem>
 				{/* <MenuItem onClick={onClose}>Duplicate document</MenuItem> */}
 				{/* <MenuItem onClick={updateModal.openModal}>Update document</MenuItem> */}
 				{onAnalytics && <MenuItem onClick={onAnalytics}>View analytics</MenuItem>}
