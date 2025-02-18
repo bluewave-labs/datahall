@@ -11,7 +11,7 @@ import {
 	AudioIcon,
 	VideoIcon,
 	GeneralIcon,
-} from '../../../public/assets/icons';
+} from '@/icons';
 
 // =========== ENUMS & CONFIGS ===========
 export const FileTypeConfig = {

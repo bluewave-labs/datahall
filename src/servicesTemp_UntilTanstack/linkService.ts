@@ -1,5 +1,5 @@
-import { SupabaseProvider } from '@/providers/storage/supabase/supabaseProvider';
-import prisma from '@lib/prisma';
+import { SupabaseProvider } from '@/app/api/_services/storage/supabase/supabaseStorageProvider';
+import prisma from '@/lib/prisma';
 import axios from 'axios';
 import { randomUUID } from 'crypto';
 
