@@ -1,3 +1,5 @@
+'use client';
+
 import { MenuItem, Select, SelectChangeEvent, SelectProps } from '@mui/material';
 import { useState } from 'react';
 
@@ -48,7 +50,9 @@ const Dropdown = ({
 				'& .MuiSelect-select': { px: px, py: py },
 			}}>
 			{options.map((option) => (
-				<MenuItem key={option.value} value={option.value}>
+				<MenuItem
+					key={option.value}
+					value={option.value}>
 					{option.label}
 				</MenuItem>
 			))}
