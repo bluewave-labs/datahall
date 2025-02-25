@@ -1,8 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 
-import CustomCheckbox from '@/components/CustomCheckbox';
-import FormInput from '@/components/FormInput';
+import { CustomCheckbox, FormInput } from '@/components';
 
 interface Props {
 	formValues: any;

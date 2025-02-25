@@ -9,16 +9,9 @@ import FileAccessFormModal from './FileAccessFormModal';
 import FileAccessMessage from './FileAccessMessage';
 import FileAccess from './FileDisplay';
 
-import LoadingSpinner from '@/components/LoadingSpinner';
+import { LoadingSpinner } from '@/components';
 import { useFormSubmission, useToast } from '@/hooks';
-
-interface LinkData {
-	isPasswordProtected?: boolean;
-	requiredUserDetailsOption?: number;
-	signedUrl?: string;
-	fileName?: string;
-	size?: number;
-}
+import { LinkData } from '@/shared/models';
 
 interface Props {
 	linkId: string;

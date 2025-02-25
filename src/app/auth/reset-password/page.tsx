@@ -4,16 +4,13 @@ import { Box, Typography } from '@mui/material';
 import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import FormInput from '@/components/FormInput';
-import LoadingButton from '@/components/LoadingButton';
-import NavLink from '@/components/NavLink';
-import PasswordValidation from '@/components/PasswordValidation';
+import { FormInput, LoadingButton, NavLink, PasswordValidation } from '@/components';
 import AuthFormWrapper from '../components/AuthFormWrapper';
 
 import { LockIcon } from '@/icons';
 
 import { useFormSubmission, useValidatedFormData } from '@/hooks';
-import { requiredFieldRule, passwordValidationRule } from '@/shared/utils/validators';
+import { passwordValidationRule, requiredFieldRule } from '@/shared/utils';
 
 export default function ResetPassword() {
 	const router = useRouter();

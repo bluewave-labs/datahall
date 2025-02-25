@@ -14,13 +14,12 @@ import {
 import CustomAccordion from './CustomAccordion';
 import LinkDetailsAccordion from './LinkDetailsAccordion';
 import SharingOptionsAccordion from './SharingOptionsAccordion';
-import LoadingButton from '@/components/LoadingButton';
+import { LoadingButton } from '@/components';
 
 import { useDocumentDetail, useFormSubmission, useValidatedFormData } from '@/hooks';
 
-import { LinkFormValues } from '@/shared/models/models';
-import { computeExpirationDays } from '@/shared/utils/utils';
-import { minLengthRule } from '@/shared/utils/validators';
+import { LinkFormValues } from '@/shared/models';
+import { computeExpirationDays, minLengthRule } from '@/shared/utils';
 
 interface CreateLinkProps {
 	open: boolean;

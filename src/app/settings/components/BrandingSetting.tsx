@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Avatar, Box, Button, CircularProgress, Link, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
-import ModalWrapper from '@/components/ModalWrapper';
+import { ModalWrapper } from '@/components';
 
 import ColorPickerBox from './ColorPickerBox';
 

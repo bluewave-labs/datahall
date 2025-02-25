@@ -16,9 +16,9 @@ import {
 
 import InfoTableHeader from './InfoTableHeader';
 import InfoTableRow from './InfoTableRow';
-import Paginator from '@/components/Paginator';
+import { Paginator } from '@/components';
 
-import { LinkDetail, Contact } from '@/shared/models/models';
+import { Contact, LinkDetail } from '@/shared/models';
 import { useDocumentData, useSort } from '@/hooks';
 
 interface InfoTableProps {

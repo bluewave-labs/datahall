@@ -1,15 +1,10 @@
 'use client';
 
+import { BarDataItem } from '@/shared/models';
+
 import { useState, useEffect, useMemo } from 'react';
 
 // import { mockGraphData } from '@/seed/analytics';
-
-interface BarDataItem {
-	date: Date;
-	month: string;
-	Views: number;
-	Downloads: number;
-}
 
 export type FilterPeriod = 'fromStart' | 'last30Days' | 'last7Days';
 

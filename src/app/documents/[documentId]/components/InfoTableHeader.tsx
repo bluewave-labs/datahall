@@ -1,6 +1,6 @@
 import { TableCell, TableRow, TableSortLabel } from '@mui/material';
 
-import { LinkDetail, Contact } from '@/shared/models/models';
+import { Contact, LinkDetail } from '@/shared/models';
 
 import { ChevronDownIcon, ChevronSelectorVerticalIcon } from '@/icons';
 

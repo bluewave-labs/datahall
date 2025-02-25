@@ -5,15 +5,12 @@ import { useEffect, useState } from 'react';
 import { Avatar, Box, Button, Divider, Link, Tooltip, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
-import FormInput from '@/components/FormInput';
-import LoadingButton from '@/components/LoadingButton';
-import ModalWrapper from '@/components/ModalWrapper';
-import LoadingSpinner from '@/components/LoadingSpinner';
+import { FormInput, LoadingButton, LoadingSpinner, ModalWrapper } from '@/components';
 
 import { PencilIcon } from '@/icons';
 
 import { useFormSubmission, useModal, useToast, useValidatedFormData } from '@/hooks';
-import { requiredFieldRule } from '@/shared/utils/validators';
+import { requiredFieldRule } from '@/shared/utils';
 
 export default function ProfileForm() {
 	const [fetchLoading, setFetchLoading] = useState(false);

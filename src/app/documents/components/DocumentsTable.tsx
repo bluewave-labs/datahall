@@ -15,10 +15,10 @@ import {
 
 import DocumentsTableHeader from './DocumentsTableHeader';
 import DocumentsTableRow from './DocumentsTableRow';
-import Paginator from '@/components/Paginator';
+import { Paginator } from '@/components';
 
 import { useSort, useToast } from '@/hooks';
-import { DocumentType } from '@/shared/models/models';
+import { DocumentType } from '@/shared/models';
 
 const DocumentsTable = () => {
 	const [documents, setDocuments] = useState<DocumentType[]>([]);

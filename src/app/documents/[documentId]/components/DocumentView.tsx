@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 import { Box, CircularProgress, Divider, Tab, Tabs, Typography } from '@mui/material';
 
-import { FileTypeConfig } from '@/shared/models/models';
-import { formatDateTime } from '@/shared/utils/utils';
+import { FileTypeConfig } from '@/shared/config/fileIcons';
+import { formatDateTime } from '@/shared/utils';
 
 import { useDocumentAnalytics, useDocumentDetail } from '@/hooks';
 
@@ -108,7 +108,7 @@ export default function DocumentView({ documentId }: DocumentViewProps) {
 			<Box
 				position='relative'
 				p={5}
-				my={5}
+				my={10}
 				border={1}
 				borderRadius={2}>
 				<Box

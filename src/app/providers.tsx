@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 
-import LoadingSpinner from '@/components/LoadingSpinner';
+import { LoadingSpinner } from '@/components';
 import AuthWrapper from '@/providers/auth/AuthWrapper';
 import { ToastProvider } from '@/providers/toast/ToastProvider';
 
