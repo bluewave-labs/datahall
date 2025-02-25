@@ -16,7 +16,9 @@ export function requiredFieldRule(message = 'This field is required.'): Validati
 	};
 }
 
-/** Basic check for email format. */
+/**
+ * Basic check for email format.
+ */
 export const validEmailRule: ValidationRule = {
 	rule: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val),
 	message: 'Please enter a valid email address.',
@@ -43,7 +45,9 @@ export const hasSpecialCharRule: ValidationRule = {
 	message: 'Must contain at least one special character.',
 };
 
-/** Check for min length, at least one uppercase letter and one symbol (e.g., for password).*/
+/**
+ * Check for min length, at least one uppercase letter and one symbol (e.g., for password).
+ */
 export function passwordValidationRule(
 	length: number,
 	checkUppercase = false,
@@ -68,7 +72,9 @@ export function passwordValidationRule(
 	};
 }
 
-/** Check the equality of the password and confirm password.*/
+/**
+ * Check the equality of the password and confirm password.
+ */
 export function confirmPasswordRule(password: string): ValidationRule {
 	return {
 		rule: (confirmPassword) => confirmPassword === password,
