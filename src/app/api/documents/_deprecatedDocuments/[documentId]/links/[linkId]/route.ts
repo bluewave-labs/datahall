@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function DELETE(req: NextRequest, { params }: { params: { linkId: string } }) {
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 		const { linkId } = params;
 
 		// Verify doc ownership + link existence

@@ -18,12 +18,12 @@ import { BackgroundIcon, CheckCircleIcon } from '@/icons';
 import DocumentsTable from './components/DocumentsTable';
 import DragAndDropBox from './components/DragAndDropBox';
 
-export default async function DocumentsPage(req: NextRequest) {
+export default async function DocumentsPage() {
 	let documentCount = 0;
 
 	try {
 		// Authenticate the user and fetch their document count, temporarily
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 		documentCount = await fetchDocumentCount(userId);
 	} catch (error) {
 		console.error('Error fetching document count or authenticating user:', error);

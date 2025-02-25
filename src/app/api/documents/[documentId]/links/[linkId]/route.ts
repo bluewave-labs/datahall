@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from 'next/server';
  */
 export async function DELETE(req: NextRequest, { params }: { params: { linkId: string } }) {
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 		const deleted = await LinkService.deleteLink(userId, params.linkId);
 		if (!deleted) {
 			return createErrorResponse('Link not found or access denied.', 404);

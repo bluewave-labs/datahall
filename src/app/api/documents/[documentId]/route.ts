@@ -7,7 +7,7 @@ import { authService, DocumentService, createErrorResponse } from '../../_servic
  */
 export async function GET(req: NextRequest, { params }: { params: { documentId: string } }) {
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 		const doc = await DocumentService.getDocumentById(userId, params.documentId);
 		if (!doc) {
 			return createErrorResponse('Document not found or access denied.', 404);
@@ -35,7 +35,7 @@ export async function GET(req: NextRequest, { params }: { params: { documentId: 
  */
 export async function PATCH(req: NextRequest, { params }: { params: { documentId: string } }) {
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 		const body = await req.json();
 
 		const updatedDoc = await DocumentService.updateDocument(userId, params.documentId, {
@@ -59,7 +59,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { documentId
  */
 export async function DELETE(req: NextRequest, { params }: { params: { documentId: string } }) {
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 
 		const deletedDoc = await DocumentService.deleteDocument(userId, params.documentId);
 		if (!deletedDoc) {

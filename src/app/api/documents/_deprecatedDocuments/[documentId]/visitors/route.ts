@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest, { params }: { params: { documentId: string } }) {
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 		const { documentId } = params;
 
 		// Ensure doc belongs to user

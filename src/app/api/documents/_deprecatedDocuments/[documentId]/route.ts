@@ -6,7 +6,7 @@ import { deleteFile } from '@/app/api/_services/storageService';
 export async function GET(req: NextRequest, { params }: { params: { documentId: string } }) {
 	try {
 		// Verify the user is logged in
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 		const { documentId } = params;
 
 		// Query the database for this document, ensuring it belongs to user
@@ -67,7 +67,7 @@ export async function DELETE(
 	{ params }: { params: { documentId: string } },
 ): Promise<NextResponse> {
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 		const documentId = params.documentId;
 
 		if (!documentId) {

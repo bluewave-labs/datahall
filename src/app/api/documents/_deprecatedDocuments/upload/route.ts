@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 
 		// Extract the file from the form data
 		const formData = await req.formData();

@@ -53,7 +53,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 		const {
 			documentId,
 			friendlyName,

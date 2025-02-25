@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from 'next/server';
  */
 export async function GET(req: NextRequest, { params }: { params: { documentId: string } }) {
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 		const links = await LinkService.getDocumentLinks(userId, params.documentId);
 		if (links === null) {
 			return createErrorResponse('Document not found or access denied.', 404);
@@ -35,7 +35,7 @@ export async function GET(req: NextRequest, { params }: { params: { documentId: 
  */
 export async function POST(req: NextRequest, { params }: { params: { documentId: string } }) {
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 		const body = await req.json();
 
 		// Attempt creation

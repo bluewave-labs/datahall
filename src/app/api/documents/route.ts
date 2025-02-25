@@ -8,7 +8,7 @@ import { uploadFile } from '../_services/storageService';
  */
 export async function GET(req: NextRequest) {
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 		const documents = await DocumentService.getUserDocuments(userId);
 
 		const result = documents.map((doc) => {
@@ -54,7 +54,7 @@ export async function GET(req: NextRequest) {
  */
 export async function POST(req: NextRequest) {
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 
 		const formData = await req.formData();
 		const file = formData.get('file');
