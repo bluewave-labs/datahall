@@ -1,18 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { use } from 'react';
+
 import { Box, Button, Typography } from '@mui/material';
+
 import FileAccessContainer from './components/FileAccessContainer';
 
-interface Params {
-	linkId: string;
-}
+const LinkIdPage = ({ params }: { params: Promise<{ linkId: string }> }) => {
+	const { linkId } = use(params);
 
-interface Props {
-	params: Params;
-}
-
-const LinkIdPage = ({ params: { linkId } }: Props) => {
 	const [showFileAccess, setShowFileAccess] = React.useState(false);
 
 	const handleConfirmClick = () => {
