@@ -1,4 +1,4 @@
-import { User } from '@/shared/models/models';
+import { User } from '@/shared/models';
 
 export const dummyTeams: User[] = [
 	{
