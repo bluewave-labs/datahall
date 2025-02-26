@@ -14,9 +14,7 @@ const QueryProvider = ({ children }: Props) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div style={{ fontSize: '1rem' }}>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </div>
+      <ReactQueryDevtools initialIsOpen={false} />
       {children}
     </QueryClientProvider>
   );
