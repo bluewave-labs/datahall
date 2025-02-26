@@ -1,8 +1,8 @@
-import { Resend } from 'resend';
-import BlueWaveWelcomeEmail from '@/app/auth/components/WelcomeEmail';
-import BluewaveResetPasswordEmail from '@/app/auth/components/ForgotPasswordEmail';
+// import { Resend } from 'resend';
+// import BlueWaveWelcomeEmail from '@/app/auth/components/WelcomeEmail';
+// import BluewaveResetPasswordEmail from '@/app/auth/components/ForgotPasswordEmail';
 
-const resendClient = new Resend(process.env.RESEND_API_KEY);
+// const resendClient = new Resend(process.env.RESEND_API_KEY);
 
 /**
  * Utilities for sending emails.

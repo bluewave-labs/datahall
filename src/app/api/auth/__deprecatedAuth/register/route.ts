@@ -42,29 +42,29 @@ export async function POST(req: NextRequest) {
 		});
 
 		// 4) Attempt to send verification email
-		const { data, error } = await resend.emails.send({
-			from: 'Acme <onboarding@resend.dev>',
-			to: [user.email],
-			subject: 'Verify Your Email',
-			react: BluewaveWelcomeEmail({
-				username: user.first_name,
-				verificationLink: `localhost:3000/auth/account-created/?token=${verificationToken}`,
-			}),
-		});
+		// const { data, error } = await resend.emails.send({
+		// 	from: 'Acme <onboarding@resend.dev>',
+		// 	to: [user.email],
+		// 	subject: 'Verify Your Email',
+		// 	react: BluewaveWelcomeEmail({
+		// 		username: user.first_name,
+		// 		verificationLink: `localhost:3000/auth/account-created/?token=${verificationToken}`,
+		// 	}),
+		// });
 
-		if (error) {
-			// Partial success: user is created, but email fails
-			console.error('Email sending failed:', error);
-			return NextResponse.json(
-				{
-					success: true,
-					emailFail: true, // flag for partial success
-					userId: user.user_id, // so we can poll by userId if needed
-					message: 'User created, but verification email failed. Please contact admin.',
-				},
-				{ status: 200 },
-			);
-		}
+		// if (error) {
+		// 	// Partial success: user is created, but email fails
+		// 	console.error('Email sending failed:', error);
+		// 	return NextResponse.json(
+		// 		{
+		// 			success: true,
+		// 			emailFail: true, // flag for partial success
+		// 			userId: user.user_id, // so we can poll by userId if needed
+		// 			message: 'User created, but verification email failed. Please contact admin.',
+		// 		},
+		// 		{ status: 200 },
+		// 	);
+		// }
 
 		// 5) Full success
 		return NextResponse.json(

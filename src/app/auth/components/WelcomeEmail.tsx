@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 interface BluewaveResetPasswordEmailProps {
@@ -65,7 +66,7 @@ const BluewaveResetPasswordEmail: React.FC<BluewaveResetPasswordEmailProps> = ({
 				<div style={container}>
 					{/* Logo Section */}
 					<div style={logo}>
-						<img
+						<Image
 							src='https://utfs.io/f/fYAncjDxKRb0SB5lSuLK58qIuaP0cF3tMzrJCA4G92LHNofp'
 							width={100}
 							alt='Bluewave Labs'
