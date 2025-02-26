@@ -12,7 +12,7 @@ interface Props {
 	params: Params;
 }
 
-export default ({ params: { linkId } }: Props) => {
+const LinkIdPage = ({ params: { linkId } }: Props) => {
 	const [showFileAccess, setShowFileAccess] = React.useState(false);
 
 	const handleConfirmClick = () => {
@@ -54,3 +54,5 @@ export default ({ params: { linkId } }: Props) => {
 		</>
 	);
 };
+
+export default LinkIdPage;
