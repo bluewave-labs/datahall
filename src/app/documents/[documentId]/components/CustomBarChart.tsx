@@ -1,7 +1,7 @@
-// Client/src/app/documents/document-details/components/CustomBarChart.tsx
 'use client';
 
-import { BarDataItem } from '@/shared/models/models';
+import { BarDataItem } from '@/shared/models';
+
 import { BarChart } from '@mui/x-charts/BarChart';
 
 interface CustomBarChartProps {

@@ -5,11 +5,11 @@ import { Box, IconButton, TableCell, TableRow, Tooltip, Typography } from '@mui/
 
 import { CheckIcon, CopyIcon, TrashIcon } from '@/icons';
 
-import ModalWrapper from '@/components/ModalWrapper';
+import { ModalWrapper } from '@/components';
 
 import { useModal, useToast } from '@/hooks';
-import { LinkDetail, Contact } from '@/shared/models/models';
-import { formatDateTime } from '@/shared/utils/utils';
+import { Contact, LinkDetail } from '@/shared/models';
+import { formatDateTime } from '@/shared/utils';
 
 interface InfoTableRowProps {
 	variant?: 'linkTable' | 'visitorTable';
@@ -120,7 +120,7 @@ export default function InfoTableRow({ documentDetail, variant }: InfoTableRowPr
 	if (variant === 'visitorTable' && isVisitorDetail(documentDetail)) {
 		return (
 			<TableRow hover>
-				<TableCell sx={{ width: '30%', pl: 20, py: { sm: '0.9rem', md: '1.1rem', lg: '1.3rem' } }}>
+				<TableCell sx={{ width: '30%', pl: 20 }}>
 					{documentDetail.name}
 					<br />
 					<Typography variant='caption'>{documentDetail.email}</Typography>

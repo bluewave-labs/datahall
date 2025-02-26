@@ -1,8 +1,9 @@
 'use client';
+
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 
-import { Contact, LinkDetail } from '@/shared/models/models';
+import { Contact, LinkDetail } from '@/shared/models';
 
 interface UseDocumentDataReturn {
 	data: LinkDetail[] | Contact[];

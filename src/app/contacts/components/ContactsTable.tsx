@@ -19,13 +19,12 @@ import {
 	Typography,
 } from '@mui/material';
 
-import EmptyState from '@/components/EmptyState';
-import Paginator from '@/components/Paginator';
+import { EmptyState, Paginator } from '@/components';
 
 import ContactsTableRow from './ContactsTableRow';
 
 import { useSort } from '@/hooks';
-import { Contact } from '@/shared/models/models';
+import { Contact } from '@/shared/models';
 
 export default function ContactsTable() {
 	const [page, setPage] = useState(1);
@@ -56,10 +55,7 @@ export default function ContactsTable() {
 		}
 	};
 
-	const { sortedData, orderDirection, orderBy, handleSortRequest } = useSort<Contact>(
-		data,
-		'lastActivity',
-	);
+	const { sortedData, orderDirection, orderBy, handleSortRequest } = useSort<Contact>(data);
 
 	//Calculate the row height of the table
 	const calculateRowHeight = () => {

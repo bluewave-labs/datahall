@@ -5,7 +5,7 @@ import { Typography, Box, Button } from '@mui/material';
 
 import { useToast } from '@/hooks';
 
-import { formatFileSize } from '@/shared/utils/utils';
+import { formatFileSize } from '@/shared/utils';
 
 const ActionButton = styled(Button)({
 	width: 250,

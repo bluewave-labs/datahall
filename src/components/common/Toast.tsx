@@ -1,6 +1,6 @@
 import { Alert, Box, IconButton, Slide, SlideProps, Snackbar } from '@mui/material';
 import { ReactNode } from 'react';
-import NavLink from './NavLink';
+import NavLink from '../navigation/NavLink';
 import { ToastVariant } from '@/providers/toast/toastTypes';
 import { XCloseIcon } from '@/icons';
 

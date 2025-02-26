@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { MouseEvent, ReactElement, useState } from 'react';
@@ -95,7 +97,7 @@ export default function DropdownMenu() {
 							sx={{ display: 'flex', alignItems: 'center', gap: 8 }}>
 							<Box
 								component={icon}
-								width={{ sm: '0.8rem', md: '0.9rem', lg: '1.25rem' }}
+								width={{ sm: '0.8rem', md: '0.9rem', lg: '1.1rem' }}
 								height='auto'
 								strokeWidth={2.2}
 							/>

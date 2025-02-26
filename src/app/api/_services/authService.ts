@@ -4,29 +4,7 @@ import { NextRequest } from 'next/server';
 import prisma from '@/lib/prisma';
 import { randomUUID } from 'crypto';
 import bcryptjs from 'bcryptjs';
-import { UserRole } from '@prisma/client';
-
-/**
- * Return object for registerUser
- */
-interface RegisterResult {
-	success: boolean;
-	message: string;
-	userId?: string;
-	verificationToken?: string;
-	emailFail?: boolean; // partial success scenario
-}
-
-/**
- * Payload for registerUser
- */
-interface RegisterPayload {
-	email: string;
-	password: string;
-	firstName: string;
-	lastName: string;
-	role: UserRole;
-}
+import { RegisterPayload, RegisterResult } from '@/shared/models';
 
 export const authService = {
 	/**

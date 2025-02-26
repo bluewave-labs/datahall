@@ -1,3 +1,5 @@
+'use client';
+
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
@@ -5,9 +7,9 @@ import { useSession } from 'next-auth/react';
 import { Box, Button, TextField } from '@mui/material';
 
 import { useToast } from '@/hooks';
-import { formatFileSize } from '@/shared/utils/utils';
+import { formatFileSize } from '@/shared/utils';
 
-interface DocumentUploaderProps {
+interface CustomUploaderProps {
 	allowedFormats?: string;
 	fileInfo: {
 		name: string;
@@ -25,13 +27,13 @@ interface DocumentUploaderProps {
 	onUploadError?: (message?: string) => void;
 }
 
-export default function DocumentUploader({
+export default function CustomUploader({
 	allowedFormats,
 	fileInfo,
 	onFileInfoChange,
 	onUploadSuccess,
 	onUploadError,
-}: DocumentUploaderProps) {
+}: CustomUploaderProps) {
 	const [uploading, setUploading] = useState(false);
 	const { data: session } = useSession();
 	const { showToast } = useToast();

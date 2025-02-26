@@ -4,15 +4,11 @@ import { Box, Typography } from '@mui/material';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
-import CustomCheckbox from '@/components/CustomCheckbox';
-import LoadingButton from '@/components/LoadingButton';
-import NavLink from '@/components/NavLink';
-import FormInput from '../../../components/FormInput';
+import { BlueWaveLogo, CustomCheckbox, FormInput, LoadingButton, NavLink } from '@/components';
 import AuthFormWrapper from '../components/AuthFormWrapper';
 
 import { useFormSubmission, useValidatedFormData } from '@/hooks';
-import { requiredFieldRule } from '@/shared/utils/validators';
-import BluewaveLogo from '@/components/layout/BluewaveLogo';
+import { requiredFieldRule } from '@/shared/utils';
 
 export default function SignIn() {
 	const router = useRouter();
@@ -52,7 +48,7 @@ export default function SignIn() {
 	return (
 		<AuthFormWrapper>
 			<Box my={{ sm: 8, md: 12, lg: 20 }}>
-				<BluewaveLogo
+				<BlueWaveLogo
 					width={248}
 					height={64}
 				/>

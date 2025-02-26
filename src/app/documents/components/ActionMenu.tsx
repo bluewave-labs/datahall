@@ -1,7 +1,7 @@
 import { Menu, MenuItem, Typography } from '@mui/material';
 import { useState } from 'react';
 
-import ModalWrapper from '@/components/ModalWrapper';
+import { ModalWrapper } from '@/components';
 import CreateLink from './CreateLink';
 import ShareableLinkDialog from './ShareableLinkDialog';
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, useState } from 'react';
 
 import {
@@ -14,14 +16,14 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
-import CustomCircularProgress from './CustomCircularProgress';
-import DocumentUploader from './CustomUploader';
-import Dropdown from './Dropdown';
+import CustomCircularProgress from '../loaders/CustomCircularProgress';
+import CustomUploader from '../fileHandling/CustomUploader';
+import Dropdown from '../input/Dropdown';
 
 import { TrashIcon } from '@/icons';
 
-import { FileTypeConfig } from '@/shared/models/models';
-import { parseFileSize } from '@/shared/utils/utils';
+import { parseFileSize } from '@/shared/utils';
+import { FileTypeConfig } from '@/shared/config/fileIcons';
 
 interface ModalVariant {
 	color: 'primary' | 'error';
@@ -194,7 +196,7 @@ function UploadBox({
 	return (
 		<Box mt={12}>
 			<Box mb={3}>
-				<DocumentUploader
+				<CustomUploader
 					allowedFormats={fileFormats}
 					fileInfo={fileInfo}
 					onFileInfoChange={handleFileInfo}

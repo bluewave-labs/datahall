@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, CircularProgress, CircularProgressProps, Typography } from '@mui/material';
 import { useEffect } from 'react';
 

@@ -2,9 +2,7 @@ import React from 'react';
 
 import { Box } from '@mui/material';
 
-import Dropdown from '@/components/Dropdown';
-import CustomCheckbox from '@/components/CustomCheckbox';
-import FormInput from '@/components/FormInput';
+import { CustomCheckbox, Dropdown, FormInput } from '@/components';
 
 interface SendingAccordionProps {
 	formValues: any;

@@ -4,15 +4,13 @@ import { Box, Typography } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-import LoadingButton from '@/components/LoadingButton';
-import NavLink from '@/components/NavLink';
-import FormInput from '../../../components/FormInput';
+import { FormInput, LoadingButton, NavLink } from '@/components';
 import AuthFormWrapper from '../components/AuthFormWrapper';
 
 import { KeyIcon } from '@/icons';
 
 import { useFormSubmission, useToast, useValidatedFormData } from '@/hooks';
-import { requiredFieldRule, validEmailRule } from '@/shared/utils/validators';
+import { requiredFieldRule, validEmailRule } from '@/shared/utils';
 
 export default function ForgotPassword() {
 	const router = useRouter();

@@ -4,19 +4,11 @@ import { Box, Typography } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-import FormInput from '@/components/FormInput';
-import LoadingButton from '@/components/LoadingButton';
-import NavLink from '@/components/NavLink';
-import PasswordValidation from '@/components/PasswordValidation';
+import { BlueWaveLogo, FormInput, LoadingButton, NavLink, PasswordValidation } from '@/components';
 import AuthFormWrapper from '../components/AuthFormWrapper';
 
 import { useFormSubmission, useValidatedFormData } from '@/hooks';
-import {
-	passwordValidationRule,
-	requiredFieldRule,
-	validEmailRule,
-} from '@/shared/utils/validators';
-import BluewaveLogo from '@/components/layout/BluewaveLogo';
+import { passwordValidationRule, requiredFieldRule, validEmailRule } from '@/shared/utils';
 
 export default function SignUp() {
 	const router = useRouter();
@@ -98,7 +90,7 @@ export default function SignUp() {
 	return (
 		<AuthFormWrapper>
 			<Box mb={{ sm: 8, md: 12, lg: 20 }}>
-				<BluewaveLogo
+				<BlueWaveLogo
 					width={248}
 					height={64}
 				/>

@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material';
 
 import { CheckCircleIcon, XCircleIcon } from '@/icons';
 
-import { getPasswordChecks } from '@/shared/utils/validators';
+import { getPasswordChecks } from '@/shared/utils';
 
 interface PasswordValidationProps {
 	passwordValue: string;

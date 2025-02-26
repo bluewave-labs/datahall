@@ -8,7 +8,7 @@ import { Box, Typography } from '@mui/material';
 
 import { CheckCircleIcon } from '@/icons';
 
-import LoadingButton from '@/components/LoadingButton';
+import { LoadingButton } from '@/components';
 import AuthFormWrapper from '../components/AuthFormWrapper';
 
 export default function PasswordResetConfirm() {

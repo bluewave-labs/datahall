@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 
 import { FileIcon, MenuIcon, SettingsIcon, UserIcon } from '@/icons';
 
-import DropdownMenu from './DropdownMenu';
 import { useState } from 'react';
 
 import {
@@ -23,7 +22,9 @@ import {
 	AppBar,
 	IconButton,
 } from '@mui/material';
-import BlueWaveLogo from './BluewaveLogo';
+
+import BlueWaveLogo from './BlueWaveLogo';
+import DropdownMenu from './DropdownMenu';
 
 export default function Sidebar() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -109,7 +110,7 @@ export default function Sidebar() {
 												selected={isActive}
 												sx={{
 													px: 4,
-													py: { sm: 2, md: 4, lg: 6 },
+													py: { sm: 3, md: 4, lg: 6 },
 													borderLeft: 3,
 													borderLeftColor: 'transparent',
 													'&.Mui-selected': {
