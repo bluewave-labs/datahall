@@ -1,0 +1,35 @@
+{
+    // General Editor Settings
+    "editor.formatOnSave": true,
+    "prettier.requireConfig": true,
+    "prettier.configPath": "./.prettierrc",
+    // Default Formatters for Supported Languages
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "search.exclude": {
+        "node_modules": true,
+        "dist": true,
+        "build": true,
+        ".next": true
+    },
+    // Disable Automatic Formatting in Large Files
+    "editor.largeFileOptimizations": true,
+    // Trim Trailing Whitespace on Save
+    "files.trimTrailingWhitespace": true,
+}
