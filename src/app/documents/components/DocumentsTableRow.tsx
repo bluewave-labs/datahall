@@ -5,11 +5,12 @@ import { Avatar, Box, Chip, IconButton, TableCell, TableRow, Typography } from '
 
 import { BarChartIcon, CheckIcon, LinkIcon, SettingsIcon } from '@/icons';
 
-import NavLink from '@/components/NavLink';
+import { NavLink } from '@/components';
 import ActionMenu from './ActionMenu';
 
-import { DocumentType, FileTypeConfig } from '@/shared/models/models';
-import { formatDateTime } from '@/shared/utils/utils';
+import { formatDateTime } from '@/shared/utils';
+import { DocumentType } from '@/shared/models';
+import { FileTypeConfig } from '@/shared/config/fileIcons';
 
 interface Props {
 	document: DocumentType;

@@ -2,7 +2,7 @@
 import { Box, Typography, Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import AuthFormWrapper from '../components/AuthFormWrapper';
-import BluewaveLogo from '@/components/layout/BluewaveLogo';
+import { BlueWaveLogo } from '@/components';
 
 export default function VerificationSent() {
 	const router = useRouter();
@@ -14,7 +14,7 @@ export default function VerificationSent() {
 	return (
 		<AuthFormWrapper>
 			<Box mb={10}>
-				<BluewaveLogo
+				<BlueWaveLogo
 					width={248}
 					height={64}
 				/>

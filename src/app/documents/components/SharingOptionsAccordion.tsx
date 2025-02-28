@@ -3,9 +3,8 @@ import { Box, IconButton, MenuItem, Select, Typography, RadioGroup } from '@mui/
 
 import { EyeIcon, EyeOffIcon } from '@/icons';
 
-import CustomCheckbox from '@/components/CustomCheckbox';
-import FormInput from '@/components/FormInput';
-import { LinkFormValues } from '@/shared/models/models';
+import { CustomCheckbox, FormInput } from '@/components';
+import { LinkFormValues } from '@/shared/models';
 
 interface SharingOptionsAccordionProps {
 	formValues: LinkFormValues;

@@ -1,5 +1,7 @@
 'use client';
-import NavLink from '@/components/NavLink';
+
+import { NavLink } from '@/components';
+
 import { Box, Container, Link, Typography } from '@mui/material';
 
 import NextLink from 'next/link';

@@ -5,12 +5,10 @@ import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
-import FormInput from '@/components/FormInput';
-import LoadingButton from '@/components/LoadingButton';
-import PasswordValidation from '@/components/PasswordValidation';
+import { FormInput, LoadingButton, PasswordValidation } from '@/components';
 
 import { useFormSubmission, useValidatedFormData } from '@/hooks';
-import { passwordValidationRule, requiredFieldRule } from '@/shared/utils/validators';
+import { passwordValidationRule, requiredFieldRule } from '@/shared/utils';
 
 export default function PasswordForm() {
 	const [isSubmitted, setIsSubmitted] = useState(false);

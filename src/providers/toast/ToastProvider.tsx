@@ -1,12 +1,7 @@
-import Toast from '@/components/Toast';
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { Toast } from '@/components';
+import { ToastMessage } from './toastTypes';
 
-interface ToastMessage {
-	id: string; // Unique identifier for each toast
-	message: string;
-	variant?: 'success' | 'error' | 'warning' | 'info';
-	autoHide?: boolean;
-}
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface ToastContextValue {
 	showToast: (toast: Omit<ToastMessage, 'id'>) => void;

@@ -1,6 +1,6 @@
 import { TableCell, TableRow, TableSortLabel } from '@mui/material';
 
-import { DocumentType } from '@/shared/models/models';
+import { DocumentType } from '@/shared/models';
 
 import { ChevronDownIcon, ChevronSelectorVerticalIcon } from '@/icons';
 
@@ -13,8 +13,8 @@ interface Props {
 const DocumentsTableHeader = ({ orderBy, orderDirection, onSort }: Props) => (
 	<TableRow>
 		<TableCell sx={{ width: '5%' }}></TableCell>
-		<TableCell sx={{ width: '45%' }}>DOCUMENT</TableCell>
-		<TableCell sx={{ width: '20%', pl: '1.5rem' }}>
+		<TableCell sx={{ width: '40%' }}>DOCUMENT</TableCell>
+		<TableCell sx={{ width: '25%' }}>
 			<TableSortLabel
 				active={orderBy === 'uploader'}
 				direction={orderDirection}

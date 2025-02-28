@@ -1,5 +1,6 @@
-import { ValidationRule } from '@/shared/utils/validators';
 import { ChangeEvent, FocusEvent, useState } from 'react';
+
+import { ValidationRule } from '@/shared/utils';
 
 /** Shape for the config you pass into useValidatedFormData */
 interface UseValidatedFormDataProps<T extends object> {

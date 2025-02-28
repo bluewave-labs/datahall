@@ -14,13 +14,12 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-import FormInput from '@/components/FormInput';
-import LoadingButton from '@/components/LoadingButton';
+import { FormInput, LoadingButton } from '@/components';
 
 import { useFormSubmission, useValidatedFormData } from '@/hooks';
 
 import { EyeIcon, EyeOffIcon, FileDownloadIcon } from '@/icons';
-import { requiredFieldRule, validEmailRule } from '@/shared/utils/validators';
+import { requiredFieldRule, splitName, validEmailRule } from '@/shared/utils';
 
 const RowBox = styled(Box)({
 	display: 'flex',
@@ -101,18 +100,12 @@ export default function FileAccessModal({
 				throw new Error('Please correct the highlighted fields.');
 			}
 
-			let first_name = '';
-			let last_name = '';
-			if (values.name) {
-				const splitted = values.name.trim().split(' ');
-				first_name = splitted[0] || '';
-				last_name = splitted.slice(1).join(' ') || '';
-			}
+			const splittedName = splitName(values.name);
 
 			const payload = {
 				linkId,
-				first_name,
-				last_name,
+				first_name: splittedName.first_name,
+				last_name: splittedName.last_name,
 				email: values.email || '',
 				password: values.password || '',
 			};

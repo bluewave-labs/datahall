@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { Box, Button } from '@mui/material';
 
-import ModalWrapper from '@/components/ModalWrapper';
+import { ModalWrapper } from '@/components';
 
 import { dummyTeams } from '@/seed/dummyTeams';
 
@@ -12,7 +12,7 @@ import UserTable from './UserTable';
 
 import { useModal } from '@/hooks';
 
-import { User } from '@/shared/models/models';
+import { User } from '@/shared/models';
 
 export default function TeamClient() {
 	const inviteModal = useModal();

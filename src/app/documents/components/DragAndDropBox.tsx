@@ -7,11 +7,10 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useDropzone } from 'react-dropzone';
 
-import ModalWrapper from '@/components/ModalWrapper';
-
 import { FilePlusIcon } from '@/icons';
 import { useModal, useToast } from '@/hooks';
 import { useAddDocument } from '@/hooks/documents';
+import { ModalWrapper } from '@/components';
 
 interface DragAndDropBoxProps {
 	text: string;
@@ -99,15 +98,15 @@ const DragAndDropBox = ({ text, height = { sm: 150, md: 200, lg: 250 } }: DragAn
 
 				{/* Modal Wrapper */}
 				{/* <ModalWrapper
-				variant='upload'
-				dialogContentVariant='body2'
-				title='Upload file(s)'
-				description='Select up to 5 files to upload'
-				confirmButtonText='Upload'
-				toggleModal={closeModal}
-				open={isOpen}
-				onClose={handleUploadFile}
-			/> */}
+					variant='upload'
+					dialogContentVariant='body2'
+					title='Upload file(s)'
+					description='Select up to 5 files to upload'
+					confirmButtonText='Upload'
+					toggleModal={closeModal}
+					open={isOpen}
+					onClose={handleUploadFile}
+				/> */}
 			</div>
 		</>
 	);

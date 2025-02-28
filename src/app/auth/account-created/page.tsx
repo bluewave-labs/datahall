@@ -4,10 +4,8 @@ import { Box, Typography } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import LoadingButton from '@/components/LoadingButton';
-
 import AuthFormWrapper from '../components/AuthFormWrapper';
-import BluewaveLogo from '@/components/layout/BluewaveLogo';
+import { BlueWaveLogo, LoadingButton } from '@/components';
 
 export default function AccountCreated() {
 	const router = useRouter();
@@ -67,7 +65,7 @@ export default function AccountCreated() {
 	return (
 		<AuthFormWrapper>
 			<Box mb={10}>
-				<BluewaveLogo
+				<BlueWaveLogo
 					width={248}
 					height={64}
 				/>
