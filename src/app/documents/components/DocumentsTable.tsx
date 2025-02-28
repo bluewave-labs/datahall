@@ -27,7 +27,7 @@ const DocumentsTable = () => {
 	const { showToast } = useToast();
 
 	const [page, setPage] = useState(1);
-	const [pageSize, setPageSize] = useState(5);
+	const [pageSize, setPageSize] = useState(4);
 	const [rowHeight, setRowHeight] = useState(59);
 
 	// Fetch data
@@ -64,7 +64,7 @@ const DocumentsTable = () => {
 	useEffect(() => {
 		setRowHeight(calculateRowHeight());
 		const handleResize = () => {
-			const availableHeight = window.innerHeight - 200; // Adjust for header, footer, etc.
+			const availableHeight = window.innerHeight - 500; // Adjust for header, footer, etc.
 			const calculatedRowsPerPage = Math.floor(availableHeight / rowHeight);
 			setPageSize(calculatedRowsPerPage);
 		};
@@ -75,7 +75,7 @@ const DocumentsTable = () => {
 
 		// Cleanup the event listener on unmount
 		return () => window.removeEventListener('resize', handleResize);
-	}, []);
+	}, [rowHeight]);
 
 	const handleDocumentDelete = async (documentId: string) => {
 		try {

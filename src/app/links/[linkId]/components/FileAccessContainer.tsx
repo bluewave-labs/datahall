@@ -1,7 +1,7 @@
 'use client';
 
 import axios from 'axios';
-import React from 'react';
+import { useEffect, useState } from 'react';
 
 import { Container } from '@mui/material';
 
@@ -18,12 +18,12 @@ interface Props {
 }
 
 export default function FileAccessContainer({ linkId }: Props) {
-	const [linkData, setLinkData] = React.useState<LinkData>({});
-	const [loading, setLoading] = React.useState(true);
-	const [fetchLinkError, setFetchLinkError] = React.useState<string>(''); // store error from GET
+	const [linkData, setLinkData] = useState<LinkData>({});
+	const [loading, setLoading] = useState(true);
+	const [fetchLinkError, setFetchLinkError] = useState<string>(''); // store error from GET
 	const toast = useToast();
 
-	React.useEffect(() => {
+	useEffect(() => {
 		const fetchLinkDetails = async () => {
 			setLoading(true);
 			setFetchLinkError('');
@@ -50,7 +50,7 @@ export default function FileAccessContainer({ linkId }: Props) {
 		};
 
 		fetchLinkDetails();
-	}, [linkId]);
+	}, [linkId, toast]);
 
 	const { handleSubmit } = useFormSubmission({
 		onSubmit: async () => {
@@ -85,7 +85,7 @@ export default function FileAccessContainer({ linkId }: Props) {
 		},
 	});
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (!loading) {
 			const { isPasswordProtected, requiredUserDetailsOption, signedUrl } = linkData;
 			const isTrulyPublic = !isPasswordProtected && !requiredUserDetailsOption;
