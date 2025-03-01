@@ -31,16 +31,11 @@ const CircularProgressWithLabel = (props: CircularProgressProps & { value: numbe
 };
 
 interface CustomCircularProgressProps {
-	fileInfo: { name: string; size: string; type: string };
 	progress: number;
 	handleProgress: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const CustomCircularProgress = ({
-	fileInfo,
-	progress,
-	handleProgress,
-}: CustomCircularProgressProps) => {
+const CustomCircularProgress = ({ progress, handleProgress }: CustomCircularProgressProps) => {
 	useEffect(() => {
 		const timer = setInterval(() => {
 			handleProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
@@ -48,7 +43,7 @@ const CustomCircularProgress = ({
 		return () => {
 			clearInterval(timer);
 		};
-	}, [fileInfo.name]);
+	}, [handleProgress]);
 
 	return <CircularProgressWithLabel value={progress} />;
 };

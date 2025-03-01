@@ -28,7 +28,7 @@ import { Contact } from '@/shared/models';
 
 export default function ContactsTable() {
 	const [page, setPage] = useState(1);
-	const [pageSize, setPageSize] = useState(5);
+	const [pageSize, setPageSize] = useState(9);
 	const [rowHeight, setRowHeight] = useState(59);
 	const [data, setData] = useState<Contact[]>([]);
 	const [loading, setLoading] = useState(true);
@@ -84,7 +84,7 @@ export default function ContactsTable() {
 
 		// Cleanup the event listener on unmount
 		return () => window.removeEventListener('resize', handleResize);
-	}, []);
+	}, [rowHeight]);
 
 	const paginatedData = sortedData.slice((page - 1) * pageSize, page * pageSize);
 	const totalPages = Math.ceil(sortedData.length / pageSize);

@@ -2,7 +2,7 @@
 
 import { Box, Breadcrumbs, Typography } from '@mui/material';
 import { usePathname } from 'next/navigation';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import NavLink from '../navigation/NavLink';
 
 import { ChevronRightIcon, FileIcon, HomeIcon, SettingsIcon, UserIcon, UsersIcon } from '@/icons';
@@ -10,69 +10,75 @@ import { ChevronRightIcon, FileIcon, HomeIcon, SettingsIcon, UserIcon, UsersIcon
 const Breadcrumb = () => {
 	const pathname = usePathname();
 
-	const iconMap: { [key: string]: React.ReactNode } = {
-		documents: (
-			<FileIcon
-				width={20}
-				height={20}
-			/>
-		),
-		contacts: (
-			<UserIcon
-				width={20}
-				height={20}
-			/>
-		),
-		settings: (
-			<SettingsIcon
-				width={20}
-				height={20}
-			/>
-		),
-		profile: (
-			<UserIcon
-				width={20}
-				height={20}
-				strokeWidth={2.2}
-			/>
-		),
-		team: (
-			<UsersIcon
-				width={20}
-				height={20}
-			/>
-		),
-	};
+	const iconMap: { [key: string]: React.ReactNode } = useMemo(
+		() => ({
+			documents: (
+				<FileIcon
+					width={20}
+					height={20}
+				/>
+			),
+			contacts: (
+				<UserIcon
+					width={20}
+					height={20}
+				/>
+			),
+			settings: (
+				<SettingsIcon
+					width={20}
+					height={20}
+				/>
+			),
+			profile: (
+				<UserIcon
+					width={20}
+					height={20}
+					strokeWidth={2.2}
+				/>
+			),
+			team: (
+				<UsersIcon
+					width={20}
+					height={20}
+				/>
+			),
+		}),
+		[],
+	);
 
 	const pathnames = pathname.split('/').filter((x) => x);
 
 	// Helper function to render icon + text
-	const renderBreadcrumb = (label: string, href: string, isLast: boolean) => {
-		const icon = iconMap[label.toLowerCase()];
-		return (
-			<Box
-				key={href}
-				display='flex'
-				alignItems='center'>
-				{icon}
-				{isLast ? (
-					<Typography
-						variant='subtitle1'
-						ml={3}>
-						{label.charAt(0).toUpperCase() + label.slice(1)}
-					</Typography>
-				) : (
-					<NavLink
-						href={href}
-						color='text.primary'
-						variant='body1'
-						sx={{ ml: 3 }}
-						linkText={label.charAt(0).toUpperCase() + label.slice(1)}
-					/>
-				)}
-			</Box>
-		);
-	};
+	const renderBreadcrumb = useCallback(
+		(label: string, href: string, isLast: boolean) => {
+			const icon = iconMap[label.toLowerCase()];
+			return (
+				<Box
+					key={href}
+					display='flex'
+					alignItems='center'>
+					{icon}
+					{isLast ? (
+						<Typography
+							variant='subtitle1'
+							ml={3}>
+							{label.charAt(0).toUpperCase() + label.slice(1)}
+						</Typography>
+					) : (
+						<NavLink
+							href={href}
+							color='text.primary'
+							variant='body1'
+							sx={{ ml: 3 }}
+							linkText={label.charAt(0).toUpperCase() + label.slice(1)}
+						/>
+					)}
+				</Box>
+			);
+		},
+		[iconMap],
+	);
 
 	const breadcrumbs = useMemo(() => {
 		return pathnames.map((value, index) => {
@@ -80,7 +86,7 @@ const Breadcrumb = () => {
 			const href = `/${pathnames.slice(0, index + 1).join('/')}`;
 			return renderBreadcrumb(value, href, isLast);
 		});
-	}, [pathnames]);
+	}, [pathnames, renderBreadcrumb]);
 
 	return (
 		<Breadcrumbs
