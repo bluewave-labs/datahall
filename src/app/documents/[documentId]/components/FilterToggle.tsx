@@ -14,10 +14,10 @@ const FilterToggle = ({ currentFilter, onFilterChange }: FilterToggleProps) => (
 				onFilterChange(newPeriod);
 			}
 		}}
-		aria-label="Filter by period">
-		<ToggleButton value="fromStart">From start</ToggleButton>
-		<ToggleButton value="last30Days">Last 30 days</ToggleButton>
-		<ToggleButton value="last7Days">Last 7 days</ToggleButton>
+		aria-label='Filter by period'>
+		<ToggleButton value='fromStart'>From start</ToggleButton>
+		<ToggleButton value='last30Days'>Last 30 days</ToggleButton>
+		<ToggleButton value='last7Days'>Last 7 days</ToggleButton>
 	</ToggleButtonGroup>
 );
 

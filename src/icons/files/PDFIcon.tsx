@@ -15,11 +15,7 @@ interface PDFIconProps extends SVGProps<SVGSVGElement> {
  * @returns {JSX.Element} A scalable vector graphic (SVG) element representing the icon.
  */
 
-const PDFIcon: FC<PDFIconProps> = ({
-	width = 25,
-	height = 25,
-	...props
-}) => {
+const PDFIcon: FC<PDFIconProps> = ({ width = 25, height = 25, ...props }) => {
 	return (
 		<svg
 			width={width}

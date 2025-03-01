@@ -1,4 +1,3 @@
 export default function Home() {
-    return (<div>Not Authorized</div>);
-  }
-  
+	return <div>Not Authorized</div>;
+}

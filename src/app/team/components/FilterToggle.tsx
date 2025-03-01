@@ -14,11 +14,11 @@ const FilterToggle = ({ currentFilter, onFilterChange }: Props) => (
 				onFilterChange(newRole);
 			}
 		}}
-		aria-label="Filter by role"
-		size="small">
-		<ToggleButton value="All">All</ToggleButton>
-		<ToggleButton value="Administrator">Administrator</ToggleButton>
-		<ToggleButton value="Member">Member</ToggleButton>
+		aria-label='Filter by role'
+		size='small'>
+		<ToggleButton value='All'>All</ToggleButton>
+		<ToggleButton value='Administrator'>Administrator</ToggleButton>
+		<ToggleButton value='Member'>Member</ToggleButton>
 	</ToggleButtonGroup>
 );
 

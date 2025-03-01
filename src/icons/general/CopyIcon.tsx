@@ -16,12 +16,7 @@ interface CopyIconProps extends SVGProps<SVGSVGElement> {
  * @returns {JSX.Element} A scalable vector graphic (SVG) element representing the icon.
  */
 
-const CopyIcon: FC<CopyIconProps> = ({
-	width = 15,
-	height = 15,
-	color = '#667085',
-	...props
-}) => {
+const CopyIcon: FC<CopyIconProps> = ({ width = 15, height = 15, color = '#667085', ...props }) => {
 	return (
 		<svg
 			width={width}

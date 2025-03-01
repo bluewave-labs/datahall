@@ -15,11 +15,7 @@ interface AudioIconProps extends SVGProps<SVGSVGElement> {
  * @returns {JSX.Element} A scalable vector graphic (SVG) element representing the icon.
  */
 
-const AudioIcon: FC<AudioIconProps> = ({
-	width = 25,
-	height = 25,
-	...props
-}) => {
+const AudioIcon: FC<AudioIconProps> = ({ width = 25, height = 25, ...props }) => {
 	return (
 		<svg
 			width={width}

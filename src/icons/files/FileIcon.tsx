@@ -17,12 +17,7 @@ interface FileIconProps extends SVGProps<SVGSVGElement> {
  * @returns {JSX.Element} A scalable vector graphic (SVG) element representing the icon.
  */
 
-const FileIcon: FC<FileIconProps> = ({
-	width = 24,
-	height = 24,
-	color = '#667085',
-	...props
-}) => {
+const FileIcon: FC<FileIconProps> = ({ width = 24, height = 24, color = '#667085', ...props }) => {
 	return (
 		<svg
 			width={width}

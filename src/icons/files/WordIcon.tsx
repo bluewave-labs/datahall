@@ -15,11 +15,7 @@ interface WordIconProps extends SVGProps<SVGSVGElement> {
  * @returns {JSX.Element} A scalable vector graphic (SVG) element representing the icon.
  */
 
-const WordIcon: FC<WordIconProps> = ({
-	width = 25,
-	height = 25,
-	...props
-}) => {
+const WordIcon: FC<WordIconProps> = ({ width = 25, height = 25, ...props }) => {
 	return (
 		<svg
 			width={width}
