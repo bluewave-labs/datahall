@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import FileAccessContainer from './components/FileAccessContainer';
+import AccessPage from './components/AccessPage';
 
 interface Params {
 	linkId: string;
@@ -49,7 +49,7 @@ export default ({ params: { linkId } }: Props) => {
 					</Button>
 				</Box>
 			) : (
-				<FileAccessContainer linkId={linkId} />
+				<AccessPage linkId={linkId} />
 			)}
 		</>
 	);

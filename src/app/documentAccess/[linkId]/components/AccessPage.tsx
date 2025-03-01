@@ -5,19 +5,19 @@ import React from 'react';
 
 import { Container } from '@mui/material';
 
-import FileAccessFormModal from './FileAccessFormModal';
-import FileAccessMessage from './FileAccessMessage';
+import VisitorInfoModal from './VisitorInfoModal';
+import AccessError from './AccessError';
 import FileAccess from './FileDisplay';
 
 import { LoadingSpinner } from '@/components';
 import { useFormSubmission, useToast } from '@/hooks';
 import { LinkData } from '@/shared/models';
 
-interface Props {
+interface AccessPageProps {
 	linkId: string;
 }
 
-export default function FileAccessContainer({ linkId }: Props) {
+export default function AccessPage({ linkId }: AccessPageProps) {
 	const [linkData, setLinkData] = React.useState<LinkData>({});
 	const [loading, setLoading] = React.useState(true);
 	const [fetchLinkError, setFetchLinkError] = React.useState<string>(''); // store error from GET
@@ -95,7 +95,7 @@ export default function FileAccessContainer({ linkId }: Props) {
 		}
 	}, [loading, linkData, handleSubmit]);
 
-	function handleFileAccessFormModalSubmit(data: { [key: string]: any }) {
+	function handleVisitorInfoFormModalSubmit(data: { [key: string]: any }) {
 		setLinkData((prev) => ({
 			...prev,
 			signedUrl: data.signedUrl,
@@ -109,7 +109,7 @@ export default function FileAccessContainer({ linkId }: Props) {
 	}
 
 	if (fetchLinkError) {
-		return <FileAccessMessage message={fetchLinkError} />;
+		return <AccessError message={fetchLinkError} />;
 	}
 
 	// If we have a signedUrl => show file
@@ -125,11 +125,11 @@ export default function FileAccessContainer({ linkId }: Props) {
 
 	return (
 		<Container>
-			<FileAccessFormModal
+			<VisitorInfoModal
 				linkId={linkId}
 				passwordRequired={!!linkData.isPasswordProtected}
 				userDetailsOption={linkData.requiredUserDetailsOption ?? 0}
-				onFileAccessModalSubmit={handleFileAccessFormModalSubmit}
+				onVisitorInfoModalSubmit={handleVisitorInfoFormModalSubmit}
 			/>
 		</Container>
 	);
