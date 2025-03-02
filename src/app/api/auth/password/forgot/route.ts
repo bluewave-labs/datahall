@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { authService } from '../../../_services/authService';
-import { emailService } from '../../../_services/emailService';
+
+import { authService, emailService } from '@/app/api/_services';
 
 /**
  * POST /api/auth/password/forgot
@@ -25,17 +25,17 @@ export async function POST(req: NextRequest) {
 			result.userEmail!,
 		)}`;
 
-		// 3) Send the email (if SEND_EMAILS === 'true')
-		const emailResp = await emailService.sendResetPasswordEmail({
-			toEmail: result.userEmail!,
-			username: result.userName!,
-			resetUrl: resetPasswordUrl,
-		});
+		// // 3) Send the email (if SEND_EMAILS === 'true')
+		// const emailResp = await emailService.sendResetPasswordEmail({
+		// 	toEmail: result.userEmail!,
+		// 	username: result.userName!,
+		// 	resetUrl: resetPasswordUrl,
+		// });
 
-		if (!emailResp.success) {
-			console.error('[forgot] Error sending email:', emailResp.error);
-			return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
-		}
+		// if (!emailResp.success) {
+		// 	console.error('[forgot] Error sending email:', emailResp.error);
+		// 	return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+		// }
 
 		// 4) Return different info if not sending emails
 		if (process.env.SEND_EMAILS !== 'true') {

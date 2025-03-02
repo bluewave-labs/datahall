@@ -5,9 +5,9 @@ import { createErrorResponse, LinkService } from '@/app/api/_services';
 /**
  * POST /api/public_links/[linkId]/access
  */
-export async function POST(req: NextRequest, { params }: { params: { linkId: string } }) {
+export async function POST(req: NextRequest, props: { params: Promise<{ linkId: string }> }) {
 	try {
-		const { linkId } = params;
+		const { linkId } = await props.params;
 		const { first_name, last_name, email, password } = await req.json();
 
 		// 1) Retrieve link

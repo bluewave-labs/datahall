@@ -3,11 +3,11 @@ import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 import { deleteFile } from '@/app/api/_services/storageService';
 
-export async function GET(req: NextRequest, { params }: { params: { documentId: string } }) {
+export async function GET(req: NextRequest, props: { params: Promise<{ documentId: string }> }) {
 	try {
 		// Verify the user is logged in
-		const userId = await authService.authenticate(req);
-		const { documentId } = params;
+		const userId = await authService.authenticate();
+		const { documentId } = await props.params;
 
 		// Query the database for this document, ensuring it belongs to user
 		const doc = await prisma.document.findFirst({
@@ -64,11 +64,12 @@ function createErrorResponse(message: string, status: number, details?: any) {
 
 export async function DELETE(
 	req: NextRequest,
-	{ params }: { params: { documentId: string } },
+	props: { params: Promise<{ documentId: string }> },
 ): Promise<NextResponse> {
+	const { documentId } = await props.params;
+
 	try {
-		const userId = await authService.authenticate(req);
-		const documentId = params.documentId;
+		const userId = await authService.authenticate();
 
 		if (!documentId) {
 			return createErrorResponse('Document ID is required.', 400);

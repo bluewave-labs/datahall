@@ -241,7 +241,6 @@ function UploadBox({
 					<Grid size={variant === 'failed' ? 3 : 2}>
 						{variant === 'inProgress' && (
 							<CustomCircularProgress
-								fileInfo={fileInfo}
 								progress={progress}
 								handleProgress={handleProgress}
 							/>
