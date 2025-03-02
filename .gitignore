@@ -10,9 +10,9 @@
 /.next/
 /out/
 
-# Ignore all settings.json files
-**/settings.json
-/.vscode/
+# Ignore settings.json files
+/.vscode
+.vscode/settings.json
 
 # debug
 npm-debug.log*
@@ -38,3 +38,4 @@ next-env.d.ts
 
 # Ignore the entire migrations folder temporarily
 prisma/migrations/
+

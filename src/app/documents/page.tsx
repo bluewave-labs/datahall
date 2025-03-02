@@ -18,12 +18,14 @@ import { BackgroundIcon, CheckCircleIcon } from '@/icons';
 import DocumentsTable from './components/DocumentsTable';
 import DragAndDropBox from './components/DragAndDropBox';
 
-export default async function DocumentsPage(req: NextRequest) {
+export const dynamic = 'force-dynamic';
+
+export default async function DocumentsPage() {
 	let documentCount = 0;
 
 	try {
 		// Authenticate the user and fetch their document count, temporarily
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 		documentCount = await fetchDocumentCount(userId);
 	} catch (error) {
 		console.error('Error fetching document count or authenticating user:', error);
@@ -64,45 +66,25 @@ export default async function DocumentsPage(req: NextRequest) {
 								mb: { sm: 12, md: 17, lg: 22 },
 								mx: 'auto',
 							}}>
-							<ListItem>
-								<ListItemIcon>
-									<CheckCircleIcon
-										width={20}
-										height={20}
-										color='primaryOutline'
+							{[
+								'Securely share files and manage permissions',
+								'Keep your users updated with the latest documents',
+								'Build trust with a professional user interface',
+							].map((text, index) => (
+								<ListItem key={index}>
+									<ListItemIcon>
+										<CheckCircleIcon
+											width={20}
+											height={20}
+											color='primaryOutline'
+										/>
+									</ListItemIcon>
+									<ListItemText
+										slotProps={{ primary: { variant: 'h3' } }}
+										primary={text}
 									/>
-								</ListItemIcon>
-								<ListItemText
-									slotProps={{ variant: 'h3' }}
-									primary='Securely share files and manage permissions'
-								/>
-							</ListItem>
-							<ListItem>
-								<ListItemIcon>
-									<CheckCircleIcon
-										width={20}
-										height={20}
-										color='primaryOutline'
-									/>
-								</ListItemIcon>
-								<ListItemText
-									slotProps={{ variant: 'h3' }}
-									primary='Keep your users updated with the latest documents'
-								/>
-							</ListItem>
-							<ListItem>
-								<ListItemIcon>
-									<CheckCircleIcon
-										width={20}
-										height={20}
-										color='primaryOutline'
-									/>
-								</ListItemIcon>
-								<ListItemText
-									slotProps={{ variant: 'h3' }}
-									primary='Build trust with a professional user interface'
-								/>
-							</ListItem>
+								</ListItem>
+							))}
 						</List>
 						<DragAndDropBox text='Drag and drop your first document here or click to upload' />
 					</Box>
@@ -114,7 +96,9 @@ export default async function DocumentsPage(req: NextRequest) {
 						mb={{ sm: 8, md: 10, lg: 12 }}
 						width='100%'>
 						<Typography variant='h2'>Manage your documents</Typography>
-						<Typography variant='h6'>{documentCount} documents</Typography>
+						<Typography variant='h6'>
+							{documentCount} document{documentCount !== 1 ? 's' : ''}
+						</Typography>
 					</Box>
 					{/* Drag-and-Drop Section */}
 					<Box
@@ -123,7 +107,7 @@ export default async function DocumentsPage(req: NextRequest) {
 						<DragAndDropBox text='Drag and drop your document here or click to upload' />
 					</Box>
 
-					{/* Documents Table Section */}
+					{/* 📊 Documents Table */}
 					<DocumentsTable />
 				</>
 			)}

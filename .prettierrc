@@ -22,12 +22,6 @@
         "printWidth": 80,
         "tabWidth": 2
       }
-    },
-    {
-      "files": "*.md",
-      "options": {
-        "proseWrap": "always"
-      }
     }
   ]
 }

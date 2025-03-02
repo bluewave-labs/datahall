@@ -1,18 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { use } from 'react';
+
 import { Box, Button, Typography } from '@mui/material';
 import AccessPage from './components/AccessPage';
 
-interface Params {
-	linkId: string;
-}
+const LinkIdPage = ({ params }: { params: Promise<{ linkId: string }> }) => {
+	const { linkId } = use(params);
 
-interface Props {
-	params: Params;
-}
-
-export default ({ params: { linkId } }: Props) => {
 	const [showFileAccess, setShowFileAccess] = React.useState(false);
 
 	const handleConfirmClick = () => {
@@ -54,3 +49,5 @@ export default ({ params: { linkId } }: Props) => {
 		</>
 	);
 };
+
+export default LinkIdPage;

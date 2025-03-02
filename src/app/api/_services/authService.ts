@@ -1,4 +1,4 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/authOptions';
 import { getServerSession } from 'next-auth';
 import { NextRequest } from 'next/server';
 import prisma from '@/lib/prisma';
@@ -9,11 +9,10 @@ import { RegisterPayload, RegisterResult } from '@/shared/models';
 export const authService = {
 	/**
 	 * Authenticates the incoming request by checking the session from NextAuth.
-	 * @param req - The NextRequest object from Next.js
 	 * @returns The userId (string) if authenticated
 	 * @throws An error ('Unauthorized') if no valid user session
 	 */
-	async authenticate(req: NextRequest): Promise<string> {
+	async authenticate(): Promise<string> {
 		const session = await getServerSession(authOptions);
 		if (!session || !session.user?.userId) {
 			throw new Error('Unauthorized: User must be signed in.');

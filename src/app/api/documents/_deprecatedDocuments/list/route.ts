@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 
 		// Query all documents owned by this user + join on Link + LinkVisitors
 		const documents = await prisma.document.findMany({

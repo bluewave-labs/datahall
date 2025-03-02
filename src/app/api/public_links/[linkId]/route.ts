@@ -4,9 +4,9 @@ import { LinkService, createErrorResponse } from '@/app/api/_services';
 /**
  * GET /api/public_links/[linkId]
  */
-export async function GET(req: NextRequest, { params }: { params: { linkId: string } }) {
+export async function GET(req: NextRequest, props: { params: Promise<{ linkId: string }> }) {
 	try {
-		const linkId = params.linkId;
+		const { linkId } = await props.params;
 		if (!linkId) {
 			return createErrorResponse('Link ID is required.', 400);
 		}

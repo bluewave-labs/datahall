@@ -4,7 +4,7 @@ import { authService } from '../_services/authService';
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 
 		const userLinks = await prisma.link.findMany({
 			where: { userId },

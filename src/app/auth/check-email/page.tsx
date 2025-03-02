@@ -30,8 +30,8 @@ export default function VerificationSent() {
 				variant='subtitle2'
 				textAlign='center'
 				mb={4}>
-				We've sent you an email with a verification link. Click the link to complete your
-				registration. If you don't see it in your inbox, please check your spam or junk folder.
+				We&apos;ve sent you an email with a verification link. Click the link to complete your
+				registration. If you don&apos;t see it in your inbox, please check your spam or junk folder.
 			</Typography>
 
 			<Button

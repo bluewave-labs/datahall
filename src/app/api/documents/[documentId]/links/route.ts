@@ -5,10 +5,11 @@ import { NextRequest, NextResponse } from 'next/server';
  * GET /api/documents/[documentId]/links
  * Returns links for a doc owned by the user.
  */
-export async function GET(req: NextRequest, { params }: { params: { documentId: string } }) {
+export async function GET(req: NextRequest, props: { params: Promise<{ documentId: string }> }) {
 	try {
-		const userId = await authService.authenticate(req);
-		const links = await LinkService.getDocumentLinks(userId, params.documentId);
+		const userId = await authService.authenticate();
+		const { documentId } = await props.params;
+		const links = await LinkService.getDocumentLinks(userId, documentId);
 		if (links === null) {
 			return createErrorResponse('Document not found or access denied.', 404);
 		}
@@ -33,9 +34,10 @@ export async function GET(req: NextRequest, { params }: { params: { documentId: 
  * POST /api/documents/[documentId]/links
  * Creates a new link for the doc.
  */
-export async function POST(req: NextRequest, { params }: { params: { documentId: string } }) {
+export async function POST(req: NextRequest, props: { params: Promise<{ documentId: string }> }) {
+	const params = await props.params;
 	try {
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 		const body = await req.json();
 
 		// Attempt creation

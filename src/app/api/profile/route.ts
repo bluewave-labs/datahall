@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(req: NextRequest) {
 	try {
 		// Authenticate the user
-		const userId = await authService.authenticate(req);
+		const userId = await authService.authenticate();
 
 		// Get the user’s info from the database
 		const user = await prisma.user.findUnique({

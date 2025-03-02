@@ -5,10 +5,11 @@ import { NextRequest, NextResponse } from 'next/server';
  * GET /api/documents/[documentId]/visitors
  * Lists visitors across all links for a doc.
  */
-export async function GET(req: NextRequest, { params }: { params: { documentId: string } }) {
+export async function GET(req: NextRequest, props: { params: Promise<{ documentId: string }> }) {
 	try {
-		const userId = await authService.authenticate(req);
-		const linkVisitors = await DocumentService.getDocumentVisitors(userId, params.documentId);
+		const userId = await authService.authenticate();
+		const { documentId } = await props.params;
+		const linkVisitors = await DocumentService.getDocumentVisitors(userId, documentId);
 		if (linkVisitors === null) {
 			return createErrorResponse('Document not found or access denied.', 404);
 		}
@@ -19,7 +20,7 @@ export async function GET(req: NextRequest, { params }: { params: { documentId: 
 
 		const visitors = linkVisitors.map((visitor) => ({
 			id: visitor.id,
-			documentId: params.documentId,
+			documentId: documentId,
 			name: `${visitor.first_name} ${visitor.last_name}`.trim(),
 			email: visitor.email,
 			lastActivity: visitor.updatedAt,

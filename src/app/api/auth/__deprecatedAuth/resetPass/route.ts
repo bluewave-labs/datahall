@@ -40,22 +40,20 @@ export async function POST(req: NextRequest) {
 
 		// 4) In production, send an email. In dev, skip or console.log
 		if (process.env.SEND_EMAILS === 'true') {
-			const { error } = await resend.emails.send({
-				from: 'Acme <onboarding@resend.dev>',
-				to: [user.email],
-				subject: 'Password Reset Request',
-				react: BluewaveResetPasswordEmail({
-					username: user.first_name,
-					resetUrl: resetPasswordUrl,
-				}),
-			});
-
-			if (error) {
-				console.error('Error sending email:', error);
-				return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
-			}
-
-			console.log(`Password reset email sent to ${user.email}`);
+			// const { error } = await resend.emails.send({
+			// 	from: 'Acme <onboarding@resend.dev>',
+			// 	to: [user.email],
+			// 	subject: 'Password Reset Request',
+			// 	react: BluewaveResetPasswordEmail({
+			// 		username: user.first_name,
+			// 		resetUrl: resetPasswordUrl,
+			// 	}),
+			// });
+			// if (error) {
+			// 	console.error('Error sending email:', error);
+			// 	return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+			// }
+			// console.log(`Password reset email sent to ${user.email}`);
 		} else {
 			// In dev, skip actual email sending
 			console.log(`Password reset email would be sent to ${user.email}, but emailing is disabled.`);
