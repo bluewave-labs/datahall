@@ -18,18 +18,35 @@ import DocumentsTableRow from './DocumentsTableRow';
 import { Paginator } from '@/components';
 
 import { useSort, useToast } from '@/hooks';
-import { useDocuments, useDeleteDocument } from '@/hooks/documents';
 import { DocumentType } from '@/shared/models';
 
 const DocumentsTable = () => {
+	const [documents, setDocuments] = useState<DocumentType[]>([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState<string | null>(null);
 	const { showToast } = useToast();
 
 	const [page, setPage] = useState(1);
 	const [pageSize, setPageSize] = useState(4);
 	const [rowHeight, setRowHeight] = useState(59);
 
-	const { error, isLoading, data } = useDocuments();
-	const { mutate: deleteDocument } = useDeleteDocument();
+	// Fetch data
+	useEffect(() => {
+		const fetchDocuments = async () => {
+			setLoading(true);
+			try {
+				const response = await axios.get('/api/documents');
+
+				setDocuments(response.data.documents || []);
+			} catch (err) {
+				setError('Failed to load documents. Please try again later.');
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchDocuments();
+	}, []);
 
 	//Calculate the row height of the table
 	const calculateRowHeight = () => {
@@ -61,29 +78,33 @@ const DocumentsTable = () => {
 	}, [rowHeight]);
 
 	const handleDocumentDelete = async (documentId: string) => {
-		deleteDocument(documentId, {
-			onSuccess: () => {
-				showToast({
-					message: 'Document deleted successfully',
-					variant: 'success',
-				});
-			},
-			onError: () => {
-				showToast({
-					message: 'Error deleting document',
-					variant: 'error',
-				});
-			}
-		});
+		try {
+			setLoading(true);
+			await axios.delete(`/api/documents/${documentId}`);
+			showToast({
+				message: 'Document deleted successfully',
+				variant: 'success',
+			});
+			setDocuments((prevDocuments) =>
+				prevDocuments.filter((doc) => doc.document_id !== documentId),
+			);
+		} catch (error) {
+			showToast({
+				message: 'Error deleting document',
+				variant: 'error',
+			});
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	const { sortedData, orderDirection, orderBy, handleSortRequest } =
-		useSort<DocumentType>(data?.documents || []);
+		useSort<DocumentType>(documents);
 	const totalPages = Math.ceil(sortedData.length / pageSize);
 
 	const paginatedData = sortedData.slice((page - 1) * pageSize, page * pageSize);
 
-	if (isLoading) {
+	if (loading) {
 		return (
 			<Box
 				display='flex'
@@ -102,7 +123,7 @@ const DocumentsTable = () => {
 				justifyContent='center'
 				alignItems='center'
 				minHeight='50vh'>
-				<Typography color='error'>{error.message}</Typography>
+				<Typography color='error'>{error}</Typography>
 			</Box>
 		);
 	}
