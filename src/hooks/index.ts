@@ -1,3 +1,4 @@
+export { default as useFetchContacts } from './contacts/useFetchContacts';
 export { default as useDocumentAnalytics } from './useDocumentAnalytics';
 export { default as useDocumentData } from './useDocumentData';
 export { default as useDocumentDetail } from './useDocumentDetail';
