@@ -58,7 +58,7 @@ const DragAndDropBox = ({ text, height = { sm: 150, md: 200, lg: 250 } }: DragAn
 					handleUploadSuccess();
 					//TODO: Temporary fix, until we use tanstack query or zustand
 					setTimeout(() => {
-						router.refresh();
+						window.location.reload();
 					}, 1000);
 				} else {
 					handleUploadError('Server responded with an error.');
