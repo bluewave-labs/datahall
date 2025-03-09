@@ -71,7 +71,7 @@ const DragAndDropBox = ({ text, height = { sm: 150, md: 200, lg: 250 } }: DragAn
 				setUploading(false);
 			}
 		},
-		[session, handleUploadError, handleUploadSuccess],
+		[router, session, handleUploadError, handleUploadSuccess],
 	);
 
 	const onDrop = useCallback(
