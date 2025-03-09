@@ -30,8 +30,8 @@ const DragAndDropBox = ({ text, height = { sm: 150, md: 200, lg: 250 } }: DragAn
 	}, [showToast]);
 
 	const handleUploadError = useCallback(
-		(msg?: string) => {
-			const errorMsg = msg || 'File uploading failed!';
+		(msg?: string, status?: string) => {
+			const errorMsg = `Error ${status}: ${msg}` || 'File uploading failed!';
 			showToast({ message: errorMsg, variant: 'error' });
 		},
 		[showToast],
@@ -58,15 +58,15 @@ const DragAndDropBox = ({ text, height = { sm: 150, md: 200, lg: 250 } }: DragAn
 					handleUploadSuccess();
 					//TODO: Temporary fix, until we use tanstack query or zustand
 					setTimeout(() => {
-						router.refresh();
+						window.location.reload();
 					}, 1000);
 				} else {
 					handleUploadError('Server responded with an error.');
 				}
 			} catch (error: any) {
 				const errorMessage =
-					error.response?.data?.error || error.message || 'Unexpected error occurred.';
-				handleUploadError(errorMessage);
+					error.response?.data?.message || error.message || 'Unexpected error occurred.';
+				handleUploadError(errorMessage, error.response?.status);
 			} finally {
 				setUploading(false);
 			}
@@ -91,7 +91,7 @@ const DragAndDropBox = ({ text, height = { sm: 150, md: 200, lg: 250 } }: DragAn
 			<div {...getRootProps()}>
 				<input
 					{...getInputProps({
-						accept: 'application/pdf',
+						accept: 'application/pdf', // need to change this so it gets the allowed file types from server
 						multiple: false,
 					})}
 				/>

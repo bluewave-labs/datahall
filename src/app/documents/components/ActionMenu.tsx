@@ -33,7 +33,7 @@ export default function ActionMenu({
 
 	function handleOpenCreateLink() {
 		setCreateLinkOpen(true);
-		onClose();
+		// onClose();
 	}
 
 	function handleCloseCreateLink(action: string, createdLink?: string) {

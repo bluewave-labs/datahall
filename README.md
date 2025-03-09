@@ -1,3 +1,6 @@
+![image](https://github.com/user-attachments/assets/b49700aa-1457-47c8-b8da-4193db776014)
+
+
 <h1 align="center"><a href="https://bluewavelabs.ca" target="_blank">Datahall</a></h1>
 
 <p align="center"><strong>An open source DocSend alternative</strong></p>
