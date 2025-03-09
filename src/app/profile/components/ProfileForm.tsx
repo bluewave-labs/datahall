@@ -50,9 +50,8 @@ export default function ProfileForm() {
 				setFetchLoading(false);
 			}
 		};
-
 		fetchProfileData();
-	}, []);
+	}, [setValues]);
 
 	// Submit data
 	const { loading, handleSubmit, toast } = useFormSubmission({
