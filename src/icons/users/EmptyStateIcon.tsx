@@ -15,11 +15,7 @@ interface EmptyStateIconProps extends SVGProps<SVGSVGElement> {
  * @returns {JSX.Element} A scalable vector graphic (SVG) element representing the icon.
  */
 
-const EmptyStateIcon: FC<EmptyStateIconProps> = ({
-	width = 140,
-	height = 110,
-	...props
-}) => {
+const EmptyStateIcon: FC<EmptyStateIconProps> = ({ width = 140, height = 110, ...props }) => {
 	return (
 		<svg
 			width={width}

@@ -15,11 +15,7 @@ interface BlueWaveLogoProps extends SVGProps<SVGSVGElement> {
  * @returns {JSX.Element} A scalable vector graphic (SVG) element representing the logo.
  */
 
-const BlueWaveLogo: FC<BlueWaveLogoProps> = ({
-	width = 191,
-	height = 24,
-	...props
-}) => (
+const BlueWaveLogo: FC<BlueWaveLogoProps> = ({ width = 191, height = 24, ...props }) => (
 	<svg
 		width={width}
 		height={height}

@@ -15,11 +15,7 @@ interface ExcelIconProps extends SVGProps<SVGSVGElement> {
  * @returns {JSX.Element} A scalable vector graphic (SVG) element representing the icon.
  */
 
-const ExcelIcon: FC<ExcelIconProps> = ({
-	width = 25,
-	height = 25,
-	...props
-}) => {
+const ExcelIcon: FC<ExcelIconProps> = ({ width = 25, height = 25, ...props }) => {
 	return (
 		<svg
 			width={width}

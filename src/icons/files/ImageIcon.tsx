@@ -15,11 +15,7 @@ interface ImageIconProps extends SVGProps<SVGSVGElement> {
  * @returns {JSX.Element} A scalable vector graphic (SVG) element representing the icon.
  */
 
-const ImageIcon: FC<ImageIconProps> = ({
-	width = 25,
-	height = 25,
-	...props
-}) => {
+const ImageIcon: FC<ImageIconProps> = ({ width = 25, height = 25, ...props }) => {
 	return (
 		<svg
 			width={width}

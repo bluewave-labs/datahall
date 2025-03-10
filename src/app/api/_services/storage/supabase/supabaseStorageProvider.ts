@@ -18,7 +18,7 @@ export class SupabaseProvider implements StorageProvider {
 	 * @returns A promise resolving to the file's public URL (if bucket is public) or file path (if bucket is private).
 	 */
 	async upload(fileBuffer: Buffer, metadata: FileMetadata): Promise<UploadResult> {
-		const bucketName = 'documents';
+		const bucketName = process.env.SUPABASE_STORAGE_BUCKET as string;
 		const filePath = `${metadata.userId}/${metadata.fileName}`;
 
 		// Upload file to Supabase Storage
