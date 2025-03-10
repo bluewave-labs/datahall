@@ -12,7 +12,7 @@ import QueryProvider from '@/providers/query/QueryProvider';
 
 import globalTheme from '@/theme/globalTheme';
 
-export default function Providers({ children }: { children: React.ReactNode; }) {
+export default function Providers({ children }: { children: React.ReactNode }) {
 	const [isHydrated, setIsHydrated] = useState(false);
 
 	useEffect(() => {

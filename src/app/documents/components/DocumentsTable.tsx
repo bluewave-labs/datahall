@@ -73,12 +73,13 @@ const DocumentsTable = () => {
 					message: 'Error deleting document',
 					variant: 'error',
 				});
-			}
+			},
 		});
 	};
 
-	const { sortedData, orderDirection, orderBy, handleSortRequest } =
-		useSort<DocumentType>(data?.documents || []);
+	const { sortedData, orderDirection, orderBy, handleSortRequest } = useSort<DocumentType>(
+		data?.documents || [],
+	);
 	const totalPages = Math.ceil(sortedData.length / pageSize);
 
 	const paginatedData = sortedData.slice((page - 1) * pageSize, page * pageSize);
