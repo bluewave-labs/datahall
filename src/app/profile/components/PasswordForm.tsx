@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
 import { FormInput, LoadingButton, PasswordValidation } from '@/components';
@@ -12,6 +12,7 @@ import { passwordValidationRule, requiredFieldRule } from '@/shared/utils';
 
 export default function PasswordForm() {
 	const [isSubmitted, setIsSubmitted] = useState(false);
+	const [isChangingPass, setIsChangingPass] = useState(false);
 	const { data: session } = useSession();
 
 	const { values, setValues, touched, handleChange, handleBlur, getError, validateAll } =
@@ -65,6 +66,7 @@ export default function PasswordForm() {
 						variant: 'success',
 					});
 					setIsSubmitted(true);
+					setIsChangingPass(false);
 					setValues((prevValues) => ({
 						...prevValues,
 						currentPassword: '',
@@ -112,12 +114,50 @@ export default function PasswordForm() {
 		},
 	});
 
+	const handleChangePassword = () => {
+		setIsChangingPass(true);
+	};
+
+	const handleCancel = () => {
+		setIsChangingPass(false);
+		window.location.reload();
+	};
+
 	return (
 		<Box
 			component='form'
 			onSubmit={handleSubmit}
 			noValidate
 			autoComplete='off'>
+			{/* Change password, Save and Cancel Buttons */}
+			<Box
+				display='flex'
+				justifyContent='flex-end'
+				mb={30}>
+				{isChangingPass ? (
+					<Box>
+						<Button
+							variant='text'
+							color='secondary'
+							onClick={handleCancel}>
+							Cancel
+						</Button>
+						<LoadingButton
+							loading={loading}
+							buttonText='Save'
+							loadingText='Saving...'
+							fullWidth={false}
+						/>
+					</Box>
+				) : (
+					<Button
+						variant='contained'
+						onClick={handleChangePassword}>
+						Change password
+					</Button>
+				)}
+			</Box>
+
 			<Grid
 				container
 				rowSpacing={14}
@@ -135,6 +175,7 @@ export default function PasswordForm() {
 						onChange={handleChange}
 						onBlur={handleBlur}
 						errorMessage={!isSubmitted ? getError('currentPassword') : undefined}
+						disabled={!isChangingPass}
 					/>
 				</Grid>
 
@@ -150,6 +191,7 @@ export default function PasswordForm() {
 						onChange={handleChange}
 						onBlur={handleBlur}
 						errorMessage={!isSubmitted ? getError('newPassword') : undefined}
+						disabled={!isChangingPass}
 					/>
 				</Grid>
 
@@ -165,6 +207,7 @@ export default function PasswordForm() {
 						onChange={handleChange}
 						onBlur={handleBlur}
 						errorMessage={!isSubmitted ? getError('confirmPassword') : undefined}
+						disabled={!isChangingPass}
 					/>
 				</Grid>
 
@@ -178,19 +221,6 @@ export default function PasswordForm() {
 					/>
 				</Grid>
 			</Grid>
-
-			{/* Save Button */}
-			<Box
-				display='flex'
-				justifyContent='flex-end'
-				mt={40}>
-				<LoadingButton
-					loading={loading}
-					buttonText='Save'
-					loadingText='Saving...'
-					fullWidth={false}
-				/>
-			</Box>
 		</Box>
 	);
 }

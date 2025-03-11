@@ -15,6 +15,7 @@ import { requiredFieldRule } from '@/shared/utils';
 export default function ProfileForm() {
 	const [fetchLoading, setFetchLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const [isEditing, setIsEditing] = useState(false);
 
 	const deleteAccountModal = useModal();
 	const deletePhotoModal = useModal();
@@ -78,6 +79,7 @@ export default function ProfileForm() {
 							message: 'Profile updated successfully!',
 							variant: 'success',
 						});
+						setIsEditing(false);
 					}
 				} catch (error: unknown) {
 					// Narrowing down the type of `error`
@@ -119,6 +121,15 @@ export default function ProfileForm() {
 			}
 		},
 	});
+
+	const handleEditProfileInfo = () => {
+		setIsEditing(true);
+	};
+
+	const handleCancel = () => {
+		setIsEditing(false);
+		window.location.reload();
+	};
 
 	const handleDeleteAccount = () => {
 		console.log('Account deleted!');
@@ -167,6 +178,35 @@ export default function ProfileForm() {
 				onSubmit={handleSubmit}
 				noValidate
 				autoComplete='off'>
+				{/* Edit, Save and Cancel Buttons */}
+				<Box
+					display='flex'
+					justifyContent='flex-end'
+					mb={30}>
+					{isEditing ? (
+						<Box>
+							<Button
+								variant='text'
+								color='secondary'
+								onClick={handleCancel}>
+								Cancel
+							</Button>
+							<LoadingButton
+								loading={loading}
+								buttonText='Save'
+								loadingText='Saving...'
+								fullWidth={false}
+							/>
+						</Box>
+					) : (
+						<Button
+							variant='contained'
+							onClick={handleEditProfileInfo}>
+							Edit
+						</Button>
+					)}
+				</Box>
+
 				<Grid
 					container
 					rowSpacing={14}
@@ -182,6 +222,7 @@ export default function ProfileForm() {
 							value={values.firstName}
 							onChange={handleChange}
 							errorMessage={getError('firstName')}
+							disabled={!isEditing}
 						/>
 					</Grid>
 
@@ -195,6 +236,7 @@ export default function ProfileForm() {
 							value={values.lastName}
 							onChange={handleChange}
 							errorMessage={getError('lastName')}
+							disabled={!isEditing}
 						/>
 					</Grid>
 
@@ -216,7 +258,7 @@ export default function ProfileForm() {
 					</Grid>
 
 					{/* Photo */}
-					<Grid size={6}>
+					{/* <Grid size={6}>
 						<Typography variant='h4'>Your photo</Typography>
 						<Typography variant='subtitle1'>
 							This photo will be displayed on your profile page.
@@ -244,63 +286,54 @@ export default function ProfileForm() {
 									sx={{ width: 64, height: 64, mr: 7 }}
 								/>
 
-								<Box
-									className='avatar-edit-icon'
-									sx={{
-										position: 'absolute',
-										top: 0,
-										left: 0,
-										width: '100%',
-										height: '100%',
-										display: 'flex',
-										alignItems: 'center',
-										justifyContent: 'center',
-										bgcolor: 'rgba(0, 0, 0, 0.15)',
-										opacity: 0,
-										transition: 'opacity 0.3s',
-										cursor: 'pointer',
-									}}
-									onClick={uploadModal.openModal}>
-									<PencilIcon
-										width={20}
-										height={20}
-										color='white'
-									/>
-								</Box>
+								{isEditing && (
+									<Box
+										className='avatar-edit-icon'
+										sx={{
+											position: 'absolute',
+											top: 0,
+											left: 0,
+											width: '100%',
+											height: '100%',
+											display: 'flex',
+											alignItems: 'center',
+											justifyContent: 'center',
+											bgcolor: 'rgba(0, 0, 0, 0.15)',
+											opacity: 0,
+											transition: 'opacity 0.3s',
+											cursor: 'pointer',
+										}}
+										onClick={uploadModal.openModal}>
+										<PencilIcon
+											width={20}
+											height={20}
+											color='white'
+										/>
+									</Box>
+								)}
 							</Box>
 							<Link
 								href='#'
 								underline='hover'
 								pl={10}
 								color='text.secondary'
-								onClick={deletePhotoModal.openModal}>
+								onClick={deletePhotoModal.openModal}
+								sx={isEditing ? {} : { pointerEvents: 'none', opacity: 0.5 }}>
 								Delete
 							</Link>
 							<Link
 								href='#'
 								underline='hover'
 								px={8}
-								onClick={uploadModal.openModal}>
+								onClick={uploadModal.openModal}
+								sx={isEditing ? {} : { pointerEvents: 'none', opacity: 0.5 }}>
 								Update
 							</Link>
 						</Box>
-					</Grid>
+					</Grid> */}
 				</Grid>
 
-				{/* Save Button */}
-				<Box
-					display='flex'
-					justifyContent='flex-end'
-					mt={40}>
-					<LoadingButton
-						loading={loading}
-						buttonText='Save'
-						loadingText='Saving...'
-						fullWidth={false}
-					/>
-				</Box>
-
-				<Divider sx={{ mb: 7, mt: 14 }} />
+				<Divider sx={{ mb: 10, mt: 20 }} />
 
 				{/* Delete Account Section */}
 				<Box
@@ -356,6 +389,7 @@ export default function ProfileForm() {
 				fileFormats='JPG, PNG'
 				toggleModal={uploadModal.closeModal}
 			/>
+
 			{/* Delete Account Modal */}
 			<ModalWrapper
 				variant='delete'
