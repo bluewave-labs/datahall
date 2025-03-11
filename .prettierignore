@@ -9,11 +9,6 @@ coverage
 # Ignore specific files
 package-lock.json
 yarn.lock
-tsconfig.json
-next.config.mjs
-.eslintrc.json
-middleware.ts
-.prettierrc
 README.md
 
 # Ignore public assets

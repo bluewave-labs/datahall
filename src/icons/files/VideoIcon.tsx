@@ -15,11 +15,7 @@ interface VideoIconProps extends SVGProps<SVGSVGElement> {
  * @returns {JSX.Element} A scalable vector graphic (SVG) element representing the icon.
  */
 
-const VideoIcon: FC<VideoIconProps> = ({
-	width = 25,
-	height = 25,
-	...props
-}) => {
+const VideoIcon: FC<VideoIconProps> = ({ width = 25, height = 25, ...props }) => {
 	return (
 		<svg
 			width={width}

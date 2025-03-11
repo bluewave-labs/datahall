@@ -44,7 +44,7 @@ export async function GET(req: NextRequest) {
 
 		return NextResponse.json({ documents: result }, { status: 200 });
 	} catch (error) {
-		return createErrorResponse('Server error while fetching documents.', 500, error);
+		return createErrorResponse('Server error while fetching documents', 500, error);
 	}
 }
 
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
 		const formData = await req.formData();
 		const file = formData.get('file');
 		if (!(file instanceof File) || !file.name) {
-			return createErrorResponse('Invalid file type or missing file.', 400);
+			return createErrorResponse('Invalid file type or missing file', 400);
 		}
 
 		// Validate file with environment constraints
@@ -68,13 +68,13 @@ export async function POST(req: NextRequest) {
 		} catch (err) {
 			if (err instanceof Error) {
 				if (err.message === 'INVALID_FILE_TYPE') {
-					return createErrorResponse('File type not allowed.', 400);
+					return createErrorResponse('File type not allowed', 400);
 				}
 				if (err.message === 'FILE_TOO_LARGE') {
-					return createErrorResponse('File size exceeds limit.', 400);
+					return createErrorResponse('File size exceeds limit', 400);
 				}
 			}
-			return createErrorResponse('File validation failed.', 400, err);
+			return createErrorResponse('File validation failed', 400, err);
 		}
 
 		const arrayBuffer = await file.arrayBuffer();
@@ -97,8 +97,8 @@ export async function POST(req: NextRequest) {
 			size: file.size,
 		});
 
-		return NextResponse.json({ message: 'File uploaded successfully.', document }, { status: 200 });
+		return NextResponse.json({ message: 'File uploaded successfully', document }, { status: 200 });
 	} catch (error) {
-		return createErrorResponse('Server error while uploading document.', 500, error);
+		return createErrorResponse('Server error while uploading document', 500, error);
 	}
 }

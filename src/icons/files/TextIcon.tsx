@@ -15,11 +15,7 @@ interface TextIconProps extends SVGProps<SVGSVGElement> {
  * @returns {JSX.Element} A scalable vector graphic (SVG) element representing the icon.
  */
 
-const TextIcon: FC<TextIconProps> = ({
-	width = 25,
-	height = 25,
-	...props
-}) => {
+const TextIcon: FC<TextIconProps> = ({ width = 25, height = 25, ...props }) => {
 	return (
 		<svg
 			width={width}

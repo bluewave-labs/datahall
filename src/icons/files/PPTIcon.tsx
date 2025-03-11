@@ -15,11 +15,7 @@ interface PPTIconProps extends SVGProps<SVGSVGElement> {
  * @returns {JSX.Element} A scalable vector graphic (SVG) element representing the icon.
  */
 
-const PPTIcon: FC<PPTIconProps> = ({
-	width = 25,
-	height = 25,
-	...props
-}) => {
+const PPTIcon: FC<PPTIconProps> = ({ width = 25, height = 25, ...props }) => {
 	return (
 		<svg
 			width={width}

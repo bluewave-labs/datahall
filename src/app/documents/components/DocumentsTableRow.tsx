@@ -35,11 +35,14 @@ const DocumentsTableRow = ({ document, onDelete }: Props) => {
 	const routetoDocument = () => {
 		router.push(`/documents/${document.document_id}`);
 	};
-	const linkToCopy = document.createdLinks?.[0]?.createdLink;
+	const linkToCopy = () => {
+		const totalLinks = document.createdLinks?.length ?? 0;
+		return document.createdLinks?.[totalLinks - 1]?.createdLink ?? '';
+	};
 
 	const handleLinkCopy = () => {
-		if (linkToCopy) {
-			navigator.clipboard.writeText(linkToCopy);
+		if (linkToCopy() !== undefined) {
+			navigator.clipboard.writeText(linkToCopy());
 			setIsLinkCopied(true);
 			setTimeout(() => {
 				setIsLinkCopied(false);

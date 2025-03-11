@@ -31,7 +31,14 @@ const LoadingButton = ({
 			color={color}
 			disabled={loading}
 			onClick={onClick}
-			endIcon={loading ? <CircularProgress size={20} color="inherit" /> : null}>
+			endIcon={
+				loading ? (
+					<CircularProgress
+						size={20}
+						color='inherit'
+					/>
+				) : null
+			}>
 			{loading ? loadingText : buttonText}
 		</Button>
 	);
