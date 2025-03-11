@@ -52,7 +52,7 @@ export default function ProfileForm() {
 		};
 
 		fetchProfileData();
-	}, []);
+	}, [setValues]);
 
 	// Submit data
 	const { loading, handleSubmit, toast } = useFormSubmission({
