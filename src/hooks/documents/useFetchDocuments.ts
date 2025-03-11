@@ -12,11 +12,11 @@ const fetchDocuments = async (): Promise<DocumentResponse> => {
 	return response.data;
 };
 
-const useDocuments = () => {
+const useFetchDocuments = () => {
 	return useQuery({
 		queryKey: ['documents'],
 		queryFn: fetchDocuments,
 	});
 };
 
-export default useDocuments;
+export default useFetchDocuments;

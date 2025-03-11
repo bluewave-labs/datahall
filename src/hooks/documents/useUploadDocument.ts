@@ -1,17 +1,17 @@
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const addDocument = async (formData: FormData) => {
+const uploadDocument = async (formData: FormData) => {
 	const response = await axios.post('/api/documents', formData);
 
 	return response.data;
 };
 
-const useAddDocument = () => {
+const useUploadDocument = () => {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: addDocument,
+		mutationFn: uploadDocument,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['documents'] });
 		},
@@ -21,4 +21,4 @@ const useAddDocument = () => {
 	});
 };
 
-export default useAddDocument;
+export default useUploadDocument;

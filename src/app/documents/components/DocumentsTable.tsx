@@ -17,8 +17,7 @@ import DocumentsTableHeader from './DocumentsTableHeader';
 import DocumentsTableRow from './DocumentsTableRow';
 import { Paginator } from '@/components';
 
-import { useSort, useToast } from '@/hooks';
-import { useDocuments, useDeleteDocument } from '@/hooks/documents';
+import { useDeleteDocument, useFetchDocuments, useSort, useToast } from '@/hooks';
 import { DocumentType } from '@/shared/models';
 
 const DocumentsTable = () => {
@@ -28,7 +27,7 @@ const DocumentsTable = () => {
 	const [pageSize, setPageSize] = useState(4);
 	const [rowHeight, setRowHeight] = useState(59);
 
-	const { error, isLoading, data } = useDocuments();
+	const { error, isLoading, data } = useFetchDocuments();
 	const { mutate: deleteDocument } = useDeleteDocument();
 
 	//Calculate the row height of the table
