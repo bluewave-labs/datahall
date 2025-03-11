@@ -10,6 +10,15 @@ import { FormInput, LoadingButton, PasswordValidation } from '@/components';
 import { useFormSubmission, useValidatedFormData } from '@/hooks';
 import { passwordValidationRule, requiredFieldRule } from '@/shared/utils';
 
+/**
+ * Renders a form for updating the user's password.
+ *
+ * This component displays input fields for the current, new, and confirmation passwords, and provides
+ * real-time validation and strength feedback. It leverages session data to tie the password change
+ * to the authenticated user and sends a POST request to update the password upon successful client-side
+ * validation. It also offers interactive state management through the "Change password", "Save", and "Cancel"
+ * buttons, with error handling via toast notifications.
+ */
 export default function PasswordForm() {
 	const [isSubmitted, setIsSubmitted] = useState(false);
 	const [isChangingPass, setIsChangingPass] = useState(false);

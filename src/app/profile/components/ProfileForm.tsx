@@ -12,6 +12,19 @@ import { PencilIcon } from '@/icons';
 import { useFormSubmission, useModal, useToast, useValidatedFormData } from '@/hooks';
 import { requiredFieldRule } from '@/shared/utils';
 
+/**
+ * Renders a user profile form that supports viewing and editing profile details.
+ *
+ * This component fetches the user's profile data (first name, last name, and email) and displays it in a form.
+ * In addition to toggling between read-only and editing modes, it provides functionality for updating the profile,
+ * and includes modal interactions for deleting the account, deleting the profile photo, and uploading a new image.
+ *
+ * @remarks
+ * While loading, the component displays a loading spinner, and any fetch or submission errors are shown as error messages.
+ * Editing the profile triggers form validation and displays appropriate toast notifications on success or error.
+ *
+ * @returns A JSX.Element representing the profile form.
+ */
 export default function ProfileForm() {
 	const [fetchLoading, setFetchLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
