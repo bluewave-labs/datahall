@@ -3,8 +3,7 @@
 import React, { use } from 'react';
 
 import { Box, Button, Typography } from '@mui/material';
-
-import FileAccessContainer from './components/FileAccessContainer';
+import AccessPage from './components/AccessPage';
 
 const LinkIdPage = ({ params }: { params: Promise<{ linkId: string }> }) => {
 	const { linkId } = use(params);
@@ -45,7 +44,7 @@ const LinkIdPage = ({ params }: { params: Promise<{ linkId: string }> }) => {
 					</Button>
 				</Box>
 			) : (
-				<FileAccessContainer linkId={linkId} />
+				<AccessPage linkId={linkId} />
 			)}
 		</>
 	);
