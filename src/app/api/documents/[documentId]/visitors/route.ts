@@ -21,7 +21,7 @@ export async function GET(req: NextRequest, props: { params: Promise<{ documentI
 		const visitors = linkVisitors.map((visitor) => ({
 			id: visitor.id,
 			documentId: documentId,
-			name: `${visitor.first_name} ${visitor.last_name}`.trim(),
+			name: `${visitor.firstName} ${visitor.lastName}`.trim(),
 			email: visitor.email,
 			lastActivity: visitor.updatedAt,
 			downloads: 0,

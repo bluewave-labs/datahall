@@ -12,12 +12,15 @@ export async function GET(req: NextRequest) {
 		const documents = await DocumentService.getUserDocuments(userId);
 
 		const result = documents.map((doc) => {
-			const linkCount = doc.Link.length;
-			const visitorCount = doc.Link.reduce((acc, l) => acc + l.LinkVisitors.length, 0);
+			const linkCount = doc.documentLink.length;
+			const visitorCount = doc.documentLink.reduce(
+				(acc, l) => acc + l.documentLinkVisitors.length,
+				0,
+			);
 			const totalViews = 0; // placeholder
 
-			const createdLinks = doc.Link.map((lnk) => ({
-				linkId: lnk.linkId,
+			const createdLinks = doc.documentLink.map((lnk) => ({
+				linkId: lnk.documentLinkId,
 				createdLink: lnk.linkUrl,
 				lastViewed: lnk.updatedAt,
 				linkViews: 0,

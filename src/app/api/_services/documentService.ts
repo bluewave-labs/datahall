@@ -13,8 +13,8 @@ export class DocumentService {
 				User: {
 					select: { first_name: true, last_name: true },
 				},
-				Link: {
-					include: { LinkVisitors: true },
+				documentLink: {
+					include: { documentLinkVisitors: true },
 				},
 			},
 			orderBy: { createdAt: 'desc' },
@@ -120,19 +120,19 @@ export class DocumentService {
 		// Ensure doc ownership
 		const doc = await prisma.document.findFirst({
 			where: { document_id: documentId, user_id: userId },
-			include: { Link: true },
+			include: { documentLink: true },
 		});
 		if (!doc) return null; // doc not found or no access
 
 		// Gather linkIds
-		const linkIds = doc.Link.map((l) => l.linkId);
+		const linkIds = doc.documentLink.map((l) => l.documentLinkId);
 		if (linkIds.length === 0) {
 			return [];
 		}
 
 		// Query link visitors
-		return prisma.linkVisitors.findMany({
-			where: { linkId: { in: linkIds } },
+		return prisma.documentLinkVisitor.findMany({
+			where: { documentLinkId: { in: linkIds } },
 			orderBy: { updatedAt: 'desc' },
 		});
 	}

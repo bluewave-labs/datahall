@@ -17,7 +17,7 @@ export async function GET(req: NextRequest, props: { params: Promise<{ documentI
 		const result = links.map((link) => ({
 			id: link.id,
 			documentId: link.documentId,
-			linkId: link.linkId,
+			linkId: link.documentLinkId,
 			friendlyName: link.friendlyName,
 			createdLink: link.linkUrl,
 			lastViewed: link.updatedAt,

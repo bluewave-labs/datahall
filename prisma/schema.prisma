@@ -45,21 +45,21 @@ model User {
   updated_at         DateTime             @updatedAt @db.Timestamptz(6)
   PasswordResetToken PasswordResetToken[]
   Document           Document[]
-  Link               Link[]
+  documentLink       DocumentLink[]
 }
 
 model Document {
-  id          Int      @id @default(autoincrement())
-  document_id String   @unique @default(cuid())
-  user_id     String
-  fileName    String
-  filePath    String
-  fileType    String
-  size        Int
-  createdAt   DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt   DateTime @updatedAt @db.Timestamptz(6)
-  User        User     @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
-  Link        Link[]
+  id           Int            @id @default(autoincrement())
+  document_id  String         @unique @default(cuid())
+  user_id      String
+  fileName     String
+  filePath     String
+  fileType     String
+  size         Int
+  createdAt    DateTime       @default(now()) @db.Timestamptz(6)
+  updatedAt    DateTime       @updatedAt @db.Timestamptz(6)
+  User         User           @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  documentLink DocumentLink[]
 }
 
 enum Status {
@@ -73,9 +73,9 @@ enum UserRole {
   USER
 }
 
-model Link {
+model DocumentLink {
   id                        Int       @id @default(autoincrement())
-  linkId                    String    @unique
+  documentLinkId            String    @unique
   documentId                String
   userId                    String
   friendlyName              String?   @unique
@@ -91,18 +91,19 @@ model Link {
   Document Document @relation(fields: [documentId], references: [document_id], onDelete: Cascade)
   User     User     @relation(fields: [userId], references: [user_id], onDelete: Cascade)
 
-  LinkVisitors LinkVisitors[]
+  documentLinkVisitors DocumentLinkVisitor[]
 }
 
-model LinkVisitors {
-  id         Int      @id @default(autoincrement())
-  linkId     String
-  first_name String   @default("")
-  last_name  String   @default("")
-  email      String   @default("")
-  createdAt  DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt  DateTime @updatedAt @db.Timestamptz(6)
+model DocumentLinkVisitor {
+  id              Int      @id @default(autoincrement())
+  documentLinkId  String
+  firstName       String   @default("")
+  lastName        String   @default("")
+  email           String   @default("")
+  visitorMetaData Json?
+  visitedAt       DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt       DateTime @updatedAt @db.Timestamptz(6)
 
   // Relations
-  Link Link @relation(fields: [linkId], references: [linkId], onDelete: Cascade)
+  documentLink DocumentLink @relation(fields: [documentLinkId], references: [documentLinkId], onDelete: Cascade)
 }
