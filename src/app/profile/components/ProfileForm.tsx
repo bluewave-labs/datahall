@@ -1,3 +1,5 @@
+'use client';
+
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
@@ -12,11 +14,14 @@ import { PencilIcon } from '@/icons';
 import { useFormSubmission, useModal, useToast, useValidatedFormData } from '@/hooks';
 import { requiredFieldRule } from '@/shared/utils';
 
+import PasswordFormModal from './PasswordFormModal';
+
 export default function ProfileForm() {
 	const [fetchLoading, setFetchLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [isEditing, setIsEditing] = useState(false);
 
+	const passwordFormModal = useModal();
 	const deleteAccountModal = useModal();
 	const deletePhotoModal = useModal();
 	const uploadModal = useModal();
@@ -38,22 +43,22 @@ export default function ProfileForm() {
 	});
 
 	// Fetch data
-	useEffect(() => {
-		const fetchProfileData = async () => {
-			setFetchLoading(true);
-			try {
-				const response = await axios.get('/api/profile');
-				setValues(response.data);
-			} catch (error) {
-				console.error('Error loading profile data:', error);
-				setError('Failed to load profile data! Please try again later.');
-			} finally {
-				setFetchLoading(false);
-			}
-		};
+	const fetchProfileData = async () => {
+		setFetchLoading(true);
+		try {
+			const response = await axios.get('/api/profile');
+			setValues(response.data);
+		} catch (error) {
+			console.error('Error loading profile data:', error);
+			setError('Failed to load profile data! Please try again later.');
+		} finally {
+			setFetchLoading(false);
+		}
+	};
 
+	useEffect(() => {
 		fetchProfileData();
-	}, [setValues]);
+	}, []);
 
 	// Submit data
 	const { loading, handleSubmit, toast } = useFormSubmission({
@@ -126,9 +131,9 @@ export default function ProfileForm() {
 		setIsEditing(true);
 	};
 
-	const handleCancel = () => {
+	const handleCancelEditing = () => {
 		setIsEditing(false);
-		window.location.reload();
+		fetchProfileData();
 	};
 
 	const handleDeleteAccount = () => {
@@ -178,40 +183,49 @@ export default function ProfileForm() {
 				onSubmit={handleSubmit}
 				noValidate
 				autoComplete='off'>
-				{/* Edit, Save and Cancel Buttons */}
-				<Box
-					display='flex'
-					justifyContent='flex-end'
-					mb={30}>
-					{isEditing ? (
-						<Box>
-							<Button
-								variant='text'
-								color='secondary'
-								onClick={handleCancel}>
-								Cancel
-							</Button>
-							<LoadingButton
-								loading={loading}
-								buttonText='Save'
-								loadingText='Saving...'
-								fullWidth={false}
-							/>
-						</Box>
-					) : (
-						<Button
-							variant='contained'
-							onClick={handleEditProfileInfo}>
-							Edit
-						</Button>
-					)}
-				</Box>
-
 				<Grid
 					container
 					rowSpacing={14}
 					columnSpacing={{ xs: 1, sm: 2, md: 3 }}
 					alignItems='center'>
+					{/* Profile title */}
+					<Grid
+						size={6}
+						mb={20}>
+						<Typography variant='h2'>Profile</Typography>
+					</Grid>
+					<Grid
+						size={6}
+						mb={20}>
+						{/* Edit, Save and Cancel buttons */}
+						<Box
+							display='flex'
+							justifyContent='flex-end'>
+							{isEditing ? (
+								<Box>
+									<Button
+										variant='text'
+										color='secondary'
+										onClick={handleCancelEditing}>
+										Cancel
+									</Button>
+									<LoadingButton
+										loading={loading}
+										buttonText='Save'
+										loadingText='Saving...'
+										fullWidth={false}
+									/>
+								</Box>
+							) : (
+								<Button
+									variant='contained'
+									onClick={handleEditProfileInfo}>
+									Edit
+								</Button>
+							)}
+						</Box>
+					</Grid>
+
 					{/* First Name */}
 					<Grid size={6}>
 						<Typography variant='h4'>First name</Typography>
@@ -256,6 +270,8 @@ export default function ProfileForm() {
 							disabled={true}
 						/>
 					</Grid>
+
+					{/* TODO: Avatar upload UI temporarily removed */}
 
 					{/* Photo */}
 					{/* <Grid size={6}>
@@ -331,6 +347,24 @@ export default function ProfileForm() {
 							</Link>
 						</Box>
 					</Grid> */}
+
+					{/* Password */}
+					<Grid
+						size={6}
+						mt={10}>
+						<Typography variant='h4'>Password</Typography>
+					</Grid>
+					<Grid
+						size={6}
+						mt={10}>
+						<Button
+							variant='contained'
+							fullWidth
+							onClick={passwordFormModal.openModal}
+							disabled={!isEditing}>
+							Change password
+						</Button>
+					</Grid>
 				</Grid>
 
 				<Divider sx={{ mb: 10, mt: 20 }} />
@@ -367,7 +401,13 @@ export default function ProfileForm() {
 				</Box>
 			</Box>
 
-			{/* Delete Photo Modal */}
+			{/* Password form modal */}
+			<PasswordFormModal
+				open={passwordFormModal.isOpen}
+				toggleModal={passwordFormModal.closeModal}
+			/>
+
+			{/* Delete photo modal */}
 			<ModalWrapper
 				variant='delete'
 				title='Really delete this photo?'
@@ -378,7 +418,7 @@ export default function ProfileForm() {
 				toggleModal={deletePhotoModal.closeModal}
 			/>
 
-			{/* Upload Photo Modal */}
+			{/* Upload photo modal */}
 			<ModalWrapper
 				variant='upload'
 				title='Upload profile image'
@@ -390,7 +430,7 @@ export default function ProfileForm() {
 				toggleModal={uploadModal.closeModal}
 			/>
 
-			{/* Delete Account Modal */}
+			{/* Delete account modal */}
 			<ModalWrapper
 				variant='delete'
 				title='Really delete this account?'
