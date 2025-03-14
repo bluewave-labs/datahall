@@ -25,10 +25,12 @@ interface PasswordFormModalProps {
 	toggleModal: () => void;
 }
 
+type PasswordFields = 'currentPassword' | 'newPassword' | 'confirmPassword';
+
 export default function PasswordFormModal({ open, toggleModal }: PasswordFormModalProps) {
 	const { data: session } = useSession();
 	const [isSubmitted, setIsSubmitted] = useState(false);
-	const [isPasswordVisible, setIsPasswordVisible] = useState({
+	const [isPasswordVisible, setIsPasswordVisible] = useState<Record<PasswordFields, boolean>>({
 		currentPassword: false,
 		newPassword: false,
 		confirmPassword: false,
@@ -133,6 +135,13 @@ export default function PasswordFormModal({ open, toggleModal }: PasswordFormMod
 		},
 	});
 
+	const togglePasswordVisibility = (field: PasswordFields) => {
+		setIsPasswordVisible((prevIsPasswordVisible) => ({
+			...prevIsPasswordVisible,
+			[field]: !prevIsPasswordVisible[field],
+		}));
+	};
+
 	return (
 		<Dialog
 			component='form'
@@ -191,13 +200,7 @@ export default function PasswordFormModal({ open, toggleModal }: PasswordFormMod
 						/>
 					</Grid>
 					<Grid size={1}>
-						<IconButton
-							onClick={() => {
-								setIsPasswordVisible((prevIsPasswordVisible) => ({
-									...prevIsPasswordVisible,
-									currentPassword: !prevIsPasswordVisible.currentPassword,
-								}));
-							}}>
+						<IconButton onClick={() => togglePasswordVisibility('currentPassword')}>
 							{isPasswordVisible.currentPassword ? <EyeOffIcon /> : <EyeIcon />}
 						</IconButton>
 					</Grid>
@@ -222,13 +225,7 @@ export default function PasswordFormModal({ open, toggleModal }: PasswordFormMod
 						/>
 					</Grid>
 					<Grid size={1}>
-						<IconButton
-							onClick={() => {
-								setIsPasswordVisible((prevIsPasswordVisible) => ({
-									...prevIsPasswordVisible,
-									newPassword: !prevIsPasswordVisible.newPassword,
-								}));
-							}}>
+						<IconButton onClick={() => togglePasswordVisibility('newPassword')}>
 							{isPasswordVisible.newPassword ? <EyeOffIcon /> : <EyeIcon />}
 						</IconButton>
 					</Grid>
@@ -248,13 +245,7 @@ export default function PasswordFormModal({ open, toggleModal }: PasswordFormMod
 						/>
 					</Grid>
 					<Grid size={1}>
-						<IconButton
-							onClick={() => {
-								setIsPasswordVisible((prevIsPasswordVisible) => ({
-									...prevIsPasswordVisible,
-									confirmPassword: !prevIsPasswordVisible.confirmPassword,
-								}));
-							}}>
+						<IconButton onClick={() => togglePasswordVisibility('confirmPassword')}>
 							{isPasswordVisible.confirmPassword ? <EyeOffIcon /> : <EyeIcon />}
 						</IconButton>
 					</Grid>
