@@ -149,7 +149,7 @@ export default function PasswordFormModal({ open, toggleModal }: PasswordFormMod
 			onClose={toggleModal}
 			onSubmit={handleSubmit}
 			fullWidth
-			maxWidth='sm'>
+			maxWidth='md'>
 			<DialogTitle display={'flex'}>
 				<Box
 					width={56}
@@ -205,11 +205,6 @@ export default function PasswordFormModal({ open, toggleModal }: PasswordFormMod
 						</IconButton>
 					</Grid>
 
-					{/* Divider */}
-					<Grid size={12}>
-						<Divider />
-					</Grid>
-
 					{/* New password */}
 					<Grid size={4}>
 						<Typography variant='h4'>New password</Typography>
@@ -262,9 +257,7 @@ export default function PasswordFormModal({ open, toggleModal }: PasswordFormMod
 				</Grid>
 			</DialogContent>
 
-			<Divider sx={{ mb: 7, mt: 10 }} />
-
-			<DialogActions sx={{ mx: 8, mb: 7 }}>
+			<DialogActions sx={{ mx: 8, mb: 7, mt: 20 }}>
 				{/* Confirm button */}
 				<LoadingButton
 					loading={loading}

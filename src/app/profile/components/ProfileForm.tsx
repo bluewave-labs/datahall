@@ -189,14 +189,10 @@ export default function ProfileForm() {
 					columnSpacing={{ xs: 1, sm: 2, md: 3 }}
 					alignItems='center'>
 					{/* Profile title */}
-					<Grid
-						size={6}
-						mb={20}>
+					<Grid size={6}>
 						<Typography variant='h2'>Profile</Typography>
 					</Grid>
-					<Grid
-						size={6}
-						mb={20}>
+					<Grid size={6}>
 						{/* Edit, Save and Cancel buttons */}
 						<Box
 							display='flex'
@@ -224,6 +220,11 @@ export default function ProfileForm() {
 								</Button>
 							)}
 						</Box>
+					</Grid>
+
+					{/* Divider */}
+					<Grid size={12}>
+						<Divider sx={{ my: 6 }} />
 					</Grid>
 
 					{/* First Name */}
