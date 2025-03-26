@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import {
 	Box,
+	Button,
 	Dialog,
 	DialogActions,
 	DialogContent,
@@ -149,11 +150,11 @@ export default function PasswordFormModal({ open, toggleModal }: PasswordFormMod
 			onClose={toggleModal}
 			onSubmit={handleSubmit}
 			fullWidth
-			maxWidth='md'>
+			maxWidth='sm'>
 			<DialogTitle display={'flex'}>
 				<Box
-					width={56}
-					height={56}
+					width={45}
+					height={45}
 					border={1}
 					borderColor='border.light'
 					display='flex'
@@ -161,7 +162,7 @@ export default function PasswordFormModal({ open, toggleModal }: PasswordFormMod
 					alignItems='center'
 					boxShadow='0px 1px 2px 0px #1018280D'
 					borderRadius={5}
-					mr={10}>
+					mr={5}>
 					<LockIcon
 						width={25}
 						height={25}
@@ -171,8 +172,8 @@ export default function PasswordFormModal({ open, toggleModal }: PasswordFormMod
 					display='flex'
 					flexDirection='column'
 					justifyContent='center'
-					gap={5}>
-					<Typography variant='h2'>Change password</Typography>
+					gap={1}>
+					<Typography variant='h2'>Change Password</Typography>
 					<Typography variant='body1'>Enter your current password</Typography>
 				</Box>
 			</DialogTitle>
@@ -182,14 +183,14 @@ export default function PasswordFormModal({ open, toggleModal }: PasswordFormMod
 			<DialogContent>
 				<Grid
 					container
-					columnSpacing={{ sm: 2, md: 4, lg: 8 }}
-					rowSpacing={14}
+					columnSpacing={{ sm: 2, md: 4, lg: 6 }}
+					rowSpacing={8}
 					alignItems='center'>
 					{/* Current password */}
-					<Grid size={4}>
-						<Typography variant='h4'>Current password</Typography>
+					<Grid size={3}>
+						<Typography variant='h4'>Current Password</Typography>
 					</Grid>
-					<Grid size={7}>
+					<Grid size={8}>
 						<FormInput
 							id='currentPassword'
 							type={isPasswordVisible.currentPassword ? 'text' : 'password'}
@@ -206,10 +207,10 @@ export default function PasswordFormModal({ open, toggleModal }: PasswordFormMod
 					</Grid>
 
 					{/* New password */}
-					<Grid size={4}>
-						<Typography variant='h4'>New password</Typography>
+					<Grid size={3}>
+						<Typography variant='h4'>New Password</Typography>
 					</Grid>
-					<Grid size={7}>
+					<Grid size={8}>
 						<FormInput
 							id='newPassword'
 							type={isPasswordVisible.newPassword ? 'text' : 'password'}
@@ -226,10 +227,10 @@ export default function PasswordFormModal({ open, toggleModal }: PasswordFormMod
 					</Grid>
 
 					{/* Confirm password */}
-					<Grid size={4}>
-						<Typography variant='h4'>Confirm password</Typography>
+					<Grid size={3}>
+						<Typography variant='h4'>Confirm Password</Typography>
 					</Grid>
-					<Grid size={7}>
+					<Grid size={8}>
 						<FormInput
 							id='confirmPassword'
 							type={isPasswordVisible.confirmPassword ? 'text' : 'password'}
@@ -247,7 +248,7 @@ export default function PasswordFormModal({ open, toggleModal }: PasswordFormMod
 
 					{/* Real-time password strength feedback */}
 					<Grid
-						size={8}
+						size={9}
 						offset={'auto'}>
 						<PasswordValidation
 							passwordValue={values.newPassword}
@@ -257,12 +258,21 @@ export default function PasswordFormModal({ open, toggleModal }: PasswordFormMod
 				</Grid>
 			</DialogContent>
 
-			<DialogActions sx={{ mx: 8, mb: 7, mt: 20 }}>
+			<DialogActions sx={{ mx: 5, my: 5 }}>
 				{/* Confirm button */}
+				<Button
+					variant='outlined'
+					color='secondary'
+					size='small'
+					onClick={toggleModal}>
+					Cancel
+				</Button>
 				<LoadingButton
 					loading={loading}
 					buttonText='Confirm'
+					size='small'
 					loadingText='Confirming...'
+					fullWidth={false}
 				/>
 			</DialogActions>
 		</Dialog>

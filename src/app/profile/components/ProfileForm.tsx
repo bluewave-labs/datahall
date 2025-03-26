@@ -185,28 +185,37 @@ export default function ProfileForm() {
 				autoComplete='off'>
 				<Grid
 					container
-					rowSpacing={14}
 					columnSpacing={{ xs: 1, sm: 2, md: 3 }}
 					alignItems='center'>
 					{/* Profile title */}
 					<Grid size={6}>
-						<Typography variant='h2'>Profile</Typography>
+						<Typography
+							variant='h1'
+							color='textPrimary'>
+							Profile
+						</Typography>
 					</Grid>
 					<Grid size={6}>
 						{/* Edit, Save and Cancel buttons */}
 						<Box
 							display='flex'
+							mb={5}
+							mt={3}
 							justifyContent='flex-end'>
 							{isEditing ? (
-								<Box>
+								<Box
+									display={'flex'}
+									gap={4}>
 									<Button
-										variant='text'
+										variant='outlined'
 										color='secondary'
+										size='small'
 										onClick={handleCancelEditing}>
 										Cancel
 									</Button>
 									<LoadingButton
 										loading={loading}
+										size='small'
 										buttonText='Save'
 										loadingText='Saving...'
 										fullWidth={false}
@@ -215,6 +224,7 @@ export default function ProfileForm() {
 							) : (
 								<Button
 									variant='contained'
+									size='small'
 									onClick={handleEditProfileInfo}>
 									Edit
 								</Button>
@@ -224,9 +234,16 @@ export default function ProfileForm() {
 
 					{/* Divider */}
 					<Grid size={12}>
-						<Divider sx={{ my: 6 }} />
+						<Divider />
 					</Grid>
+				</Grid>
 
+				<Grid
+					container
+					my={10}
+					rowSpacing={14}
+					columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+					alignItems='center'>
 					{/* First Name */}
 					<Grid size={6}>
 						<Typography variant='h4'>First name</Typography>
@@ -360,7 +377,8 @@ export default function ProfileForm() {
 						mt={10}>
 						<Button
 							variant='contained'
-							fullWidth
+							// fullWidth
+							size='medium'
 							onClick={passwordFormModal.openModal}
 							disabled={!isEditing}>
 							Change password
@@ -375,30 +393,41 @@ export default function ProfileForm() {
 					display='flex'
 					flexDirection='column'
 					mb={4}
-					rowGap={6}>
+					rowGap={2}>
 					<Typography variant='h4'>Delete account</Typography>
-					<Typography
-						variant='subtitle1'
-						mb={2}>
+					<Typography variant='subtitle1'>
 						Note that deleting your account will remove all data from our system. This is permanent
 						and non-recoverable.
+					</Typography>
+					<Typography
+						variant='subtitle1'
+						my={5}>
+						To Delete your account, please email us at{' '}
+						<Link
+							href='mailto:dev.datahall@gmail.com'
+							underline='hover'
+							color='primary'>
+							dev.datahall@gmail.com
+						</Link>
+						.
 					</Typography>
 
 					{/* Delete Account Button */}
 
-					<Tooltip
+					{/* <Tooltip
 						title='Account deletion is disabled in Development'
 						placement='bottom-start'>
 						<Box width='9rem'>
 							<Button
 								variant='contained'
 								color='error'
+								size='medium'
 								onClick={deleteAccountModal.openModal}
 								disabled={true}>
 								Delete account
 							</Button>
 						</Box>
-					</Tooltip>
+					</Tooltip> */}
 				</Box>
 			</Box>
 
