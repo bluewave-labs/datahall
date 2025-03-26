@@ -4,12 +4,12 @@ import { Box, Typography } from '@mui/material';
 
 import { LinkBrokenIcon } from '@/icons';
 
-interface LinkMessageProps {
+interface AccessErrorProps {
 	message: string;
 	description?: string;
 }
 
-const LinkMessage: React.FC<LinkMessageProps> = (props) => {
+const AccessError: React.FC<AccessErrorProps> = (props) => {
 	return (
 		<Box
 			display='flex'
@@ -42,4 +42,4 @@ const LinkMessage: React.FC<LinkMessageProps> = (props) => {
 	);
 };
 
-export default LinkMessage;
+export default AccessError;

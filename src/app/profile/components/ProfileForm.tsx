@@ -58,7 +58,7 @@ export default function ProfileForm() {
 
 	useEffect(() => {
 		fetchProfileData();
-	}, []);
+	}, [setValues]);
 
 	// Submit data
 	const { loading, handleSubmit, toast } = useFormSubmission({

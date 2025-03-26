@@ -1,6 +1,5 @@
 'use client';
 
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import { ChevronDownIcon, ChevronSelectorVerticalIcon } from '@/icons';
@@ -23,39 +22,24 @@ import { EmptyState, Paginator } from '@/components';
 
 import ContactsTableRow from './ContactsTableRow';
 
-import { useSort } from '@/hooks';
+import { useFetchContacts, useSort } from '@/hooks';
 import { Contact } from '@/shared/models';
 
 export default function ContactsTable() {
 	const [page, setPage] = useState(1);
 	const [pageSize, setPageSize] = useState(9);
 	const [rowHeight, setRowHeight] = useState(59);
-	const [data, setData] = useState<Contact[]>([]);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
 
-	useEffect(() => {
-		fetchContacts();
-	}, []);
+	const { data, isLoading, isError, error } = useFetchContacts();
 
-	const fetchContacts = async () => {
-		try {
-			const response = await axios.get('/api/contacts');
-			const contacts = response.data.data as Contact[];
+	const parsedContacts = data?.map((contact) => ({
+		...contact,
+		lastActivity: new Date(contact.lastActivity),
+	}));
 
-			const parsedContacts = contacts.map((contact) => ({
-				...contact,
-				lastActivity: new Date(contact.lastActivity),
-			}));
-			setData(parsedContacts);
-		} catch (err: any) {
-			setError(err.message || 'An error occurred while fetching contacts.');
-		} finally {
-			setLoading(false);
-		}
-	};
-
-	const { sortedData, orderDirection, orderBy, handleSortRequest } = useSort<Contact>(data);
+	const { sortedData, orderDirection, orderBy, handleSortRequest } = useSort<Contact>(
+		parsedContacts || [],
+	);
 
 	//Calculate the row height of the table
 	const calculateRowHeight = () => {
@@ -89,7 +73,7 @@ export default function ContactsTable() {
 	const paginatedData = sortedData.slice((page - 1) * pageSize, page * pageSize);
 	const totalPages = Math.ceil(sortedData.length / pageSize);
 
-	if (loading) {
+	if (isLoading) {
 		return (
 			<Box
 				display='flex'
@@ -100,14 +84,14 @@ export default function ContactsTable() {
 		);
 	}
 
-	if (error) {
+	if (isError) {
 		return (
 			<Box mt={4}>
 				<Typography
 					color='error'
 					align='center'
 					variant='h6'>
-					{error}
+					{error.message}
 				</Typography>
 			</Box>
 		);
@@ -163,7 +147,7 @@ export default function ContactsTable() {
 					totalPages={totalPages}
 					onPageChange={setPage}
 					pageSize={pageSize}
-					totalItems={data.length}
+					totalItems={sortedData.length}
 				/>
 			)}
 		</>

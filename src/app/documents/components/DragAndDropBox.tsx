@@ -1,16 +1,14 @@
 'use client';
 
+import axios from 'axios';
 import { useCallback, useState } from 'react';
 import { Box, Button } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-
 import { useDropzone } from 'react-dropzone';
 
-import { useModal, useToast } from '@/hooks';
-import axios from 'axios';
-
 import { FilePlusIcon } from '@/icons';
+import { useModal, useToast, useUploadDocument } from '@/hooks';
 import { ModalWrapper } from '@/components';
 
 interface DragAndDropBoxProps {
@@ -24,6 +22,7 @@ const DragAndDropBox = ({ text, height = { sm: 150, md: 200, lg: 250 } }: DragAn
 	const { data: session } = useSession();
 	const [uploading, setUploading] = useState(false);
 	const router = useRouter();
+	const { mutate: uploadDocument } = useUploadDocument();
 
 	const handleUploadSuccess = useCallback(() => {
 		showToast({ message: 'File uploaded successfully!', variant: 'success' });
