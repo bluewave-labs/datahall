@@ -39,8 +39,7 @@ const LoadingButton = ({
 						color='inherit'
 					/>
 				) : null
-			}
-			{...props}>
+			}>
 			{loading ? loadingText : buttonText}
 		</Button>
 	);

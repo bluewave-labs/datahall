@@ -75,17 +75,6 @@ interface VisitorInfoModalProps {
 	linkId: string;
 	passwordRequired: boolean;
 	userDetailsOption: number;
-<<<<<<<< HEAD:src/app/links/[linkId]/components/FileAccessFormModal.tsx
-	onFileAccessModalSubmit: (data: Record<string, any>) => void;
-}
-
-export default function FileAccessModal({
-	linkId,
-	passwordRequired,
-	userDetailsOption,
-	onFileAccessModalSubmit,
-}: FileAccessModalProps) {
-========
 	onVisitorInfoModalSubmit: (data: Record<string, any>) => void;
 }
 
@@ -95,7 +84,6 @@ export default function VisitorInfoModal({
 	userDetailsOption,
 	onVisitorInfoModalSubmit,
 }: VisitorInfoModalProps) {
->>>>>>>> dev:src/app/documentAccess/[linkId]/components/VisitorInfoModal.tsx
 	const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
 
 	const formConfig = getFormConfig(passwordRequired, userDetailsOption);
@@ -128,11 +116,7 @@ export default function VisitorInfoModal({
 				throw new Error(response.data.message || 'No file data returned.');
 			}
 
-<<<<<<<< HEAD:src/app/links/[linkId]/components/FileAccessFormModal.tsx
-			onFileAccessModalSubmit(response.data.data);
-========
 			onVisitorInfoModalSubmit(response.data.data);
->>>>>>>> dev:src/app/documentAccess/[linkId]/components/VisitorInfoModal.tsx
 		},
 
 		successMessage: 'File access granted!',
