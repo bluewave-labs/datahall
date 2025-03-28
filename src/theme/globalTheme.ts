@@ -446,10 +446,8 @@ const globalTheme = createTheme({
 		},
 		MuiChip: {
 			styleOverrides: {
-				root: {
-					borderRadius: 2,
-				},
 				colorSecondary: {
+					// borderRadius: 2,
 					backgroundColor: background.secondary,
 					color: text.primary,
 					border: '1.5px solid #EAECF0',
