@@ -47,6 +47,8 @@ export default function CreateLink({ open, documentId, onClose }: CreateLinkProp
 
 	const { mutateAsync: createLink, isPending } = useCreateLink();
 
+	const { mutate: createdLink } = useCreateLink();
+
 	// Validation for password length and emails
 	const validationRules = {
 		password: [minLengthRule(5, 'Password must be at least 5 characters long.')],
