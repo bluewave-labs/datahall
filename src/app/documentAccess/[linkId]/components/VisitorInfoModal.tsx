@@ -106,7 +106,8 @@ export default function VisitorInfoModal({
 			open
 			onClose={() => {}}
 			component='form'
-			onSubmit={handleSubmit}>
+			onSubmit={handleSubmit}
+			fullWidth>
 			{/* Header */}
 			<Box
 				display='flex'
@@ -128,7 +129,7 @@ export default function VisitorInfoModal({
 			<Divider />
 
 			{/* Form Fields */}
-			<DialogContent sx={{ m: 8 }}>
+			<DialogContent sx={{ m: 4 }}>
 				<Grid
 					container
 					rowSpacing={14}
@@ -166,9 +167,11 @@ export default function VisitorInfoModal({
 					{passwordRequired && (
 						<>
 							{/* Divider */}
-							<Grid size={12}>
-								<Divider sx={{ mt: 5 }} />
-							</Grid>
+							{visitorFields.length > 0 && (
+								<Grid size={12}>
+									<Divider sx={{ borderBottomWidth: 2 }} />
+								</Grid>
+							)}
 
 							{/* Password */}
 							<Grid
