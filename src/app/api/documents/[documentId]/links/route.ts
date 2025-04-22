@@ -57,7 +57,10 @@ export async function POST(req: NextRequest, props: { params: Promise<{ document
 				return createErrorResponse('Expiration time cannot be in the past.', 400);
 			}
 			if (createErr instanceof Error && createErr.message === 'FRIENDLY_NAME_CONFLICT') {
-				return createErrorResponse('Friendly name is already taken.', 409);
+				return createErrorResponse(
+					'This alias is already in use. Please choose a different link alias.',
+					409,
+				);
 			}
 			throw createErr; // rethrow
 		}
