@@ -3,10 +3,15 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
+		"predev": "node scripts/prepare-env.js --env=local",
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"prepare-env": "node scripts/prepare-env.js",
+		"prisma:generate": "npm run prepare-env && npx prisma generate",
+		"prisma:migrate": "npm run prepare-env && npx prisma migrate dev",
+		"prisma:studio": "npm run prepare-env && npx prisma studio"
 	},
 	"dependencies": {
 		"@emotion/cache": "^11.14.0",
@@ -24,6 +29,7 @@
 		"bcryptjs": "^3.0.2",
 		"canvas": "^3.1.0",
 		"date-fns": "^4.1.0",
+		"dotenv": "^16.4.7",
 		"next": "^15.2.0",
 		"next-auth": "^4.24.11",
 		"pdfjs-dist": "^4.10.38",

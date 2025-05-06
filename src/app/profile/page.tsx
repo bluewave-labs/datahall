@@ -1,10 +1,10 @@
 import { Container } from '@mui/material';
-import ProfileClient from './components/ProfileClient';
+import ProfileForm from './components/ProfileForm';
 
 export default function ProfilePage() {
 	return (
 		<Container>
-			<ProfileClient />
+			<ProfileForm />
 		</Container>
 	);
 }
