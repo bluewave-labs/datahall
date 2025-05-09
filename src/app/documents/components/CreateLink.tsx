@@ -236,7 +236,7 @@ export default function CreateLink({ open, documentId, onClose }: CreateLinkProp
 
 			const payload = buildRequestPayload();
 
-			// Needs to be fixed due Tanstack Query and useFormSubmission conflict - Loading states, Error handling, etc. don't work as expected
+			/** Needs to be fixed due Tanstack Query and useFormSubmission conflict - Loading states, Error handling, etc. don't work as expected*/
 
 			// createLink(
 			// 	{ documentId, payload },
@@ -269,6 +269,10 @@ export default function CreateLink({ open, documentId, onClose }: CreateLinkProp
 			// 	},
 			// );
 
+			/**
+			 * TODO: This is a temporary solution to handle the loading state and error handling.
+			 * Working on a better solution to handle the loading state and error handling.
+			 */
 			const { link } = await createLink({ documentId, payload });
 			onClose('submitted', link.linkUrl);
 

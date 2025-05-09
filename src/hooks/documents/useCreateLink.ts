@@ -16,6 +16,7 @@ export default function useCreateLink() {
 	const queryClient = useQueryClient();
 
 	const mutation = useMutation({
+		// Returns a promise that resolves to the response data, thus fixing the useFormSubmission issue
 		mutationFn: async ({
 			documentId,
 			payload,
