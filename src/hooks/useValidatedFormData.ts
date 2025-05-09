@@ -86,6 +86,9 @@ export function useValidatedFormData<T extends object>({
 	 * Returns true if there's ANY failing rule in the entire form.
 	 */
 	const validateAll = (): boolean => {
+		setTouched((prev) => Object.fromEntries(Object.keys(prev).map((k) => [k, true])) as any);
+		setShowAllErrors(true);
+
 		let hasError = false;
 		for (const key in validationRules) {
 			const errorMsg = getError(key as keyof T);
