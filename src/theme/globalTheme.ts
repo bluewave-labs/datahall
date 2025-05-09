@@ -567,8 +567,11 @@ const globalTheme = createTheme({
 					backgroundColor: 'inherit',
 					color: text.secondary,
 					minWidth: 100,
-					'&:hover, &.Mui-selected, &.Mui-selected:hover, &.Mui-selected.Mui-focusVisible': {
+					'&:hover': {
 						backgroundColor: hover.tertiary,
+					},
+					'&.Mui-selected:hover': {
+						backgroundColor: `${hover.primary} !important`,
 					},
 					'@media (min-width:600px)': {
 						fontSize: '0.7rem',

@@ -45,7 +45,7 @@ export default function CreateLink({ open, documentId, onClose }: CreateLinkProp
 	const [expirationType, setExpirationType] = useState('days');
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-	const { mutate: createdLink } = useCreateLink();
+	const { mutateAsync: createLink, isPending } = useCreateLink();
 
 	// Validation for password length and emails
 	const validationRules = {
@@ -223,7 +223,11 @@ export default function CreateLink({ open, documentId, onClose }: CreateLinkProp
 		}
 	};
 
-	const { loading, handleSubmit, toast } = useFormSubmission({
+	const {
+		loading: formLoading,
+		handleSubmit,
+		toast,
+	} = useFormSubmission({
 		onSubmit: async () => {
 			const hasError = !values.password && !values.otherEmails ? false : validateAll();
 			if (hasError) {
@@ -232,42 +236,53 @@ export default function CreateLink({ open, documentId, onClose }: CreateLinkProp
 
 			const payload = buildRequestPayload();
 
-			createdLink(
-				{ documentId, payload },
-				{
-					onSuccess: (data) => {
-						if (!data?.link?.linkUrl) {
-							throw new Error('No link returned by server.');
-						}
+			// Needs to be fixed due Tanstack Query and useFormSubmission conflict - Loading states, Error handling, etc. don't work as expected
 
-						onClose('Form submitted', data.link.linkUrl);
+			// createLink(
+			// 	{ documentId, payload },
+			// 	{
+			// 		onSuccess: (data) => {
+			// 			if (!data?.link?.linkUrl) {
+			// 				throw new Error('No link returned by server.');
+			// 			}
 
-						if (values.selectFromContact || values.sendToOthers) {
-							handleSendInvites(data.link.linkUrl);
-						}
+			// 			onClose('Form submitted', data.link.linkUrl);
 
-						toast.showToast({
-							message: 'New link created successfully!',
-							variant: 'success',
-						});
-					},
-					onError: (error) => {
-						console.error('Create link error:', error);
-						const message =
-							(error as any)?.response?.data?.message || 'Failed to create link. Please try again.';
-						toast.showToast({
-							message,
-							variant: 'error',
-						});
-					},
-				},
-			);
+			// 			if (values.selectFromContact || values.sendToOthers) {
+			// 				handleSendInvites(data.link.linkUrl);
+			// 			}
+
+			// 			toast.showToast({
+			// 				message: 'New link created successfully!',
+			// 				variant: 'success',
+			// 			});
+			// 		},
+			// 		onError: (error) => {
+			// 			console.error('Create link error:', error);
+			// 			const message =
+			// 				(error as any)?.response?.data?.message || 'Failed to create link. Please try again.';
+			// 			toast.showToast({
+			// 				message,
+			// 				variant: 'error',
+			// 			});
+			// 		},
+			// 	},
+			// );
+
+			const { link } = await createLink({ documentId, payload });
+			onClose('submitted', link.linkUrl);
+
+			if (values.selectFromContact || values.sendToOthers) {
+				await handleSendInvites(link.linkUrl);
+			}
 		},
+		successMessage: 'Link created successfully!',
 	});
 
 	function handleCancel() {
 		onClose('cancelled');
 	}
+	const isLoading = formLoading || isPending;
 
 	return (
 		<Dialog
@@ -339,7 +354,7 @@ export default function CreateLink({ open, documentId, onClose }: CreateLinkProp
 
 			<DialogActions sx={{ p: 16 }}>
 				<LoadingButton
-					loading={loading}
+					loading={isLoading}
 					buttonText='Generate'
 					loadingText='Generating...'
 					fullWidth

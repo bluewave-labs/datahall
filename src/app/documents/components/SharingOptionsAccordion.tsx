@@ -70,22 +70,26 @@ export default function SharingOptionsAccordion(props: SharingOptionsAccordionPr
 							return (
 								<Box
 									display='flex'
-									gap={5}>
-									{sortedSelected.map((value) => (
-										<Chip
-											key={value}
-											label={value}
-											size='small'
-										/>
-									))}
+									gap={2}>
+									{sortedSelected.map((key) => {
+										const field = visitorFieldsConfig.find((f) => f.key === key);
+										return (
+											<Chip
+												key={key}
+												label={field?.label || key}
+												sx={{ px: '0.8rem' }}
+												size='small'
+											/>
+										);
+									})}
 								</Box>
 							);
 						}}>
-						{visitorFieldsConfig.map(({ key, label }) => (
+						{visitorFieldsConfig.map((visitorField) => (
 							<MenuItem
-								key={key}
-								value={key}>
-								{label}
+								key={visitorField.key}
+								value={visitorField.key}>
+								{visitorField.label}
 							</MenuItem>
 						))}
 					</Select>

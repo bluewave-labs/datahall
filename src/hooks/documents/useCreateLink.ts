@@ -13,23 +13,24 @@ interface DocumentLinkResponse {
 }
 
 export default function useCreateLink() {
-	const createLink = async ({
-		documentId,
-		payload,
-	}: CreateLinkParams): Promise<DocumentLinkResponse> => {
-		const response = await axios.post(`/api/documents/${documentId}/links`, payload);
-		return response.data;
-	};
-
 	const queryClient = useQueryClient();
 
-	return useMutation({
-		mutationFn: createLink,
+	const mutation = useMutation({
+		mutationFn: async ({
+			documentId,
+			payload,
+		}: CreateLinkParams): Promise<DocumentLinkResponse> => {
+			const response = await axios.post(`/api/documents/${documentId}/links`, payload);
+			return response.data;
+		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['links'] });
 		},
-		onError: (error) => {
-			console.error('Error creating link: ', error);
-		},
 	});
+
+	return {
+		mutateAsync: mutation.mutateAsync,
+		isPending: mutation.isPending,
+		error: mutation.error,
+	};
 }

@@ -4,7 +4,7 @@ export { default as useFetchDocuments } from './documents/useFetchDocuments';
 export { default as useUploadDocument } from './documents/useUploadDocument';
 export { default as useDeleteDocument } from './documents/useDeleteDocument';
 
-export { default as useCreateLink } from './documentLinks/useCreateLink';
+export { default as useCreateLink } from './documents/useCreateLink';
 
 export { default as useDocumentAnalytics } from './useDocumentAnalytics';
 export { default as useDocumentData } from './useDocumentData';

@@ -67,7 +67,7 @@ export const convertTransparencyToHex = (transparency: number): string => {
  * @param config An array of config objects with a `key` property used to define the desired order.
  * @returns A new array of field keys sorted according to the config array.
  */
-export function sortFields(fields: string[], config: { key: string }[]): string[] {
+export function sortFields(fields: string[], config: { key: string; label: string }[]): string[] {
 	return [...fields].sort(
 		(fieldA, fieldB) =>
 			config.findIndex((item) => item.key === fieldA) -
