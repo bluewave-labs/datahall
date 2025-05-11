@@ -69,7 +69,8 @@ export default function VisitorInfoModal({
 		initialValues: formConfig.initialValues,
 		validationRules: formConfig.validationRules,
 	});
-	const submitVisitorData = useVisitorSubmission();
+
+	const { mutateAsync: submitVisitorData, isPending } = useVisitorSubmission();
 
 	const { loading, handleSubmit, toast } = useFormSubmission({
 		onSubmit: async () => {
@@ -78,8 +79,22 @@ export default function VisitorInfoModal({
 				throw new Error('Please correct the highlighted fields.');
 			}
 
-			const splittedName = splitName(values.name);
+			// HOTFIX: Untouched empty fields weren't being validated on first submit
+			// Additional validation to catch empty required fields even if untouched
+			// This is a temporary fix until we can refactor the validation logic with Zod
+			const requiredFields = visitorFields.filter((field) =>
+				formConfig.validationRules[field]?.some((rule) => rule.message.includes('required')),
+			);
 
+			const emptyFields = requiredFields.filter(
+				(field) => !values[field] || values[field].trim() === '',
+			);
+
+			if (emptyFields.length > 0) {
+				throw new Error('Please fill in all required fields.');
+			}
+
+			const splittedName = splitName(values.name);
 			const payload = {
 				linkId,
 				firstName: splittedName.first_name,
@@ -89,7 +104,7 @@ export default function VisitorInfoModal({
 				visitorMetaData: null, // This will be populated to add any additional user information, Implementation from API endpoint as well.
 			};
 
-			const response = await submitVisitorData.mutateAsync({ linkId, payload });
+			const response = await submitVisitorData({ linkId, payload });
 
 			if (!response.data) {
 				throw new Error(response.data.message || 'No file data returned.');
@@ -210,7 +225,8 @@ export default function VisitorInfoModal({
 			{/* Submit Button */}
 			<DialogActions sx={{ p: 0, m: 12 }}>
 				<LoadingButton
-					loading={loading}
+					loading={loading || isPending}
+					disabled={loading || isPending}
 					buttonText='Confirm'
 					loadingText='Confirming...'
 					fullWidth

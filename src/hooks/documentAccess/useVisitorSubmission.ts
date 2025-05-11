@@ -8,13 +8,18 @@ const submitVisitorDetails = async ({ linkId, payload }: { linkId: string; paylo
 };
 
 const useVisitorSubmission = () => {
-	return useMutation({
-		mutationFn: async (variables: { linkId: string; payload: any }) =>
-			submitVisitorDetails(variables),
+	const mutation = useMutation({
+		mutationFn: submitVisitorDetails,
 		onError: (error) => {
-			console.error('Error adding document: ', error);
+			console.error('Error submitting visitor details: ', error);
 		},
 	});
+
+	return {
+		mutateAsync: mutation.mutateAsync,
+		isPending: mutation.isPending,
+		error: mutation.error,
+	};
 };
 
 export default useVisitorSubmission;

@@ -9,17 +9,18 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model ArchivedUser {
-  id         Int      @id @default(autoincrement())
-  user_id    String   @unique @default(cuid())
-  first_name String   @default("")
-  last_name  String   @default("")
-  email      String   @unique @default("")
-  password   String
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  role       UserRole @default(USER)
-  address    String?  @default("")
-}
+// Temporary disabled ArchivedUser model - Can re-enable later when we have Delete User functionality
+// model ArchivedUser {
+//   id         Int      @id @default(autoincrement())
+//   user_id    String   @unique @default(uuid())
+//   first_name String   @default("")
+//   last_name  String   @default("")
+//   email      String   @unique @default("")
+//   password   String
+//   created_at DateTime @default(now()) @db.Timestamptz(6)
+//   role       UserRole @default(USER)
+//   address    String?  @default("")
+// }
 
 model PasswordResetToken {
   id         Int       @id @default(autoincrement())
@@ -31,35 +32,49 @@ model PasswordResetToken {
 }
 
 model User {
-  id                 Int                  @id @default(autoincrement())
-  user_id            String               @unique
-  first_name         String               @default("")
-  last_name          String               @default("")
-  email              String               @unique @default("")
-  password           String
-  created_at         DateTime             @default(now()) @db.Timestamptz(6)
-  role               UserRole             @default(ADMIN)
-  status             Status
-  verification_token String
-  token_expires_at   DateTime             @db.Timestamptz(6)
-  updated_at         DateTime             @updatedAt @db.Timestamptz(6)
+  id                 Int          @id @default(autoincrement())
+  user_id            String       @unique
+  auth_provider      AuthProvider @default(CREDENTIALS)
+  auth0_sub          String?      @unique
+  first_name         String       @default("")
+  last_name          String       @default("")
+  email              String       @unique @default("") @db.Text
+  password           String?
+  avatar_url         String?
+  created_at         DateTime     @default(now()) @db.Timestamptz(6)
+  role               UserRole     @default(USER)
+  status             Status       @default(UNVERIFIED)
+  verification_token String?
+  token_expires_at   DateTime?
+  updated_at         DateTime     @updatedAt @db.Timestamptz(6)
+
   PasswordResetToken PasswordResetToken[]
   Document           Document[]
   documentLink       DocumentLink[]
 }
 
+enum AuthProvider {
+  CREDENTIALS
+  AUTH0
+  GOOGLE // future expansion
+}
+
 model Document {
-  id           Int            @id @default(autoincrement())
-  document_id  String         @unique @default(cuid())
-  user_id      String
-  fileName     String
-  filePath     String
-  fileType     String
-  size         Int
-  createdAt    DateTime       @default(now()) @db.Timestamptz(6)
-  updatedAt    DateTime       @updatedAt @db.Timestamptz(6)
-  User         User           @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  id          Int      @id @default(autoincrement())
+  document_id String   @unique @default(uuid())
+  user_id     String
+  fileName    String
+  filePath    String   @db.Text
+  fileType    String
+  size        Int
+  createdAt   DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt   DateTime @updatedAt @db.Timestamptz(6)
+  User        User     @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+
   documentLink DocumentLink[]
+
+  //Helpful indexes for look-ups
+  @@index([user_id])
 }
 
 enum Status {
@@ -70,6 +85,7 @@ enum Status {
 
 enum UserRole {
   ADMIN
+  MEMBER
   USER
 }
 
@@ -92,6 +108,12 @@ model DocumentLink {
   User     User     @relation(fields: [createdByUserId], references: [user_id], onDelete: Cascade)
 
   documentLinkVisitors DocumentLinkVisitor[]
+
+  // Composite uniqueness: alias must be unique only within its document
+  @@unique([documentId, alias], name: "document_alias_unique")
+  // Helpful indexes for look-ups
+  @@index([documentId])
+  @@index([createdByUserId])
 }
 
 model DocumentLinkVisitor {
@@ -99,11 +121,14 @@ model DocumentLinkVisitor {
   documentLinkId  String
   firstName       String   @default("")
   lastName        String   @default("")
-  email           String   @default("")
+  email           String   @default("") @db.Text
   visitorMetaData Json? // Any additional user details will be here.
   visitedAt       DateTime @default(now()) @db.Timestamptz(6)
   updatedAt       DateTime @updatedAt @db.Timestamptz(6)
 
   // Relations
   documentLink DocumentLink @relation(fields: [documentLinkId], references: [documentLinkId], onDelete: Cascade)
+
+  // Helpful indexes for look-ups
+  @@index([documentLinkId, visitedAt])
 }
