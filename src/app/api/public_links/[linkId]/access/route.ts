@@ -35,7 +35,7 @@ export async function POST(req: NextRequest, props: { params: Promise<{ linkId: 
 			const { fileName, signedUrl, size } = await LinkService.getSignedFileFromLink(linkId);
 			return NextResponse.json({
 				message: 'File access granted',
-				data: { signedUrl, fileName, size },
+				data: { signedUrl, fileName, size, documentId: link.documentId },
 			});
 		} catch (err) {
 			return createErrorResponse('Error retrieving file', 400, err);

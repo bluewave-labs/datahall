@@ -52,6 +52,7 @@ export default function AccessPage({ linkId }: Props) {
 				signedUrl: response.data.data.signedUrl,
 				fileName: response.data.data.fileName,
 				size: response.data.data.size,
+				documentId: response.data.data.documentId,
 			});
 		},
 
@@ -100,6 +101,8 @@ export default function AccessPage({ linkId }: Props) {
 				size={linkData.size || 0}
 				fileName={linkData.fileName || 'Document'}
 				signedUrl={linkData.signedUrl}
+				documentId={linkData.documentId}
+				documentLinkId={linkId}
 			/>
 		);
 	}

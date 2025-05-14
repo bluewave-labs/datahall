@@ -65,6 +65,7 @@ export interface LinkData {
 	signedUrl?: string;
 	fileName?: string;
 	size?: number;
+	documentId?: string;
 }
 
 // =========== LINK DETAIL ===========
