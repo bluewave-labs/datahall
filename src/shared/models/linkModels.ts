@@ -70,9 +70,9 @@ export interface LinkData {
 // =========== LINK DETAIL ===========
 
 export interface LinkDetail {
-	documentLinkId: string; // unique string
+	linkId: string; // unique string
 	alias: string; // The links's friendly name
-	document_id: string; // The document_id from DB
+	documentId: string; // The document_id from DB
 	createdLink: string; // The linkUrl from DB
 	lastActivity: Date; // The link's updatedAt
 	linkViews: number; // If you track actual link views, you can use a real value
