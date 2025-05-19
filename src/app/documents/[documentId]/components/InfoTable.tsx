@@ -16,7 +16,7 @@ import {
 
 import InfoTableHeader from './InfoTableHeader';
 import InfoTableRow from './InfoTableRow';
-import { Paginator } from '@/components';
+import { EmptyState, Paginator } from '@/components';
 
 import { Contact, LinkDetail } from '@/shared/models';
 import { useDocumentData, useSort } from '@/hooks';
@@ -91,7 +91,7 @@ export default function InfoTable({ variant, documentId }: InfoTableProps) {
 						{isLinkTableEmpty && (
 							<TableRow>
 								<TableCell
-									colSpan={4}
+									colSpan={5}
 									sx={{ textAlign: 'center', py: { sm: '0.5rem', md: '0.7rem', lg: '0.9rem' } }}>
 									<Button
 										variant='contained'
@@ -108,7 +108,7 @@ export default function InfoTable({ variant, documentId }: InfoTableProps) {
 								<TableCell
 									colSpan={5}
 									sx={{ textAlign: 'center', py: { sm: '0.5rem', md: '0.7rem', lg: '0.9rem' } }}>
-									<Typography>No visitor data found.</Typography>
+									<EmptyState message='No visitor data found.' />
 								</TableCell>
 							</TableRow>
 						)}
