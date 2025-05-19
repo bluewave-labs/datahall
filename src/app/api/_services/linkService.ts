@@ -138,6 +138,23 @@ export class LinkService {
 	}
 
 	/**
+	 * Retrieves all visitors who accessed a specific link under this document.
+	 */
+	static async getDocumentLinkVisitors(userId: string, documentId: string, linkId: string) {
+		// Ensure the link belongs to the specified document and user (i.e., verify ownership)
+		const link = await prisma.documentLink.findFirst({
+			where: { documentLinkId: linkId, Document: { document_id: documentId, user_id: userId } },
+		});
+		if (!link) return null; // link not found or no access
+
+		// Query link visitors
+		return prisma.documentLinkVisitor.findMany({
+			where: { documentLinkId: linkId },
+			orderBy: { visitedAt: 'desc' },
+		});
+	}
+
+	/**
 	 * Generates a signed file URL for the Document associated with this link,
 	 * checking if the link is expired. Throws if link invalid/expired.
 	 */

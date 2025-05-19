@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 // =========== USER TYPE ===========
 
 export interface User {
@@ -22,4 +24,15 @@ export interface Contact {
 	downloads: number;
 	duration: string;
 	completion: string;
+}
+
+// =========== LINK VISITOR DETAIL ===========
+
+export interface LinkVisitor {
+	id: number;
+	linkId: string;
+	name: string;
+	email: string;
+	visitedAt: string;
+	visitorMetaData: ReactNode;
 }

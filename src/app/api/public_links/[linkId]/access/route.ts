@@ -28,7 +28,9 @@ export async function POST(req: NextRequest, props: { params: Promise<{ linkId: 
 		}
 
 		// 4) Log visitor.
-		await LinkService.logVisitor(linkId, firstName, lastName, email);
+		if (!link.isPublic) {
+			await LinkService.logVisitor(linkId, firstName, lastName, email);
+		}
 
 		// 5) Get a signed URL for the doc
 		try {

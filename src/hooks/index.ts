@@ -1,10 +1,13 @@
 export { default as useFetchContacts } from './contacts/useFetchContacts';
 
+export { default as useDocumentAccess } from './documentAccess/useDocumentAccess';
+export { default as useVisitorSubmission } from './documentAccess/useVisitorSubmission';
+
 export { default as useFetchDocuments } from './documents/useFetchDocuments';
 export { default as useUploadDocument } from './documents/useUploadDocument';
 export { default as useDeleteDocument } from './documents/useDeleteDocument';
-
 export { default as useCreateLink } from './documents/useCreateLink';
+export { default as useFetchLinkVisitors } from './documents/useFetchLinkVisitors';
 
 export { default as useDocumentAnalytics } from './useDocumentAnalytics';
 export { default as useDocumentData } from './useDocumentData';
@@ -14,5 +17,3 @@ export { useModal } from './useModal';
 export { useSort } from './useSort';
 export { useToast } from './useToast';
 export { useValidatedFormData } from './useValidatedFormData';
-export { default as useDocumentAccess } from './documentAccess/useDocumentAccess';
-export { default as useVisitorSubmission } from './documentAccess/useVisitorSubmission';

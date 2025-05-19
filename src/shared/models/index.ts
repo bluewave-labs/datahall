@@ -13,3 +13,4 @@ export type { LinkDetail } from './linkModels';
 
 export type { User } from './userModels';
 export type { Contact } from './userModels';
+export type { LinkVisitor } from './userModels';

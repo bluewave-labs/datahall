@@ -35,6 +35,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 					where: {
 						email: visitor.email,
 						documentLinkId: { in: linkIds },
+						OR: [{ firstName: { not: '' } }, { lastName: { not: '' } }],
 					},
 					orderBy: { updatedAt: 'desc' },
 					include: {
@@ -46,15 +47,10 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 					return null;
 				}
 
-				const firstName = lastVisit.firstName?.trim() || null;
-				const lastName = lastVisit.lastName?.trim() || null;
-				const fullName =
-					firstName || lastName ? `${firstName || ''} ${lastName || ''}`.trim() : null;
-
 				return {
 					id: lastVisit.id,
-					name: fullName,
-					email: visitor.email || null,
+					name: `${lastVisit.firstName.trim()} ${lastVisit.lastName.trim()}`,
+					email: visitor.email,
 					lastViewedLink: lastVisit.documentLink?.alias || lastVisit.documentLink?.linkUrl || null,
 					lastActivity: lastVisit.updatedAt || null,
 					totalVisits: visitor._count.email || 0,
@@ -62,7 +58,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 			}),
 		);
 
-		const contacts = visitorDetails.filter(Boolean);
+		const contacts = visitorDetails.filter((visitor) => visitor && visitor.email && visitor.name);
 
 		return NextResponse.json({ data: contacts }, { status: 200 });
 	} catch (error) {
