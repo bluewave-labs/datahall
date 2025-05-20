@@ -1,57 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { authService } from '@/app/api/_services/authService';
-// import { emailService } from '../../_services/emailService';
+import { authService } from '@/services';
 
+/** POST /api/auth/register */
 export async function POST(req: NextRequest) {
 	try {
-		const { email, password, firstName, lastName, role } = await req.json();
+		const body = (await req.json()) ?? {};
+		const { email, password, firstName, lastName } = body;
 
-		const result = await authService.registerUser({
-			email,
-			password,
-			firstName,
-			lastName,
-			role,
-		});
+		if (!email || !password || !firstName || !lastName) {
+			return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
+		}
 
+		const result = await authService.signUp({ email, password, firstName, lastName });
 		if (!result.success) {
 			return NextResponse.json({ message: result.message }, { status: 409 });
 		}
 
-		// Attempt to send verification email
-		const verificationLink = `${process.env.APP_PROTOCOL}://${process.env.APP_DOMAIN}/auth/account-created/?token=${result.verificationToken}`;
-
-		// const emailResp = await emailService.sendVerificationEmail({
-		// 	toEmail: email,
-		// 	username: firstName,
-		// 	verificationLink,
-		// });
-
-		// if (!emailResp.success) {
-		// 	// Partial success: user was created but email sending failed
-		// 	console.error('[register] Email sending failed:', emailResp.error);
-		// 	return NextResponse.json(
-		// 		{
-		// 			success: true,
-		// 			emailFail: true,
-		// 			userId: result.userId,
-		// 			message: 'User created, but verification email failed. Please contact admin.',
-		// 		},
-		// 		{ status: 200 },
-		// 	);
-		// }
-
-		// Full success
-		return NextResponse.json(
-			{
-				success: true,
-				message: 'Verification email sent. Please check your inbox.',
-				token: result.verificationToken,
-			},
-			{ status: 200 },
-		);
-	} catch (error) {
-		console.error('[register] Error creating user:', error);
-		return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+		return NextResponse.json({ message: result.message }, { status: 201 });
+	} catch (err) {
+		console.error('[register]', err);
+		return NextResponse.json({ message: 'Server error' }, { status: 500 });
 	}
 }

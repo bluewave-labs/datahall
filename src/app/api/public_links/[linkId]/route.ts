@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { LinkService, createErrorResponse } from '@/app/api/_services';
+import { LinkService, createErrorResponse } from '@/services';
 
 /**
  * GET /api/public_links/[linkId]

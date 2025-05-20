@@ -9,62 +9,40 @@ import AuthFormWrapper from '../components/AuthFormWrapper';
 
 import { LockIcon } from '@/icons';
 
-import { useFormSubmission, useValidatedFormData } from '@/hooks';
-import { passwordValidationRule, requiredFieldRule } from '@/shared/utils';
+import { useFormSubmission, useToast } from '@/hooks';
+import { useZodForm } from '@/hooks/useZodForm';
+import { ResetPasswordFormSchema, ResetPasswordFormValues } from '@/shared/validation/authSchemas';
+import { useEffect } from 'react';
 
 export default function ResetPassword() {
 	const router = useRouter();
-	const searchParams = useSearchParams();
+	const params = useSearchParams();
+	const token = params.get('token') ?? '';
+	const toast = useToast();
 
-	const token = searchParams.get('token');
-	const email = searchParams.get('email');
+	useEffect(() => {
+		if (!token) {
+			toast.showToast({ message: 'Reset link is invalid or expired', variant: 'error' });
+			router.replace('/auth/forgot-password');
+		}
+	}, [token, router, toast]);
 
-	const { values, touched, handleChange, handleBlur, getError, validateAll } = useValidatedFormData(
-		{
-			initialValues: {
-				password: '',
-				confirmPassword: '',
-			},
-			validationRules: {
-				password: [
-					requiredFieldRule('Password is required'),
-					passwordValidationRule(8, true, true),
-				],
-				confirmPassword: [requiredFieldRule('Confirm password is required')],
-			},
-		},
-	);
+	const form = useZodForm<ResetPasswordFormValues>(ResetPasswordFormSchema, {
+		newPassword: '',
+		confirmPassword: '',
+	});
 
-	const { loading, handleSubmit, toast } = useFormSubmission({
+	const { loading, handleSubmit } = useFormSubmission({
+		validate: () => form.validate(),
 		onSubmit: async () => {
-			// Basic client checks
-			const hasError = validateAll();
-			if (hasError) {
-				throw new Error('Please correct the highlighted fields.');
-			}
-
-			if (values.password !== values.confirmPassword) {
-				if (values.confirmPassword) {
-					toast.showToast({
-						message: 'Password and confirmation password do not match.',
-						variant: 'warning',
-					});
-				}
-				return;
-			}
-
 			await axios.post('/api/auth/password/reset', {
-				email,
-				password: values.password,
 				token,
+				newPassword: form.values.newPassword,
+				confirmPassword: form.values.confirmPassword,
 			});
-
-			router.push(
-				`/auth/password-reset-confirm?email=${email}&password=${encodeURIComponent(
-					values.password,
-				)}`,
-			);
+			router.push('/auth/sign-in?reset=done');
 		},
+		errorMessage: 'Could not reset password',
 	});
 
 	return (
@@ -103,14 +81,14 @@ export default function ResetPassword() {
 				flexDirection='column'
 				gap={{ sm: 8, md: 9, lg: 10 }}>
 				<FormInput
-					label='Password'
-					id='password'
+					label='New Password'
+					id='newPassword'
 					type='password'
 					placeholder='Create a password'
-					value={values.password}
-					onChange={handleChange}
-					onBlur={handleBlur}
-					errorMessage={getError('password')}
+					value={form.values.newPassword}
+					onChange={form.handleChange}
+					onBlur={form.handleBlur}
+					errorMessage={form.getError('newPassword')}
 				/>
 
 				<FormInput
@@ -118,19 +96,20 @@ export default function ResetPassword() {
 					id='confirmPassword'
 					type='password'
 					placeholder='Confirm your password'
-					value={values.confirmPassword}
-					onChange={handleChange}
-					onBlur={handleBlur}
-					errorMessage={getError('confirmPassword')}
+					value={form.values.confirmPassword}
+					onChange={form.handleChange}
+					onBlur={form.handleBlur}
+					errorMessage={form.getError('confirmPassword')}
 				/>
 
 				<PasswordValidation
-					passwordValue={values.password}
-					isBlur={touched.password}
+					passwordValue={form.values.newPassword}
+					isBlur={form.touched.newPassword}
 				/>
 
 				<LoadingButton
 					loading={loading}
+					disabled={!form.isValid}
 					buttonText='Reset password'
 					loadingText='Resetting Password...'
 				/>

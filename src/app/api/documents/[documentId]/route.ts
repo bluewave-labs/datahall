@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { authService, DocumentService, createErrorResponse } from '../../_services';
+import { authService, DocumentService, createErrorResponse } from '@/services';
 
 /**
  * GET /api/documents/[documentId]

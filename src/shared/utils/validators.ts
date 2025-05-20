@@ -1,3 +1,6 @@
+// Deprecated: validators.ts is deprecated in favor of zod schemas
+// 	/** ----------------------------------------------------------------
+
 type MessageType = string | ((value: string) => string);
 
 export interface ValidationRule {

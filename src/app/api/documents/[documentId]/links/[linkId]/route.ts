@@ -1,5 +1,6 @@
-import { authService, createErrorResponse, LinkService } from '@/app/api/_services';
 import { NextRequest, NextResponse } from 'next/server';
+
+import { authService, createErrorResponse, LinkService } from '@/services';
 
 /**
  * DELETE /api/documents/[documentId]/links/[documentLinkId]

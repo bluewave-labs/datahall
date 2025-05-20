@@ -1,4 +1,4 @@
-import { authService, createErrorResponse, LinkService } from '@/app/api/_services';
+import { authService, createErrorResponse, LinkService } from '@/services';
 import { NextRequest, NextResponse } from 'next/server';
 
 /**

@@ -41,3 +41,4 @@ next-env.d.ts
 # Ignore the entire migrations folder temporarily
 prisma/migrations/
 
+src/app/deprecated_auth

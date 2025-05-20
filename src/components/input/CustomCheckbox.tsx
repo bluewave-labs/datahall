@@ -4,7 +4,7 @@ import { SquareIcon, CheckSquareIcon } from '@/icons';
 import { ChangeEvent } from 'react';
 
 interface CustomCheckboxProps extends CheckboxProps {
-	checked: boolean;
+	checked?: boolean;
 	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 	label: string;
 	name: string;

@@ -7,84 +7,48 @@ import { useRouter } from 'next/navigation';
 import { BlueWaveLogo, FormInput, LoadingButton, NavLink, PasswordValidation } from '@/components';
 import AuthFormWrapper from '../components/AuthFormWrapper';
 
-import { useFormSubmission, useValidatedFormData } from '@/hooks';
-import { passwordValidationRule, requiredFieldRule, validEmailRule } from '@/shared/utils';
+import { useFormSubmission } from '@/hooks';
+import { useZodForm } from '@/hooks/useZodForm';
+import { SignUpSchema, SignUpValues } from '@/shared/validation/authSchemas';
 
 export default function SignUp() {
 	const router = useRouter();
 
-	const { values, touched, handleChange, handleBlur, getError, validateAll } = useValidatedFormData(
-		{
-			initialValues: {
-				firstName: '',
-				lastName: '',
-				email: '',
-				password: '',
-				confirmPassword: '',
-			},
-			validationRules: {
-				firstName: [requiredFieldRule('First name is required')],
-				lastName: [requiredFieldRule('Last name is required')],
-				email: [requiredFieldRule('Email is required'), validEmailRule],
-				password: [
-					requiredFieldRule('Password is required'),
-					passwordValidationRule(8, true, true),
-				],
-				confirmPassword: [requiredFieldRule('Please confirm your password')],
-			},
-		},
-	);
+	/* ------------------------------ form state ----------------------------- */
+	const form = useZodForm<SignUpValues>(SignUpSchema, {
+		firstName: '',
+		lastName: '',
+		email: '',
+		password: '',
+		confirmPassword: '',
+	});
 
 	const { loading, handleSubmit, toast } = useFormSubmission({
+		validate: () => form.validate(),
 		onSubmit: async () => {
-			// 1) Basic client checks
-			const hasError = validateAll();
-			if (hasError) {
-				throw new Error('Please correct the highlighted fields.');
-			}
-
-			if (values.password !== values.confirmPassword) {
-				if (values.confirmPassword) {
-					toast.showToast({
-						message: 'Password and confirmation password do not match.',
-						variant: 'warning',
-					});
-				}
-				return;
-			}
-
-			// 2) Attempt server call
 			const res = await axios.post('/api/auth/register', {
-				firstName: values.firstName,
-				lastName: values.lastName,
-				email: values.email,
-				password: values.password,
+				firstName: form.values.firstName,
+				lastName: form.values.lastName,
+				email: form.values.email,
+				password: form.values.password,
 			});
 
-			if (res.data.success) {
-				// Partial success
-				if (res.data.emailFail) {
-					toast.showToast({
-						message:
-							res.data.message ||
-							'Account created, Email sending is disabled in development. Contact admin.',
-						variant: 'warning',
-					});
-					return router.push(`/auth/account-created?userId=${res.data.userId}`);
-				}
-
-				if (res.data.token) {
-					router.push(`/auth/account-created?token=${res.data.token}`);
-				} else {
-					toast.showToast({ message: res.data.message, variant: 'success' });
-				}
-			} else {
+			/* 201 = created & e-mail sent */
+			if (res.status === 201) {
 				toast.showToast({
-					message: res.data.message || 'Unknown server error',
-					variant: 'error',
+					message: res.data.message ?? 'Verification e-mail sent. Check your inbox.',
+					variant: 'success',
 				});
+				router.push('/auth/sign-in?emailSent=true');
+				return;
 			}
+			/* 409 = e-mail already in use etc. (service returns .message) */
+			toast.showToast({
+				message: res.data?.message ?? 'Unable to create account',
+				variant: 'error',
+			});
 		},
+		errorMessage: 'Registration failed',
 	});
 
 	return (
@@ -118,20 +82,20 @@ export default function SignUp() {
 						label='First name'
 						id='firstName'
 						placeholder='Enter your first name'
-						value={values.firstName}
-						onChange={handleChange}
-						onBlur={handleBlur}
-						errorMessage={getError('firstName')}
+						value={form.values.firstName}
+						onChange={form.handleChange}
+						onBlur={form.handleBlur}
+						errorMessage={form.getError('firstName')}
 					/>
 
 					<FormInput
 						label='Last name'
 						id='lastName'
 						placeholder='Enter your last name'
-						value={values.lastName}
-						onChange={handleChange}
-						onBlur={handleBlur}
-						errorMessage={getError('lastName')}
+						value={form.values.lastName}
+						onChange={form.handleChange}
+						onBlur={form.handleBlur}
+						errorMessage={form.getError('lastName')}
 					/>
 
 					<FormInput
@@ -139,10 +103,10 @@ export default function SignUp() {
 						id='email'
 						type='email'
 						placeholder='your_email@bluewave.ca'
-						value={values.email}
-						onChange={handleChange}
-						onBlur={handleBlur}
-						errorMessage={getError('email')}
+						value={form.values.email}
+						onChange={form.handleChange}
+						onBlur={form.handleBlur}
+						errorMessage={form.getError('email')}
 					/>
 
 					<FormInput
@@ -150,10 +114,10 @@ export default function SignUp() {
 						id='password'
 						type='password'
 						placeholder='Create a password'
-						value={values.password}
-						onChange={handleChange}
-						onBlur={handleBlur}
-						errorMessage={getError('password')}
+						value={form.values.password}
+						onChange={form.handleChange}
+						onBlur={form.handleBlur}
+						errorMessage={form.getError('password')}
 					/>
 
 					<FormInput
@@ -161,21 +125,22 @@ export default function SignUp() {
 						id='confirmPassword'
 						type='password'
 						placeholder='Confirm your password'
-						value={values.confirmPassword}
-						onChange={handleChange}
-						onBlur={handleBlur}
-						errorMessage={getError('confirmPassword')}
+						value={form.values.confirmPassword}
+						onChange={form.handleChange}
+						onBlur={form.handleBlur}
+						errorMessage={form.getError('confirmPassword')}
 					/>
 				</Box>
 
 				{/* Real-time password strength feedback */}
 				<PasswordValidation
-					passwordValue={values.password}
-					isBlur={touched.password}
+					passwordValue={form.values.password}
+					isBlur={form.touched.password}
 				/>
 
 				<LoadingButton
 					loading={loading}
+					disabled={!form.isValid}
 					buttonText='Get started'
 					loadingText='Creating Account ...'
 				/>

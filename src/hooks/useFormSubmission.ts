@@ -48,7 +48,8 @@ interface UseFormSubmissionProps {
 	 * e.g., axios requests, DB updates, etc.
 	 */
 	onSubmit: () => Promise<void>;
-
+	/** Optional validation function that must return true for submit to continue */
+	validate?: () => boolean;
 	/**
 	 * Callback called only if `onSubmit` completes successfully (no errors thrown).
 	 * Optional if you just want to show a success toast.
@@ -82,6 +83,7 @@ interface UseFormSubmissionProps {
  */
 export const useFormSubmission = ({
 	onSubmit,
+	validate,
 	onSuccess,
 	onError,
 	successMessage,
@@ -102,6 +104,8 @@ export const useFormSubmission = ({
 	 */
 	const handleSubmit = async (event: FormEvent) => {
 		event.preventDefault(); // avoid default page reload
+		if (validate && !validate()) return; // run validation if provided
+
 		setError(''); // clear old errors
 		setLoading(true);
 

@@ -1,5 +1,6 @@
 // =========== USER TYPE ===========
 
+// This is not the same as the User type in next-auth.d.ts. Needs to be the same as the DB type (currently unused).
 export interface User {
 	user_id: number;
 	name: string;

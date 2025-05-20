@@ -10,7 +10,7 @@
  * - "minWidth" is applied via sx props for basic styling.
  */
 
-import React, { FC } from 'react';
+import React, { FC, forwardRef } from 'react';
 import { Box, TextField, Typography, TextFieldProps } from '@mui/material';
 
 interface FormInputProps extends Omit<TextFieldProps, 'error' | 'helperText'> {
@@ -30,52 +30,59 @@ interface FormInputProps extends Omit<TextFieldProps, 'error' | 'helperText'> {
 	minHeight?: number;
 }
 
-const FormInput: FC<FormInputProps> = ({
-	label,
-	id,
-	errorMessage = '',
-	minWidth,
-	minHeight = '1.5em',
-	fullWidth = true,
-	size = 'small',
-	// Any other TextField props
-	...props
-}) => {
-	const displayError = Boolean(errorMessage);
+const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
+	(
+		{
+			label,
+			id,
+			errorMessage = '',
+			minWidth,
+			minHeight = '1.5em',
+			fullWidth = true,
+			size = 'small',
+			...props
+		},
+		ref,
+	) => {
+		const displayError = Boolean(errorMessage);
 
-	return (
-		<Box>
-			{/* Render a top label if provided */}
-			{label && (
-				<Typography
-					variant='h3'
-					mb={4}>
-					{label}
-				</Typography>
-			)}
+		return (
+			<Box>
+				{/* Render a top label if provided */}
+				{label && (
+					<Typography
+						variant='h3'
+						mb={4}>
+						{label}
+					</Typography>
+				)}
 
-			<TextField
-				{...props}
-				id={id}
-				name={id}
-				size={size}
-				fullWidth={fullWidth}
-				error={displayError}
-				{...(displayError && { helperText: errorMessage })}
-				slotProps={{
-					formHelperText: {
-						sx: {
-							minHeight: displayError ? minHeight : '0em',
+				<TextField
+					{...props}
+					id={id}
+					name={id}
+					size={size}
+					fullWidth={fullWidth}
+					error={displayError}
+					{...(displayError && { helperText: errorMessage })}
+					slotProps={{
+						formHelperText: {
+							sx: {
+								minHeight: displayError ? minHeight : '0em',
+							},
 						},
-					},
-				}}
-				sx={{
-					minWidth,
-					...props.sx,
-				}}
-			/>
-		</Box>
-	);
-};
+					}}
+					sx={{
+						minWidth,
+						...props.sx,
+					}}
+					inputRef={ref}
+					autoComplete={props.type === 'password' ? 'new-password' : undefined}
+				/>
+			</Box>
+		);
+	},
+);
 
+FormInput.displayName = 'FormInput';
 export default FormInput;

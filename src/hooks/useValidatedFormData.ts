@@ -1,3 +1,5 @@
+// Deprecated: useValidatedFormData is deprecated. Use useZodForm instead.
+// 	/** ----------------------------------------------------------------
 import { ChangeEvent, FocusEvent, useState } from 'react';
 
 import { ValidationRule } from '@/shared/utils';
@@ -121,5 +123,6 @@ export function useValidatedFormData<T extends object>({
 		setShowAllErrors,
 		setValues,
 		setTouched,
+		hasErrors: Object.values(validationRules).some((_rules, k) => !!getError(k as keyof T)),
 	};
 }

@@ -1,6 +1,7 @@
-import { authService } from '../_services/authService';
-import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
+
+import { authService } from '@/services';
+import prisma from '@/lib/prisma';
 
 export async function GET(req: NextRequest) {
 	try {

@@ -9,45 +9,24 @@ import AuthFormWrapper from '../components/AuthFormWrapper';
 
 import { KeyIcon } from '@/icons';
 
-import { useFormSubmission, useToast, useValidatedFormData } from '@/hooks';
-import { requiredFieldRule, validEmailRule } from '@/shared/utils';
+import { useFormSubmission } from '@/hooks';
+import { useZodForm } from '@/hooks/useZodForm';
+import { ForgotPasswordSchema, ForgotPasswordValues } from '@/shared/validation/authSchemas';
 
 export default function ForgotPassword() {
 	const router = useRouter();
-	const { showToast } = useToast();
 
-	const { values, handleChange, handleBlur, getError, validateAll } = useValidatedFormData({
-		initialValues: {
-			email: '',
-		},
-		validationRules: {
-			email: [requiredFieldRule('Email is required'), validEmailRule],
-		},
-	});
+	const form = useZodForm<ForgotPasswordValues>(ForgotPasswordSchema, { email: '' });
 
 	const { loading, handleSubmit } = useFormSubmission({
+		validate: () => form.validate(),
 		onSubmit: async () => {
-			const hasError = validateAll();
-			if (hasError) {
-				throw new Error('Please correct the highlighted fields.');
-			}
+			const res = await axios.post('/api/auth/password/forgot', { email: form.values.email });
 
-			const response = await axios.post('/api/auth/password/forgot', {
-				email: values.email,
-			});
-
-			router.push(response.data.url);
+			router.push('/auth/sign-in?reset=sent');
 		},
 
-		successMessage: '',
-		onError: (message) => {
-			if (message.includes('Email not found')) {
-				showToast({
-					message: 'Email not found. Please try again or sign up.',
-					variant: 'error',
-				});
-			}
-		},
+		errorMessage: 'Failed to send reset e-mail',
 	});
 
 	return (
@@ -91,10 +70,10 @@ export default function ForgotPassword() {
 					id='email'
 					type='email'
 					placeholder='Enter your email'
-					value={values.email}
-					onChange={handleChange}
-					onBlur={handleBlur}
-					errorMessage={getError('email')}
+					value={form.values.email}
+					onChange={form.handleChange}
+					onBlur={form.handleBlur}
+					errorMessage={form.getError('email')}
 				/>
 
 				<Box
@@ -107,7 +86,7 @@ export default function ForgotPassword() {
 					<LoadingButton
 						loading={loading}
 						buttonText='Reset password'
-						loadingText='Verifying Email...'
+						loadingText='Sending reset link...'
 						fullWidth
 					/>
 

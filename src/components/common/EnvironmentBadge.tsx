@@ -1,7 +1,6 @@
 'use client';
 
-import { Box, Chip, Typography } from '@mui/material';
-import { ChipProps } from '@mui/material';
+import { Chip, ChipProps } from '@mui/material';
 
 const actualEnv = process.env.NEXT_PUBLIC_DEPLOYMENT_ENVIRONMENT ?? 'unknown';
 

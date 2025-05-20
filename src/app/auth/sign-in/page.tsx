@@ -7,41 +7,34 @@ import { useRouter } from 'next/navigation';
 import { BlueWaveLogo, CustomCheckbox, FormInput, LoadingButton, NavLink } from '@/components';
 import AuthFormWrapper from '../components/AuthFormWrapper';
 
-import { useFormSubmission, useValidatedFormData } from '@/hooks';
-import { requiredFieldRule } from '@/shared/utils';
+import { useAuthQueryToasts, useFormSubmission } from '@/hooks';
+import { useZodForm } from '@/hooks/useZodForm';
+import { SignInSchema } from '@/shared/validation/authSchemas';
 
 export default function SignIn() {
 	const router = useRouter();
 
-	const { values, handleChange, handleBlur, getError, validateAll } = useValidatedFormData({
-		initialValues: {
-			email: '',
-			password: '',
-			remember: false,
-		},
-		validationRules: {
-			email: [requiredFieldRule('Email is required.')],
-			password: [requiredFieldRule('Password is required.')],
-		},
+	useAuthQueryToasts();
+
+	const form = useZodForm(SignInSchema, {
+		email: '',
+		password: '',
+		remember: false,
 	});
 
 	const { loading, handleSubmit } = useFormSubmission({
 		onSubmit: async () => {
-			const hasError = validateAll();
-			if (hasError) {
-				throw new Error('Please correct the highlighted fields.');
-			}
-			const result = await signIn('credentials', {
+			await signIn('credentials', {
 				redirect: false,
-				email: values.email,
-				password: values.password,
-				remember: values.remember.toString(),
+				email: form.values.email,
+				password: form.values.password,
+				remember: String(form.values.remember),
+			}).then((r) => {
+				if (r?.error) throw new Error(r.error);
+				router.push('/documents');
 			});
-			if (result?.error) {
-				throw new Error(result.error);
-			}
-			router.push('/documents');
 		},
+		validate: () => form.validate(),
 		successMessage: 'Successfully signed in! Redirecting...',
 	});
 
@@ -77,10 +70,10 @@ export default function SignIn() {
 						id='email'
 						type='email'
 						placeholder='your_email@bluewave.ca'
-						value={values.email}
-						onChange={handleChange}
-						onBlur={handleBlur}
-						errorMessage={getError('email')}
+						value={form.values.email}
+						onChange={form.handleChange}
+						onBlur={form.handleBlur}
+						errorMessage={form.getError('email')}
 					/>
 
 					<FormInput
@@ -88,10 +81,10 @@ export default function SignIn() {
 						id='password'
 						type='password'
 						placeholder='••••••••••••••'
-						value={values.password}
-						onChange={handleChange}
-						onBlur={handleBlur}
-						errorMessage={getError('password')}
+						value={form.values.password}
+						onChange={form.handleChange}
+						onBlur={form.handleBlur}
+						errorMessage={form.getError('password')}
 					/>
 				</Box>
 
@@ -102,11 +95,12 @@ export default function SignIn() {
 					mt={8}
 					mb={5}>
 					<CustomCheckbox
-						checked={values.remember}
-						onChange={handleChange}
+						checked={form.values.remember}
+						onChange={form.handleChange}
 						name='remember'
 						label='Remember for 30 days'
 					/>
+
 					<NavLink
 						href='/auth/forgot-password'
 						linkText='Forgot password?'
@@ -116,6 +110,7 @@ export default function SignIn() {
 
 				<LoadingButton
 					loading={loading}
+					disabled={!form.isValid}
 					buttonText='Sign in'
 					loadingText='Signing in...'
 				/>
