@@ -4,18 +4,31 @@ import { Typography, Box, Button } from '@mui/material';
 
 import { useToast } from '@/hooks';
 
-import { formatFileSize } from '@/shared/utils';
+import { formatFileSize, isViewableFileType } from '@/shared/utils';
+import { useCreateDocumentAnalytics } from '@/hooks';
 
 interface FilePageProps {
 	signedUrl: string;
 	fileName: string;
 	size: number;
+	fileType?: string;
+	documentId?: string;
+	documentLinkId?: string;
 }
 
-const FileDisplay: React.FC<FilePageProps> = ({ signedUrl, fileName, size }) => {
+const FileDisplay: React.FC<FilePageProps> = ({
+	signedUrl,
+	fileName,
+	size,
+	fileType,
+	documentId = '',
+	documentLinkId = '',
+}) => {
 	const { showToast } = useToast();
+	const createDocumentAnalytics = useCreateDocumentAnalytics();
+	const showFileViewButton = isViewableFileType(fileType);
 
-	const handleDownload = async () => {
+	const handleDownloadFile = async () => {
 		try {
 			const response = await fetch(signedUrl);
 			const blob = await response.blob();
@@ -27,6 +40,9 @@ const FileDisplay: React.FC<FilePageProps> = ({ signedUrl, fileName, size }) => 
 			link.click();
 
 			window.URL.revokeObjectURL(url);
+
+			await handleLogDocumentAnalytics({ eventType: 'DOWNLOAD' });
+
 			showToast({ message: 'File downloaded successfully', variant: 'success' });
 		} catch (error) {
 			console.error('Error downloading the file:', error);
@@ -35,6 +51,20 @@ const FileDisplay: React.FC<FilePageProps> = ({ signedUrl, fileName, size }) => 
 				variant: 'error',
 			});
 		}
+	};
+
+	const handleViewFile = async () => {
+		await handleLogDocumentAnalytics({ eventType: 'VIEW' });
+
+		window.open(signedUrl, '_blank');
+	};
+
+	const handleLogDocumentAnalytics = async (payload: any) => {
+		await createDocumentAnalytics.mutateAsync({
+			documentId,
+			documentLinkId,
+			payload: { ...payload },
+		});
 	};
 
 	return (
@@ -65,16 +95,16 @@ const FileDisplay: React.FC<FilePageProps> = ({ signedUrl, fileName, size }) => 
 				justifyContent='center'
 				gap={{ sm: 30, md: 35, lg: 40 }}
 				mt={{ sm: 30, md: 35, lg: 40 }}>
+				{showFileViewButton && (
+					<Button
+						variant='contained'
+						onClick={handleViewFile}>
+						View file
+					</Button>
+				)}
 				<Button
 					variant='contained'
-					onClick={() => {
-						window.open(signedUrl, '_blank');
-					}}>
-					View file
-				</Button>
-				<Button
-					variant='contained'
-					onClick={handleDownload}>
+					onClick={handleDownloadFile}>
 					Download file
 				</Button>
 			</Box>

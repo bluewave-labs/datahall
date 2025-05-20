@@ -114,3 +114,17 @@ export function parseFileSize(sizeString: string, throwOnError = true): number {
 			return NaN;
 	}
 }
+
+/**
+ * isViewableFileType
+ * ----------------------------------------------------------------------------
+ * Checks if a MIME type is viewable based on a list of supported types.
+ *
+ * @param {string} mimeType - The file's MIME type.
+ * @returns {boolean} True if viewable, otherwise false.
+ */
+export function isViewableFileType(mimeType: string): boolean {
+	// Define supported MIME types (expand as needed)
+	const SUPPORTED_VIEW_TYPES = ['application/pdf', 'image/png', 'image/jpeg', 'image/gif'];
+	return SUPPORTED_VIEW_TYPES.includes(mimeType);
+}

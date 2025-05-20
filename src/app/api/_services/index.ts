@@ -3,3 +3,4 @@ export { authService } from './authService';
 export { createErrorResponse } from './errorService';
 export { LinkService } from './linkService';
 export { emailService } from './emailService';
+export { analyticsService } from './analyticsService';
