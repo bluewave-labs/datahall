@@ -5,6 +5,7 @@ export { computeExpirationDays } from './dateUtils';
 export type { FormatFileSizeOptions } from './fileUtils';
 export { formatFileSize } from './fileUtils';
 export { parseFileSize } from './fileUtils';
+export { isViewableFileType } from './fileUtils';
 
 export { splitName } from './stringUtils';
 export { convertTransparencyToHex } from './stringUtils';

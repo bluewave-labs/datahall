@@ -4,13 +4,14 @@ import { Typography, Box, Button } from '@mui/material';
 
 import { useToast } from '@/hooks';
 
-import { formatFileSize } from '@/shared/utils';
+import { formatFileSize, isViewableFileType } from '@/shared/utils';
 import { useCreateDocumentAnalytics } from '@/hooks';
 
 interface FilePageProps {
 	signedUrl: string;
 	fileName: string;
 	size: number;
+	fileType?: string;
 	documentId?: string;
 	documentLinkId?: string;
 }
@@ -19,11 +20,13 @@ const FileDisplay: React.FC<FilePageProps> = ({
 	signedUrl,
 	fileName,
 	size,
+	fileType,
 	documentId = '',
 	documentLinkId = '',
 }) => {
 	const { showToast } = useToast();
 	const createDocumentAnalytics = useCreateDocumentAnalytics();
+	const showFileViewButton = isViewableFileType(fileType);
 
 	const handleDownloadFile = async () => {
 		try {
@@ -92,11 +95,13 @@ const FileDisplay: React.FC<FilePageProps> = ({
 				justifyContent='center'
 				gap={{ sm: 30, md: 35, lg: 40 }}
 				mt={{ sm: 30, md: 35, lg: 40 }}>
-				<Button
-					variant='contained'
-					onClick={handleViewFile}>
-					View file
-				</Button>
+				{showFileViewButton && (
+					<Button
+						variant='contained'
+						onClick={handleViewFile}>
+						View file
+					</Button>
+				)}
 				<Button
 					variant='contained'
 					onClick={handleDownloadFile}>
