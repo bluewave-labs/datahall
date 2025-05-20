@@ -29,14 +29,13 @@ export default async function DocumentsPage() {
 		// Authenticate the user and fetch their document count, temporarily
 		const userId = await authService.authenticate();
 		try {
-			return await prisma.document.count({
+			documentCount = await prisma.document.count({
 				where: {
 					user_id: userId,
 				},
 			});
 		} catch (error) {
 			console.error('Error fetching document count for user:', error);
-			return 0;
 		}
 	} catch (error) {
 		console.error('Error fetching document count or authenticating user:', error);
